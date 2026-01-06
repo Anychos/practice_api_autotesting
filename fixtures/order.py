@@ -24,7 +24,7 @@ def private_order_client(user: UserFixture) -> OrderAPIClient:
     return get_private_order_client(user=user.user_schema)
 
 @pytest.fixture
-def create_order(public_order_client: OrderAPIClient, create_cart: CartFixture) -> OrderFixture:
+def create_order(private_order_client: OrderAPIClient, create_cart: CartFixture) -> OrderFixture:
     request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
-    response = public_order_client.create_order(request)
+    response = private_order_client.create_order(request)
     return OrderFixture(request=request, response=response)

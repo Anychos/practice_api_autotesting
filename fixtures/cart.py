@@ -12,8 +12,12 @@ class CartFixture(BaseModel):
     response: AddItemCartResponseSchema
 
     @property
+    def cart_id(self) -> int:
+        return self.response.cart_id
+
+    @property
     def item_id(self) -> int:
-        return self.response.id
+        return self.response.product_id
 
 @pytest.fixture
 def public_cart_client() -> CartAPIClient:

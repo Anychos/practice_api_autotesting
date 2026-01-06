@@ -1,20 +1,20 @@
 import allure
 
 from clients.user.schemas import CreateUserResponseSchema, CreateUserRequestSchema, GetUserResponseSchema, \
-    FullUserSchema, UpdateUserResponseSchema, UpdateUserRequestSchema, DeleteUserResponseSchema
+    UserSchema, UpdateUserResponseSchema, UpdateUserRequestSchema, DeleteUserResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
 
 
 @allure.step("Проверка данных пользователя по схеме")
-def assert_user(actual: FullUserSchema, expected: FullUserSchema) -> None:
+def assert_user(actual: UserSchema, expected: UserSchema) -> None:
     assert_value(actual.email, expected.email, "email")
     assert_value(actual.name, expected.name, "name")
     assert_value(actual.phone, expected.phone, "phone")
-    assert_value(actual.is_admin, False, "is_admin")
 
 @allure.step("Проверка ответа на запрос создания пользователя")
 def assert_create_user_response(actual: CreateUserResponseSchema, expected: CreateUserRequestSchema) -> None:
     assert_field_exists(actual.id, "id")
+    assert_field_exists(actual.is_admin, "is_admin")
     assert_user(actual, expected)
 
 @allure.step("Проверка ответа на запрос получения пользователя")

@@ -14,7 +14,7 @@ class CreateUserRequestSchema(UserSchema):
 
 class CreateUserResponseSchema(UserSchema):
     id: int
-    is_admin: bool = Field(default=False)
+    is_admin: bool
 
 class GetUserResponseSchema(CreateUserResponseSchema):
     pass

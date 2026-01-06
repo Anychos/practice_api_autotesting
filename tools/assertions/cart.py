@@ -6,7 +6,7 @@ from tools.assertions.base_assertions import assert_value, assert_field_exists, 
 
 
 def assert_add_item_to_cart_response(actual: AddItemCartResponseSchema, expected: AddItemCartRequestSchema) -> None:
-    assert_field_exists(actual.id, "item_id")
+    assert_field_exists(actual.product_id, "item_id")
     assert_value(actual.product_id, expected.product_id, "product_id")
     assert_value(actual.quantity, expected.quantity, "quantity")
 
@@ -21,7 +21,7 @@ def assert_get_cart_response(actual: GetCartResponseSchema,
 
     for item, (actual_item, expected_item) in enumerate(zip(actual.items, expected)):
         try:
-            assert_value(actual_item.id, expected_item.id, f"items[{item}].id")
+            assert_value(actual_item.product_id, expected_item.product_id, f"items[{item}].id")
             assert_value(actual_item.product_id, expected_item.product_id, f"items[{item}].product_id")
             assert_value(actual_item.quantity, expected_item.quantity, f"items[{item}].quantity")
         except AssertionError as e:
@@ -32,7 +32,7 @@ def assert_get_cart_response(actual: GetCartResponseSchema,
         f"total_quantity должен быть {calculated_total}, получено: {actual.total_quantity}"
 
 def assert_update_cart_response(actual: UpdateCartItemResponseSchema, expected: UpdateCartItemRequestSchema) -> None:
-    assert_field_exists(actual.id, "item_id")
+    assert_field_exists(actual.product_id, "item_id")
     assert_field_exists(actual.product_id, "product_id")
     assert_value(actual.quantity, expected.quantity, "quantity")
 

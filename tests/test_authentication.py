@@ -20,17 +20,17 @@ from tools.allure.tag import Tag
 
 @pytest.mark.regression
 @pytest.mark.authentication
-@allure.epic(Epic.ADMIN_FRONTEND)
 @allure.feature(Feature.AUTHENTICATION)
 @allure.story(Story.LOGIN)
-@allure.parent_suite(ParentSuite.ADMIN_FRONTEND)
 @allure.suite(Suite.AUTHENTICATION)
 @allure.sub_suite(SubSuite.LOGIN)
-@allure.severity(Severity.BLOCKER)
 @allure.tag(Tag.AUTHENTICATION, Tag.REGRESSION)
 class TestAuthentication:
     @pytest.mark.smoke
+    @allure.epic(Epic.USER)
+    @allure.parent_suite(ParentSuite.USER)
     @allure.tag(Tag.SMOKE)
+    @allure.severity(Severity.BLOCKER)
     def test_user_login(self, auth_client: AuthenticationAPIClient, user: UserFixture):
         request = LoginRequestSchema(email=user.email, password=user.password)
 
@@ -39,4 +39,19 @@ class TestAuthentication:
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
         assert_login_response(response_data, user.request)
+        assert_json_schema(response.json(), response_data.model_json_schema())
+
+    @pytest.mark.smoke
+    @allure.epic(Epic.ADMIN)
+    @allure.parent_suite(ParentSuite.ADMIN)
+    @allure.tag(Tag.SMOKE)
+    @allure.severity(Severity.BLOCKER)
+    def test_admin_login(self, auth_client: AuthenticationAPIClient, admin: UserFixture):
+        request = LoginRequestSchema(email=admin.email, password=admin.password)
+
+        response = auth_client.login_api(request)
+        assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = LoginResponseSchema.model_validate_json(response.text)
+        assert_login_response(response_data, admin.request)
         assert_json_schema(response.json(), response_data.model_json_schema())

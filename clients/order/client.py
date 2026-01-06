@@ -23,8 +23,8 @@ class OrderAPIClient(BaseAPIClient):
         return self.get(url=f"{Routes.ORDERS}/{order_id}")
 
     @allure.step("Отправка запроса на получение заказов пользователя")
-    def get_orders_api(self, user_id: int) -> Response:
-        return self.get(url=f"{Routes.ORDERS}/user/{user_id}")
+    def get_orders_api(self) -> Response:
+        return self.get(url=Routes.ORDERS)
 
 def get_public_order_client() -> OrderAPIClient:
     return OrderAPIClient(client=get_public_client())

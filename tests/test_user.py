@@ -21,9 +21,9 @@ from tools.allure.tag import Tag
 
 @pytest.mark.regression
 @pytest.mark.user
-@allure.epic(Epic.USER_FRONTEND)
+@allure.epic(Epic.USER)
 @allure.feature(Feature.USERS)
-@allure.parent_suite(ParentSuite.USER_FRONTEND)
+@allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.USERS)
 @allure.tag(Tag.USERS, Tag.REGRESSION)
 class TestUser:
@@ -31,6 +31,7 @@ class TestUser:
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.tag(Tag.SMOKE)
     def test_create_user(self, public_user_client: UserAPIClient):
         request = CreateUserRequestSchema()
 

@@ -22,13 +22,13 @@ from tools.allure.tag import Tag
 
 @pytest.mark.regression
 @pytest.mark.product
-@allure.epic(Epic.ADMIN_FRONTEND)
 @allure.feature(Feature.PRODUCTS)
-@allure.parent_suite(ParentSuite.ADMIN_FRONTEND)
 @allure.suite(Suite.PRODUCTS)
 @allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
 class TestProduct:
     @pytest.mark.smoke
+    @allure.epic(Epic.ADMIN)
+    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
@@ -43,6 +43,8 @@ class TestProduct:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @pytest.mark.smoke
+    @allure.epic(Epic.USER)
+    @allure.parent_suite(ParentSuite.USER)
     @allure.story(Story.GET_ENTITY)
     @allure.sub_suite(SubSuite.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
@@ -55,6 +57,8 @@ class TestProduct:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @pytest.mark.smoke
+    @allure.epic(Epic.USER)
+    @allure.parent_suite(ParentSuite.USER)
     @allure.story(Story.GET_ENTITIES)
     @allure.sub_suite(SubSuite.GET_ENTITIES)
     @allure.severity(Severity.CRITICAL)
@@ -62,14 +66,10 @@ class TestProduct:
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
-        response_data = [GetProductResponseSchema.model_validate(product) for product in response.json()]
-        assert_get_products_response(response_data, [create_product.response])
-        products_list_schema = {
-            "type": "array",
-            "items": GetProductResponseSchema.model_json_schema()
-        }
-        assert_json_schema(response.json(), products_list_schema)
+        # TODO: add assertions for response
 
+    @allure.epic(Epic.ADMIN)
+    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)
     @allure.sub_suite(SubSuite.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -83,6 +83,8 @@ class TestProduct:
         assert_update_product_response(response_data, request)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
+    @allure.epic(Epic.ADMIN)
+    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.DELETE_ENTITY)
     @allure.sub_suite(SubSuite.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)

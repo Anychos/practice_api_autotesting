@@ -23,9 +23,9 @@ from tools.allure.tag import Tag
 
 @pytest.mark.regression
 @pytest.mark.cart
-@allure.epic(Epic.USER_FRONTEND)
+@allure.epic(Epic.USER)
 @allure.feature(Feature.CARTS)
-@allure.parent_suite(ParentSuite.USER_FRONTEND)
+@allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.CARTS)
 @allure.tag(Tag.CARTS, Tag.REGRESSION)
 class TestCart:
@@ -33,6 +33,7 @@ class TestCart:
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.tag(Tag.SMOKE)
     def test_add_item_to_cart(self, private_cart_client: CartAPIClient, create_product: ProductFixture):
         request = AddItemCartRequestSchema(product_id=create_product.product_id)
 
@@ -47,6 +48,7 @@ class TestCart:
     @allure.story(Story.GET_ENTITY)
     @allure.sub_suite(SubSuite.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.tag(Tag.SMOKE)
     def test_get_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -59,7 +61,7 @@ class TestCart:
     @allure.sub_suite(SubSuite.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     def test_remove_item_from_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
-        response = private_cart_client.remove_item_cart_api(item_id=create_cart.response.id)
+        response = private_cart_client.remove_item_cart_api(item_id=create_cart.item_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteCartItemResponseSchema.model_validate_json(response.text)

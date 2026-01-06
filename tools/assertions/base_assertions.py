@@ -37,7 +37,7 @@ def assert_field_exists(actual: Any, field_name: str):
     :param field_name: Название проверяемого поля
     :param actual: Фактическое значение
     """
-    assert actual, (
+    assert actual is not None, (
         f"Поле {field_name} отсутствует в ответе"
     )
 
