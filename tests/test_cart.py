@@ -28,7 +28,7 @@ from tools.allure.tag import Tag
 @allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.CARTS)
 @allure.tag(Tag.CARTS, Tag.REGRESSION)
-class TestCart:
+class TestCartPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
@@ -91,3 +91,13 @@ class TestCart:
         response_data = DeleteCartResponseSchema.model_validate_json(response.text)
         assert_delete_cart_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
+
+class TestCartNegative:
+    def test_add_not_available_product_to_cart(self):
+        pass
+
+    def test_add_not_existing_product_to_cart(self):
+        pass
+
+    def test_add_more_than_available_product_to_cart(self):
+        pass

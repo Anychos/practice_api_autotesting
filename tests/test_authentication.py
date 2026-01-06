@@ -25,7 +25,7 @@ from tools.allure.tag import Tag
 @allure.suite(Suite.AUTHENTICATION)
 @allure.sub_suite(SubSuite.LOGIN)
 @allure.tag(Tag.AUTHENTICATION, Tag.REGRESSION)
-class TestAuthentication:
+class TestAuthenticationPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
     @allure.parent_suite(ParentSuite.USER)
@@ -55,3 +55,11 @@ class TestAuthentication:
         response_data = LoginResponseSchema.model_validate_json(response.text)
         assert_login_response(response_data, admin.request)
         assert_json_schema(response.json(), response_data.model_json_schema())
+
+class TestAuthenticationNegative:
+    def test_user_login_wrong_password(self):
+        pass
+
+    def test_user_login_wrong_email(self):
+        pass
+

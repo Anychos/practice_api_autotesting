@@ -25,7 +25,7 @@ from tools.allure.tag import Tag
 @allure.feature(Feature.PRODUCTS)
 @allure.suite(Suite.PRODUCTS)
 @allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
-class TestProduct:
+class TestProductPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
     @allure.parent_suite(ParentSuite.ADMIN)
@@ -95,3 +95,10 @@ class TestProduct:
         response_data = DeleteProductResponseSchema.model_validate_json(response.text)
         assert_delete_product_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
+
+class TestProductNegative:
+    def test_create_product_wrong_data(self):
+        pass
+
+    def test_create_product_empty_data(self):
+        pass

@@ -21,9 +21,9 @@ from tools.assertions.order import assert_create_order_response, assert_get_orde
 
 @pytest.mark.regression
 @pytest.mark.cart
-@allure.epic(Epic.USER_FRONTEND)
+@allure.epic(Epic.USER)
 @allure.feature(Feature.CARTS)
-@allure.parent_suite(ParentSuite.USER_FRONTEND)
+@allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.CARTS)
 @allure.tag(Tag.CARTS, Tag.REGRESSION)
 class TestOrder:

@@ -26,7 +26,7 @@ from tools.assertions.order import assert_create_order_response, assert_get_orde
 @allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.CARTS)
 @allure.tag(Tag.CARTS, Tag.REGRESSION)
-class TestOrder:
+class TestOrderPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
@@ -61,4 +61,8 @@ class TestOrder:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         # TODO: add assertions for list
+
+class TestOrderNegative:
+    def test_create_order_without_availability_items_in_cart(self):
+        pass
 

@@ -26,7 +26,7 @@ from tools.allure.tag import Tag
 @allure.parent_suite(ParentSuite.USER)
 @allure.suite(Suite.USERS)
 @allure.tag(Tag.USERS, Tag.REGRESSION)
-class TestUser:
+class TestUserPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.sub_suite(SubSuite.CREATE_ENTITY)
@@ -72,3 +72,13 @@ class TestUser:
     def test_delete_user(self, private_user_client: UserAPIClient, user: UserFixture):
         response = private_user_client.delete_user_api(user_id=user.user_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
+
+class TestUserNegative:
+    def test_create_user_wrong_data(self):
+        pass
+
+    def test_create_user_not_full_data(self):
+        pass
+
+    def test_create_user_existing_email(self):
+        pass
