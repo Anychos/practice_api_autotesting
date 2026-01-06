@@ -1,15 +1,19 @@
 from typing import List
 
+import allure
+
 from clients.cart.schemas import AddItemCartResponseSchema, AddItemCartRequestSchema, GetCartResponseSchema, \
     DeleteCartResponseSchema, DeleteCartItemResponseSchema, UpdateCartItemResponseSchema, UpdateCartItemRequestSchema
 from tools.assertions.base_assertions import assert_value, assert_field_exists, assert_length
 
 
+@allure.step("Проверка ответа на запрос добавления продукта в корзину")
 def assert_add_item_to_cart_response(actual: AddItemCartResponseSchema, expected: AddItemCartRequestSchema) -> None:
     assert_field_exists(actual.product_id, "item_id")
     assert_value(actual.product_id, expected.product_id, "product_id")
     assert_value(actual.quantity, expected.quantity, "quantity")
 
+@allure.step("Проверка ответа на запрос получения корзины")
 def assert_get_cart_response(actual: GetCartResponseSchema,
                              expected: List[AddItemCartResponseSchema]) -> None:
     assert_field_exists(actual.id, "cart_id")
@@ -31,14 +35,17 @@ def assert_get_cart_response(actual: GetCartResponseSchema,
     assert actual.total_quantity == calculated_total, \
         f"total_quantity должен быть {calculated_total}, получено: {actual.total_quantity}"
 
+@allure.step("Проверка ответа на запрос обновления продукта в корзине")
 def assert_update_cart_response(actual: UpdateCartItemResponseSchema, expected: UpdateCartItemRequestSchema) -> None:
     assert_field_exists(actual.product_id, "item_id")
     assert_field_exists(actual.product_id, "product_id")
     assert_value(actual.quantity, expected.quantity, "quantity")
 
+@allure.step("Проверка ответа на запрос удаления корзины")
 def assert_delete_cart_response(actual: DeleteCartResponseSchema) -> None:
     assert_value(actual.message, "Cart cleared successfully", "message")
 
+@allure.step("Проверка ответа на запрос удаления продукта из корзины")
 def assert_delete_item_cart_response(actual: DeleteCartItemResponseSchema) -> None:
     assert_value(actual.message, "Item removed from cart successfully", "message")
 

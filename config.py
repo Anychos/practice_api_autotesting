@@ -3,6 +3,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class HTTPClientSettings(BaseModel):
+    """
+    Настройки HTTP клиента
+    """
     base_url: HttpUrl
     timeout: int
 
@@ -11,6 +14,9 @@ class HTTPClientSettings(BaseModel):
         return str(self.base_url)
 
 class Settings(BaseSettings):
+    """
+    Настройки проекта
+    """
     model_config = SettingsConfigDict(
         extra="allow",
         env_file=".env",
