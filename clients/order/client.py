@@ -1,9 +1,9 @@
-from httpx import Response
 import allure
+from httpx import Response
 
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
-from clients.orders.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema
+from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema
 from clients.private_builder import get_private_client
 from clients.public_builder import get_public_client
 from tools.routes import Routes
@@ -23,7 +23,7 @@ class OrderAPIClient(BaseAPIClient):
         return self.get(url=f"{Routes.ORDERS}/{order_id}")
 
     @allure.step("Отправка запроса на получение заказов пользователя")
-    def get_user_orders_api(self, user_id: int) -> Response:
+    def get_orders_api(self, user_id: int) -> Response:
         return self.get(url=f"{Routes.ORDERS}/user/{user_id}")
 
 def get_public_order_client() -> OrderAPIClient:

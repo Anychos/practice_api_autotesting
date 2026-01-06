@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from clients.users.user_schema import CreateUserResponseSchema
+from clients.user.schemas import CreateUserResponseSchema
 
 
 class LoginRequestSchema(BaseModel):

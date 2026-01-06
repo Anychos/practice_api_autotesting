@@ -1,12 +1,14 @@
+import allure
 from httpx import Response
 
-from authentication.authentication_shema import LoginRequestSchema, LoginResponseSchema
+from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema
 from clients.base_client import BaseAPIClient
 from clients.public_builder import get_public_client
 from tools.routes import Routes
 
 
 class AuthenticationAPIClient(BaseAPIClient):
+    @allure.step("Отправка запроса на логин пользователя")
     def login_api(self, request: LoginRequestSchema) -> Response:
         return self.post(url=Routes.LOGIN, json=request.model_dump())
 
@@ -14,5 +16,5 @@ class AuthenticationAPIClient(BaseAPIClient):
         response = self.login_api(request)
         return LoginResponseSchema.model_validate_json(response.text)
 
-def get_public_login_client() -> AuthenticationAPIClient:
+def get_login_client() -> AuthenticationAPIClient:
     return AuthenticationAPIClient(client=get_public_client())

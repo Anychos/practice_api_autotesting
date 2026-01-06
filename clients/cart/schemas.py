@@ -1,23 +1,30 @@
+from typing import List
+
 from pydantic import BaseModel, Field
 
-from clients.products.schemas import CreateProductResponseSchema
 
-
-class CreateCartRequestSchema(BaseModel):
+class AddItemCartRequestSchema(BaseModel):
     product_id: int
     quantity: int = Field(default=1)
-    user_id: int
 
-class CreateCartResponseSchema(CreateCartRequestSchema):
+class AddItemCartResponseSchema(AddItemCartRequestSchema):
+    cart_id: int
+
+class GetCartResponseSchema(BaseModel):
     id: int
-    product: CreateProductResponseSchema
+    user_id: int
+    total_quantity: int
+    items: List[AddItemCartRequestSchema]
 
-class GetCartResponseSchema(CreateCartResponseSchema):
+class UpdateCartItemRequestSchema(BaseModel):
+    quantity: int = Field(default=2)
+
+class UpdateCartItemResponseSchema(AddItemCartResponseSchema):
     pass
 
-class UpdateCartRequestSchema(BaseModel):
-    product_id: int
-    quantity: int
+class DeleteCartItemResponseSchema(BaseModel):
+    message: str
 
-class UpdateCartResponseSchema(CreateCartResponseSchema):
+class DeleteCartResponseSchema(DeleteCartItemResponseSchema):
     pass
+

@@ -1,11 +1,11 @@
-from httpx import Response
 import allure
+from httpx import Response
 
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.private_builder import get_private_client
 from clients.public_builder import get_public_client
-from clients.users.schemas import CreateUserRequestSchema, CreateUserResponseSchema, UpdateUserRequestSchema
+from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSchema, UpdateUserRequestSchema
 from tools.routes import Routes
 
 

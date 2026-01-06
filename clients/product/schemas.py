@@ -1,26 +1,29 @@
 from pydantic import BaseModel, Field
 
-from tools.data_generator import fake
+from tools.data_generator import fake_ru
 
 
 class ProductSchema(BaseModel):
-    name: str = Field(default_factory=fake.object_name)
-    description: str = Field(default_factory=fake.description)
-    price: float = Field(default_factory=fake.price)
-    is_available: bool = Field(default_factory=fake.availability)
-    image_url: str = Field(default_factory=fake.image_url)
+    name: str = Field(default_factory=fake_ru.object_name)
+    description: str = Field(default_factory=fake_ru.description)
+    price: float = Field(default_factory=fake_ru.price)
+    is_available: bool = Field(default_factory=fake_ru.availability)
+    image_url: str = Field(default_factory=fake_ru.image_url)
 
 class CreateProductRequestSchema(ProductSchema):
     pass
 
-class CreateProductResponseSchema(CreateProductRequestSchema):
+class CreateProductResponseSchema(ProductSchema):
     id: int
 
 class UpdateProductRequestSchema(ProductSchema):
     pass
 
-class UpdateProductResponseSchema(UpdateProductRequestSchema):
+class UpdateProductResponseSchema(ProductSchema):
     id: int
 
 class GetProductResponseSchema(ProductSchema):
     id: int
+
+class DeleteProductResponseSchema(BaseModel):
+    message: str
