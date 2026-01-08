@@ -64,12 +64,33 @@ class TestUserPositive:
         response = private_user_client.delete_user_api(user_id=user.user_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
+@pytest.mark.regression
+@pytest.mark.user
+@allure.epic(Epic.USER)
+@allure.feature(Feature.USERS)
+@allure.tag(Tag.USERS, Tag.REGRESSION)
 class TestUserNegative:
-    def test_create_user_wrong_data(self):
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_user_wrong_email(self):
         pass
 
-    def test_create_user_not_full_data(self):
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_user_wrong_password(self):
         pass
 
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_user_wrong_phone(self):
+        pass
+
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_user_without_required_field(self):
+        pass
+
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
     def test_create_user_existing_email(self):
         pass

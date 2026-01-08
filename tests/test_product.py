@@ -82,9 +82,25 @@ class TestProductPositive:
         assert_delete_product_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
+@pytest.mark.regression
+@pytest.mark.product
+@allure.feature(Feature.PRODUCTS)
+@allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
 class TestProductNegative:
-    def test_create_product_wrong_data(self):
+    @allure.epic(Epic.ADMIN)
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_product_wrong_data_format(self):
         pass
 
+    @allure.epic(Epic.ADMIN)
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    def test_create_product_without_required_field(self):
+        pass
+
+    @allure.epic(Epic.ADMIN)
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
     def test_create_product_empty_data(self):
         pass

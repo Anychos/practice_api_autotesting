@@ -1,4 +1,4 @@
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, HttpUrl, FilePath
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,6 +13,16 @@ class HTTPClientSettings(BaseModel):
     def url(self) -> str:
         return str(self.base_url)
 
+class TestDataSettings(BaseModel):
+    """
+    Настройки тестовых данных
+    """
+    image_png: FilePath
+    image_jpg: FilePath
+    image_jpeg: FilePath
+    image_webp: FilePath
+    image_heic: FilePath
+
 class Settings(BaseSettings):
     """
     Настройки проекта
@@ -25,5 +35,6 @@ class Settings(BaseSettings):
     )
 
     http_client: HTTPClientSettings
+    test_data: TestDataSettings
 
 settings = Settings()

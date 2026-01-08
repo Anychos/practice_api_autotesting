@@ -59,3 +59,6 @@ class TestOrderNegative:
     def test_create_order_without_availability_items_in_cart(self):
         pass
 
+    def test_create_order_with_deleted_cart(self):
+        pass
+
