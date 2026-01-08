@@ -13,14 +13,14 @@ class ErrorSchema(BaseModel):
 class ContextSchema(BaseModel):
     reason: str
 
-class ValidationErrorSchema(ErrorSchema):
+class InputValidationErrorSchema(ErrorSchema):
     model_config = ConfigDict(populate_by_name=True)
 
     input: str
     context: ContextSchema = Field(alias="ctx")
 
-class ValidationErrorResponseSchema(BaseModel):
-    detail: List[ValidationErrorSchema]
+class InputValidationErrorResponseSchema(BaseModel):
+    detail: List[InputValidationErrorSchema]
 
 class HTTPValidationErrorResponseSchema(BaseModel):
-    detail: List[ErrorSchema]
+    detail: str

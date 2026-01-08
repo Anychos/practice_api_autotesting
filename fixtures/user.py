@@ -30,18 +30,18 @@ class UserFixture(BaseModel):
         )
         return schema
 
-def create_user(public_user_client: UserAPIClient, is_admin: bool) -> UserFixture:
+def create_user_fixture(public_user_client: UserAPIClient, is_admin: bool) -> UserFixture:
     request = CreateUserRequestSchema(is_admin=is_admin)
     response = public_user_client.create_user(request)
     return UserFixture(request=request, response=response)
 
 @pytest.fixture
 def user(public_user_client: UserAPIClient) -> UserFixture:
-    return create_user(public_user_client, is_admin=False)
+    return create_user_fixture(public_user_client, is_admin=False)
 
 @pytest.fixture
 def admin(public_user_client: UserAPIClient) -> UserFixture:
-    return create_user(public_user_client, is_admin=True)
+    return create_user_fixture(public_user_client, is_admin=True)
 
 @pytest.fixture
 def public_user_client() -> UserAPIClient:

@@ -13,9 +13,6 @@ from tools.assertions.product import assert_create_product_response, assert_get_
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
-from tools.allure.parent_suite import ParentSuite
-from tools.allure.suite import Suite
-from tools.allure.sub_suite import SubSuite
 from tools.allure.severity import Severity
 from tools.allure.tag import Tag
 
@@ -23,14 +20,11 @@ from tools.allure.tag import Tag
 @pytest.mark.regression
 @pytest.mark.product
 @allure.feature(Feature.PRODUCTS)
-@allure.suite(Suite.PRODUCTS)
 @allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
 class TestProductPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
-    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
-    @allure.sub_suite(SubSuite.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     def test_create_product(self, admin_private_product_client: ProductAPIClient):
         request = CreateProductRequestSchema()
@@ -44,9 +38,7 @@ class TestProductPositive:
 
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
-    @allure.parent_suite(ParentSuite.USER)
     @allure.story(Story.GET_ENTITY)
-    @allure.sub_suite(SubSuite.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
     def test_get_product(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = user_private_product_client.get_product_api(product_id=create_product.product_id)
@@ -58,9 +50,7 @@ class TestProductPositive:
 
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
-    @allure.parent_suite(ParentSuite.USER)
     @allure.story(Story.GET_ENTITIES)
-    @allure.sub_suite(SubSuite.GET_ENTITIES)
     @allure.severity(Severity.CRITICAL)
     def test_get_products(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = user_private_product_client.get_products_api()
@@ -69,9 +59,7 @@ class TestProductPositive:
         # TODO: add assertions for response
 
     @allure.epic(Epic.ADMIN)
-    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)
-    @allure.sub_suite(SubSuite.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     def test_update_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
         request = UpdateProductRequestSchema()
@@ -84,9 +72,7 @@ class TestProductPositive:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.epic(Epic.ADMIN)
-    @allure.parent_suite(ParentSuite.ADMIN)
     @allure.story(Story.DELETE_ENTITY)
-    @allure.sub_suite(SubSuite.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     def test_delete_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = admin_private_product_client.delete_product_api(product_id=create_product.product_id)

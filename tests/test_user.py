@@ -12,9 +12,6 @@ from tools.assertions.user import assert_create_user_response, assert_get_user_r
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
-from tools.allure.parent_suite import ParentSuite
-from tools.allure.suite import Suite
-from tools.allure.sub_suite import SubSuite
 from tools.allure.severity import Severity
 from tools.allure.tag import Tag
 
@@ -23,13 +20,10 @@ from tools.allure.tag import Tag
 @pytest.mark.user
 @allure.epic(Epic.USER)
 @allure.feature(Feature.USERS)
-@allure.parent_suite(ParentSuite.USER)
-@allure.suite(Suite.USERS)
 @allure.tag(Tag.USERS, Tag.REGRESSION)
 class TestUserPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
-    @allure.sub_suite(SubSuite.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.tag(Tag.SMOKE)
     def test_create_user(self, public_user_client: UserAPIClient):
@@ -43,7 +37,6 @@ class TestUserPositive:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.GET_ENTITY)
-    @allure.sub_suite(SubSuite.GET_ENTITY)
     @allure.severity(Severity.CRITICAL)
     def test_get_user(self, private_user_client: UserAPIClient, user: UserFixture):
         response = private_user_client.get_user_api(user_id=user.user_id)
@@ -54,7 +47,6 @@ class TestUserPositive:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.UPDATE_ENTITY)
-    @allure.sub_suite(SubSuite.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     def test_update_user(self, private_user_client: UserAPIClient, user: UserFixture):
         request = UpdateUserRequestSchema()
@@ -67,7 +59,6 @@ class TestUserPositive:
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.DELETE_ENTITY)
-    @allure.sub_suite(SubSuite.DELETE_ENTITY)
     @allure.severity(Severity.MINOR)
     def test_delete_user(self, private_user_client: UserAPIClient, user: UserFixture):
         response = private_user_client.delete_user_api(user_id=user.user_id)

@@ -12,7 +12,7 @@ class DataGenerator:
         return self.faker.first_name()
 
     def phone(self) -> str:
-        return self.faker.phone_number()
+        return "+7" + self.faker.msisdn()[1:11]
 
     def password(self) -> str:
         return self.faker.password()
