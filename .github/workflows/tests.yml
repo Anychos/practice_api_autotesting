@@ -12,6 +12,21 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U test_user -d test_db"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Получение репозитория
         uses: actions/checkout@v6
@@ -21,7 +36,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Клонирование репозитория
+      - name: Клонирование репозитория с сервером
         run: git clone https://github.com/Anychos/practice_api_test_server.git
 
       - name: Установка зависимостей сервера
@@ -29,13 +44,29 @@ jobs:
           cd practice_api_test_server
           pip install -r requirements.txt
 
+      - name: Применение миграций
+        env:
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+        run: |
+          cd practice_api_test_server
+          alembic upgrade head
+
       - name: Запуск сервера
         env:
-          HTTP_CLIENT.BASE_URL: "http://localhost:8080"
+          DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+          HTTP_CLIENT.BASE_URL: http://localhost:8080
           HTTP_CLIENT.TIMEOUT: 10
         run: |
           cd practice_api_test_server
           python app.py &
+
+      - name: Ожидание старта сервера
+        run: |
+          for i in {1..20}; do
+            curl -s http://localhost:8080/health && exit 0
+            sleep 1
+          done
+          exit 1
 
       - name: Установка зависимостей для тестов
         run: pip install -r requirements.txt
