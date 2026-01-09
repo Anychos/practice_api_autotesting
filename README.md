@@ -38,6 +38,13 @@
 
 ---
 
+## TO DO
+
+- Дописать тесты для негативных сценариев
+- Доработать assertions для списков в ответах
+- Доработать файл с окружением для Allure
+- Реализовать интеграцию в CI
+
 ## Ссылки
 
 - Репозиторий с тестовым сервером и инструкциями по запуску: [https://github.com/Anychos/practice_api_test_server.git](https://github.com/Anychos/practice_api_test_server.git)

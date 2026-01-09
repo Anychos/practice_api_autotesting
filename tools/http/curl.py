@@ -1,7 +1,10 @@
-from httpx import Request, RequestNotRead, Client
+from httpx import Request, RequestNotRead
 
 
 def get_curl_from_request(request: Request) -> str:
+    """
+    Формирует cURL команду из запроса
+    """
     result: list[str] = [f"curl -X '{request.method}' '{request.url}'"]
 
     for header, value in request.headers.items():

@@ -3,5 +3,6 @@ pytest_plugins = [
     "fixtures.product",
     "fixtures.authentication",
     "fixtures.cart",
-    "fixtures.order"
+    "fixtures.order",
+    "fixtures.allure"
     ]

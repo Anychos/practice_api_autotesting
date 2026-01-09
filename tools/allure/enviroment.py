@@ -4,6 +4,9 @@ import sys
 
 
 def create_allure_environment_file():
+    """
+    Создает файл с информацией об окружении для добавления в отчет Allure
+    """
     items = [f'{key}={value}' for key, value in settings.model_dump().items()]
 
     os_info = platform.platform()
@@ -12,5 +15,5 @@ def create_allure_environment_file():
 
     properties = '\n'.join(items)
 
-    with open(settings.allure_results_dir.joinpath('environment.properties'), 'w+') as file:
+    with open(settings.allure_report_dir.joinpath('environment.properties'), 'w+') as file:
         file.write(properties)
