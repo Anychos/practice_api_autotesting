@@ -1,0 +1,67 @@
+name: API Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение репозитория
+        uses: actions/checkout@v6
+
+      - name: Установка Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Клонирование репозитория
+        run: git clone https://github.com/Anychos/practice_api_test_server.git
+
+      - name: Установка зависимостей сервера
+        run: |
+          cd practice_api_test_server
+          pip install -r requirements.txt
+
+      - name: Запуск сервера
+        env:
+          HTTP_CLIENT.BASE_URL: "http://localhost:8080"
+          HTTP_CLIENT.TIMEOUT: 10
+        run: |
+          cd practice_api_test_server
+          python app.py &
+
+      - name: Установка зависимостей для тестов
+        run: pip install -r requirements.txt
+
+      - name: Запуск тестов
+        run: pytest -m regression --alluredir=allure-results --numprocesses=4
+
+      - name: Получение истории Allure отчетов
+        uses: actions/checkout@v6
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Генерация Allure отчета с историей
+        uses: simple-elf/allure-report-action@v1.13
+        if: always()
+        continue-on-error: true
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+
+      - name: Публикация Allure отчета
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-history
+          publish_branch: "gh-pages"

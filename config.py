@@ -38,12 +38,12 @@ class Settings(BaseSettings):
 
     http_client: HTTPClientSettings
     test_data: TestDataSettings
-    allure_report_dir: DirectoryPath = DirectoryPath("allure-report")
+    allure_results_dir: DirectoryPath = DirectoryPath("allure-results")
 
     @classmethod
     def init(cls) -> Self:
-        allure_report_dir = DirectoryPath("./allure-report")
-        allure_report_dir.mkdir(exist_ok=True)
-        return Settings(allure_report_dir=allure_report_dir)
+        allure_results_dir = DirectoryPath("./allure-results")
+        allure_results_dir.mkdir(exist_ok=True)
+        return Settings(allure_results_dir=allure_results_dir)
 
 settings = Settings.init()
