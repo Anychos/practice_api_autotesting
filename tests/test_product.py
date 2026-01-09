@@ -14,13 +14,11 @@ from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
 from tools.allure.severity import Severity
-from tools.allure.tag import Tag
 
 
 @pytest.mark.regression
 @pytest.mark.product
 @allure.feature(Feature.PRODUCTS)
-@allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
 class TestProductPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
@@ -85,7 +83,6 @@ class TestProductPositive:
 @pytest.mark.regression
 @pytest.mark.product
 @allure.feature(Feature.PRODUCTS)
-@allure.tag(Tag.PRODUCTS, Tag.REGRESSION)
 class TestProductNegative:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)

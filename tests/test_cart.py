@@ -15,19 +15,16 @@ from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
 from tools.allure.severity import Severity
-from tools.allure.tag import Tag
 
 
 @pytest.mark.regression
 @pytest.mark.cart
 @allure.epic(Epic.USER)
 @allure.feature(Feature.CARTS)
-@allure.tag(Tag.CARTS, Tag.REGRESSION)
 class TestCartPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
-    @allure.tag(Tag.SMOKE)
     def test_add_item_to_cart(self, private_cart_client: CartAPIClient, create_product: ProductFixture):
         request = AddItemCartRequestSchema(product_id=create_product.product_id)
 
@@ -41,7 +38,6 @@ class TestCartPositive:
     @pytest.mark.smoke
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
-    @allure.tag(Tag.SMOKE)
     def test_get_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -82,12 +78,22 @@ class TestCartPositive:
         assert_delete_cart_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
+@pytest.mark.regression
+@pytest.mark.cart
+@allure.epic(Epic.USER)
+@allure.feature(Feature.CARTS)
 class TestCartNegative:
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
     def test_add_not_available_product_to_cart(self):
         pass
 
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
     def test_add_not_existing_product_to_cart(self):
         pass
 
+    @allure.story(Story.CREATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
     def test_add_more_than_available_product_to_cart(self):
         pass

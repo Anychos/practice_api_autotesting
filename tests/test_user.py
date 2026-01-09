@@ -13,19 +13,16 @@ from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
 from tools.allure.severity import Severity
-from tools.allure.tag import Tag
 
 
 @pytest.mark.regression
 @pytest.mark.user
 @allure.epic(Epic.USER)
 @allure.feature(Feature.USERS)
-@allure.tag(Tag.USERS, Tag.REGRESSION)
 class TestUserPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
-    @allure.tag(Tag.SMOKE)
     def test_create_user(self, public_user_client: UserAPIClient):
         request = CreateUserRequestSchema()
 
@@ -68,7 +65,6 @@ class TestUserPositive:
 @pytest.mark.user
 @allure.epic(Epic.USER)
 @allure.feature(Feature.USERS)
-@allure.tag(Tag.USERS, Tag.REGRESSION)
 class TestUserNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)

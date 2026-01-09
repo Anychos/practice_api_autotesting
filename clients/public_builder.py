@@ -1,10 +1,12 @@
 from httpx import Client
 
+from clients.event_hooks import request_curl_event_hook
 from config import settings
 
 
 def get_public_client() -> Client:
     return Client(
         base_url=settings.http_client.url,
-        timeout=settings.http_client.timeout
+        timeout=settings.http_client.timeout,
+        event_hooks={"request": [request_curl_event_hook]}
     )
