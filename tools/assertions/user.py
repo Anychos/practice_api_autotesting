@@ -1,5 +1,6 @@
 import allure
 
+from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.user.schemas import CreateUserResponseSchema, CreateUserRequestSchema, GetUserResponseSchema, \
     UserSchema, UpdateUserResponseSchema, UpdateUserRequestSchema, DeleteUserResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
@@ -33,3 +34,29 @@ def assert_update_user_response(actual: UpdateUserResponseSchema, expected: Upda
 @allure.step("Проверка ответа на запрос удаления пользователя")
 def assert_delete_user_response(actual: DeleteUserResponseSchema) -> None:
     assert_value(actual.message, "User deleted successfully", "message")
+
+@allure.step("Проверка ответа на запрос с некорректным паролем")
+def assert_wrong_password_response(actual: InputValidationErrorResponseSchema) -> None:
+    warnings = [
+        "Value error, Password must be at least 6 characters long",
+        "Value error, Password must be at most 128 characters long"
+    ]
+
+    assert actual.detail, "Список ошибок пуст"
+
+    error = actual.detail[0]
+
+    assert error.type == "value_error"
+    assert error.location == ["body", "password"]
+
+    assert any(
+        warning in error.message
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.message}"
+
+    assert error.context, "Контекст ошибки пуст"
+
+    if error.context.reason is not None: assert any(
+        warning in error.context.reason
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.context.reason}"

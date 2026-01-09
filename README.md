@@ -47,6 +47,5 @@
 
 ## Ссылки
 
-- Репозиторий с тестовым сервером и инструкциями по запуску: [https://github.com/Anychos/practice_api_test_server.git](https://github.com/Anychos/practice_api_test_server.git)
-- Документация доступна по адресу: [http://localhost:8080/docs](http://localhost:8080/docs) после запуска тестового сервера.
+- Репозиторий с тестовым сервером и инструкцией по запуску: https://github.com/Anychos/practice_api_test_server.git
 

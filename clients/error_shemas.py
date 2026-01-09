@@ -11,7 +11,7 @@ class ErrorSchema(BaseModel):
     message: str = Field(alias="msg")
 
 class ContextSchema(BaseModel):
-    reason: str
+    reason: str | None = Field(default=None)
 
 class InputValidationErrorSchema(ErrorSchema):
     model_config = ConfigDict(populate_by_name=True)

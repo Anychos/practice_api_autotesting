@@ -10,8 +10,7 @@ from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSche
 from fixtures.user import UserFixture
 from tools.assertions.authentication import assert_invalid_email_format_response
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
-from tools.assertions.user import assert_create_user_response, assert_get_user_response, assert_update_user_response, \
-    assert_wrong_password_response
+from tools.assertions.user import assert_create_user_response, assert_get_user_response, assert_update_user_response
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.story import Story
@@ -95,7 +94,7 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_password_response(response_data)
+        assert_invalid_email_format_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
