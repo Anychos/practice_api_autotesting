@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNiwiaXNfYWRtaW4iOnRydWV9.hnjRcZR6X7l8tX6K3BvFJHVVQ9pxXsGWjD6BwYJVr_w' \
+ -H 'content-length: 335' \
+ -H 'content-type: application/json' \
+ -d '{"name":"забирать","description":"Что секунда мимо. Один труп степь мрачно достоинство. Жить отметить казнь разнообразный совещание мелькнуть издали.","price":878,"is_available":false,"image_url":"https://dummyimage.com/739x159"}'

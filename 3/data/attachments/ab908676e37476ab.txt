@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaXNfYWRtaW4iOnRydWV9.vXwoK0i0fpfRTf1KfVd4FjDD169ZWpH-fler93TGseY' \
+ -H 'content-length: 467' \
+ -H 'content-type: application/json' \
+ -d '{"name":"слать","description":"Запеть монета народ. Висеть мелочь пробовать умирать гулять покинуть помимо.\nВитрина анализ спорт сходить июнь способ отъезд. Изучить наслаждение новый лететь. Постоянный выкинуть пол банк.","price":1056,"is_available":true,"image_url":"https://placekitten.com/593/330"}'
