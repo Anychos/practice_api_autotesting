@@ -85,6 +85,7 @@ jobs:
       - name: Генерация Allure отчета с историей
         uses: simple-elf/allure-report-action@v1.13
         if: always()
+        continue-on-error: true
         with:
           allure_results: allure-results
           allure_history: allure-history
