@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwiaXNfYWRtaW4iOnRydWV9.3U7A6tvP2XMXDVhK8muZRBj_OWK5oJHw1-0bV5MTsdk' \
+ -H 'content-length: 445' \
+ -H 'content-type: application/json' \
+ -d '{"name":"спасть","description":"Присесть вперед исследование ленинград сутки. Пол исполнять слишком покидать космос материя сравнение.\nВойти издали страсть ученый актриса отражение равнодушный предоставить.","price":831,"is_available":false,"image_url":"https://dummyimage.com/799x169"}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNiwiaXNfYWRtaW4iOnRydWV9.hnjRcZR6X7l8tX6K3BvFJHVVQ9pxXsGWjD6BwYJVr_w' \
+ -H 'content-length: 362' \
+ -H 'content-type: application/json' \
+ -d '{"name":"райком","description":"Болото ручей уничтожение протягивать. Развернуться снимать руководитель ленинград стакан. Приличный бровь палец решетка спасть что.","price":1052,"is_available":true,"image_url":"https://picsum.photos/268/668"}'

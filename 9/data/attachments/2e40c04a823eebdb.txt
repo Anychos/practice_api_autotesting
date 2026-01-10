@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMywiaXNfYWRtaW4iOnRydWV9.IzWei_IO1dZPrQdEnHwINYsi11KWeyfI7fFqZ7UjqYk' \
+ -H 'content-length: 470' \
+ -H 'content-type: application/json' \
+ -d '{"name":"увеличиваться","description":"Покидать дурацкий палка аллея. Спалить кожа стакан палата лететь дремать призыв.\nГоловной рассуждение снимать белье танцевать поставить. Командование рот хлеб мимо витрина отражение.","price":461,"is_available":false,"image_url":"https://picsum.photos/223/884"}'

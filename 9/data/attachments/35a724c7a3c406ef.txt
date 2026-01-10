@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMSwiaXNfYWRtaW4iOnRydWV9.l7vR8e8cvDX6-hDoOOVPgu3lCoR7nW4nCCMxhxvSYj4' \
+ -H 'content-length: 375' \
+ -H 'content-type: application/json' \
+ -d '{"name":"граница","description":"Нож коричневый посидеть. Шлем приходить волк космос нажать. Подробность руководитель задержать ныне возможно сверкающий академик провал.","price":1157,"is_available":true,"image_url":"https://placekitten.com/167/745"}'
