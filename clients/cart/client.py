@@ -7,10 +7,12 @@ from clients.cart.schemas import AddItemCartRequestSchema, AddItemCartResponseSc
 from clients.private_builder import get_private_client
 from clients.public_builder import get_public_client
 from tools.routes import Routes
+from clients.api_coverage import tracker
 
 
 class CartAPIClient(BaseAPIClient):
     @allure.step("Отправка запроса на создание корзины")
+    @tracker.track_coverage_httpx(f"{Routes.CARTS}/items")
     def add_item_cart_api(self, request: AddItemCartRequestSchema) -> Response:
         return self.post(url=f"{Routes.CARTS}/items", json=request.model_dump())
 
@@ -19,18 +21,22 @@ class CartAPIClient(BaseAPIClient):
         return AddItemCartResponseSchema.model_validate_json(response.text)
 
     @allure.step("Отправка запроса на получение корзины")
+    @tracker.track_coverage_httpx(Routes.CARTS)
     def get_cart_api(self) -> Response:
         return self.get(url=Routes.CARTS)
 
     @allure.step("Отправка запроса на обновление корзины")
+    @tracker.track_coverage_httpx(f"{Routes.CARTS}/items/" + "{product_id}")
     def update_cart_item_api(self, item_id: int, request: UpdateCartItemRequestSchema) -> Response:
         return self.put(url=f"{Routes.CARTS}/items/{item_id}", json=request.model_dump())
 
     @allure.step("Отправка запроса на удаление продукта из корзины")
+    @tracker.track_coverage_httpx(f"{Routes.CARTS}/items/" + "{product_id}")
     def remove_item_cart_api(self, item_id: int) -> Response:
         return self.delete(url=f"{Routes.CARTS}/items/{item_id}")
 
     @allure.step("Отправка запроса на удаление корзины")
+    @tracker.track_coverage_httpx(Routes.CARTS)
     def delete_cart_api(self) -> Response:
         return self.delete(url=Routes.CARTS)
 

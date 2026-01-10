@@ -17,7 +17,7 @@ class InputValidationErrorSchema(ErrorSchema):
     model_config = ConfigDict(populate_by_name=True)
 
     input: str
-    context: ContextSchema = Field(alias="ctx")
+    context: ContextSchema | None = Field(alias="ctx")
 
 class InputValidationErrorResponseSchema(BaseModel):
     detail: List[InputValidationErrorSchema]

@@ -5,10 +5,12 @@ from clients.authentication.schemas import LoginRequestSchema, LoginResponseSche
 from clients.base_client import BaseAPIClient
 from clients.public_builder import get_public_client
 from tools.routes import Routes
+from clients.api_coverage import tracker
 
 
 class AuthenticationAPIClient(BaseAPIClient):
     @allure.step("Отправка запроса на логин пользователя")
+    @tracker.track_coverage_httpx(Routes.LOGIN)
     def login_api(self, request: LoginRequestSchema) -> Response:
         return self.post(url=Routes.LOGIN, json=request.model_dump())
 

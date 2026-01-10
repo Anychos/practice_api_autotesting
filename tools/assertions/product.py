@@ -1,5 +1,6 @@
 import allure
 
+from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.schemas import CreateProductResponseSchema, CreateProductRequestSchema, ProductSchema, \
     GetProductResponseSchema, UpdateProductResponseSchema, UpdateProductRequestSchema, DeleteProductResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
@@ -39,3 +40,23 @@ def assert_update_product_response(actual: UpdateProductResponseSchema, expected
 @allure.step("Проверка ответа на запрос удаления продукта")
 def assert_delete_product_response(actual: DeleteProductResponseSchema) -> None:
     assert_value(actual.message, "Product deleted successfully", "message")
+
+@allure.step("Проверка ответа на запрос создания продукта с некорректным форматом в данных")
+def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema):
+    warnings = [
+        "Input should be a valid string",
+        "Input should be a valid number, unable to parse string as a number"
+    ]
+
+    assert actual.detail, "Список ошибок пуст"
+
+    error = actual.detail[0]
+
+    assert error.type in ["string_type", "float_parsing"]
+    assert error.location[0] == "body"
+    assert error.location[1] in {"name", "description", "price"}
+
+    assert any(
+        warning in error.message
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.message}"

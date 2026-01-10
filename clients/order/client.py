@@ -7,10 +7,12 @@ from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseS
 from clients.private_builder import get_private_client
 from clients.public_builder import get_public_client
 from tools.routes import Routes
+from clients.api_coverage import tracker
 
 
 class OrderAPIClient(BaseAPIClient):
     @allure.step("Отправка запроса на создание заказа")
+    @tracker.track_coverage_httpx(Routes.ORDERS)
     def create_order_api(self, request: CreateOrderRequestSchema) -> Response:
         return self.post(url=Routes.ORDERS, json=request.model_dump())
 
@@ -19,10 +21,12 @@ class OrderAPIClient(BaseAPIClient):
         return CreateOrderResponseSchema.model_validate_json(response.text)
 
     @allure.step("Отправка запроса на получение заказа")
+    @tracker.track_coverage_httpx(f"{Routes.ORDERS}/" + "{order_id}")
     def get_order_api(self, order_id: int) -> Response:
         return self.get(url=f"{Routes.ORDERS}/{order_id}")
 
     @allure.step("Отправка запроса на получение заказов пользователя")
+    @tracker.track_coverage_httpx(Routes.ORDERS)
     def get_orders_api(self) -> Response:
         return self.get(url=Routes.ORDERS)
 
