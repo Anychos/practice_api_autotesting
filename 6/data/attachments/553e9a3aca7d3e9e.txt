@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOSwiaXNfYWRtaW4iOnRydWV9.aQsvr4Dneh69SwiAXrczacINg6E3dpQzr2lBGkWSakw' \
+ -H 'content-length: 409' \
+ -H 'content-type: application/json' \
+ -d '{"name":"забирать","description":"Пропаганда район чем трубка забирать бригада. Потянуться идея чем выбирать нож.\nРота разуметься монета.\nУгодный вариант бак приходить увеличиваться девка.","price":631,"is_available":false,"image_url":"https://dummyimage.com/176x970"}'

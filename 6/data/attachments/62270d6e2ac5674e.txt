@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNCwiaXNfYWRtaW4iOnRydWV9.NtTJR43mt3oz7ImbMImd960bHU6zW5SXwthuAf9PRIs' \
+ -H 'content-length: 392' \
+ -H 'content-type: application/json' \
+ -d '{"name":"изба","description":"Премьера опасность монета тяжелый кпсс пол. Наткнуться мелькнуть помимо господь наступать ученый. Зеленый протягивать снимать экзамен самостоятельно.","price":920,"is_available":true,"image_url":"https://picsum.photos/1017/254"}'
