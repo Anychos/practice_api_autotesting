@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwiaXNfYWRtaW4iOnRydWV9.3U7A6tvP2XMXDVhK8muZRBj_OWK5oJHw1-0bV5MTsdk' \
+ -H 'content-length: 443' \
+ -H 'content-type: application/json' \
+ -d '{"name":"посидеть","description":"Факультет правый сбросить неожиданный прошептать провинция перебивать. Построить войти ученый картинка низкий коммунизм выраженный. Космос пересечь упорно провинция фонарик.","price":958,"is_available":false,"image_url":"https://picsum.photos/6/72"}'

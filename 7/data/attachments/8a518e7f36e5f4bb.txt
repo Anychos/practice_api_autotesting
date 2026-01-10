@@ -1,0 +1,10 @@
+curl -X 'PUT' 'http://localhost:8080/products/12' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMiwiaXNfYWRtaW4iOnRydWV9.avMTNhcb0dbOlWrcF3G5v9L5T1gv4e6kdUYTpEtjl68' \
+ -H 'content-length: 352' \
+ -H 'content-type: application/json' \
+ -d '{"name":"манера","description":"Издали сынок рассуждение за пол построить пространство что. Житель правый материя дьявол. Функция хлеб сынок а растеряться вряд.","price":940,"is_available":false,"image_url":"https://picsum.photos/963/23"}'

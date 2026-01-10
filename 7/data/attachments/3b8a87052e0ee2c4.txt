@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMSwiaXNfYWRtaW4iOnRydWV9.px8E9pzWLKhVMyfkSTxCi9xIhQSm_er6hCnOgYeB8pA' \
+ -H 'content-length: 352' \
+ -H 'content-type: application/json' \
+ -d '{"name":"торопливый","description":"Факультет невыносимый означать расстегнуть танцевать. Сбросить отъезд ныне собеседник избегать. Штаб висеть тюрьма жидкий.","price":848,"is_available":true,"image_url":"https://picsum.photos/747/469"}'
