@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMywiaXNfYWRtaW4iOnRydWV9.IzWei_IO1dZPrQdEnHwINYsi11KWeyfI7fFqZ7UjqYk' \
+ -H 'content-length: 302' \
+ -H 'content-type: application/json' \
+ -d '{"name":"ломать","description":"Цвет спорт дурацкий направо смертельный скользить. Единый обида встать вздрогнуть адвокат цепочка.","price":569,"is_available":false,"image_url":"https://placekitten.com/685/981"}'

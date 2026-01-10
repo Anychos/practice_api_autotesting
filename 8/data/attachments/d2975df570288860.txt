@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaXNfYWRtaW4iOnRydWV9.gX4ZZ2hmbqfbo9rQyg_kyHA6_MvHh3WZKG2GfJWds9U' \
+ -H 'content-length: 466' \
+ -H 'content-type: application/json' \
+ -d '{"name":"кожа","description":"Достоинство правление еврейский палец. Промолчать мимо падаль.\nСпалить направо ведь смертельный выразить скользить армейский материя. Засунуть сравнение при горький наслаждение сохранять.","price":1049,"is_available":false,"image_url":"https://dummyimage.com/327x713"}'

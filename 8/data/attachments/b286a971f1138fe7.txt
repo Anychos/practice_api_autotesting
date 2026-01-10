@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNSwiaXNfYWRtaW4iOnRydWV9.9ceP-vUTrpfMrUyYCrq_WaDY1xJWEJ9wdaK5gfw3Udg' \
+ -H 'content-length: 377' \
+ -H 'content-type: application/json' \
+ -d '{"name":"обида","description":"Поставить каюта виднеться вариант совещание. Естественный рис дальний цепочка. А умолять поезд труп сомнительный очередной возбуждение спорт.","price":907,"is_available":true,"image_url":"https://picsum.photos/659/736"}'

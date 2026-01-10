@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMiwiaXNfYWRtaW4iOnRydWV9.0H9DFs-t2Qvg38hm1VyianUSGq66rntW3rml5AbHG30' \
+ -H 'content-length: 300' \
+ -H 'content-type: application/json' \
+ -d '{"name":"князь","description":"Угодный торопливый товар космос избегать. Спорт отражение фонарик протягивать отдел налево горький.","price":948,"is_available":true,"image_url":"https://dummyimage.com/214x214"}'
