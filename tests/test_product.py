@@ -24,6 +24,7 @@ class TestProductPositive:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Создание продукта с валидными данными")
     def test_create_product(self, admin_private_product_client: ProductAPIClient):
         request = CreateProductRequestSchema()
 
@@ -38,6 +39,7 @@ class TestProductPositive:
     @allure.epic(Epic.USER)
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Получение существующего продукта")
     def test_get_product(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = user_private_product_client.get_product_api(product_id=create_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -50,6 +52,7 @@ class TestProductPositive:
     @allure.epic(Epic.USER)
     @allure.story(Story.GET_ENTITIES)
     @allure.severity(Severity.CRITICAL)
+    @allure.title("Получение списка продуктов")
     def test_get_products(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -59,6 +62,7 @@ class TestProductPositive:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Обновление существующего продукта")
     def test_update_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
         request = UpdateProductRequestSchema()
 
@@ -72,6 +76,7 @@ class TestProductPositive:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Удаление существующего продукта")
     def test_delete_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
         response = admin_private_product_client.delete_product_api(product_id=create_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -87,17 +92,20 @@ class TestProductNegative:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Создание продукта с данными в невалидном формате")
     def test_create_product_wrong_data_format(self):
         pass
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Создание продукта без заполнения обязательного поля")
     def test_create_product_without_required_field(self):
         pass
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Создание продукта без заполнения всех полей")
     def test_create_product_empty_data(self):
         pass

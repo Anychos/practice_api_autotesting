@@ -24,6 +24,7 @@ class TestAuthenticationPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Логин пользователя с валидными данными")
     def test_user_login(self, auth_client: AuthenticationAPIClient, user: UserFixture):
         request = LoginRequestSchema(email=user.email, password=user.password)
 
@@ -37,6 +38,7 @@ class TestAuthenticationPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Логин админа с валидными данными")
     def test_admin_login(self, auth_client: AuthenticationAPIClient, admin: UserFixture):
         request = LoginRequestSchema(email=admin.email, password=admin.password)
 
@@ -54,6 +56,7 @@ class TestAuthenticationPositive:
 class TestAuthenticationNegative:
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Логин пользователя с валидным, но не зарегистрированным email и валидным паролем")
     def test_user_login_unregistered_email(self, auth_client: AuthenticationAPIClient, user: UserFixture):
         request = LoginRequestSchema(email="test@mail.ru", password=user.password)
 
@@ -67,6 +70,7 @@ class TestAuthenticationNegative:
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
     @pytest.mark.parametrize("email", ["test@mail", "test@.ru", "@mail.ru", ""])
+    @allure.title("Логин пользователя с невалидным форматом email и валидным паролем")
     def test_user_login_invalid_email_format(self, auth_client: AuthenticationAPIClient, email: str, user: UserFixture):
         request = LoginRequestSchema(email=email, password=user.password)
 
@@ -79,6 +83,7 @@ class TestAuthenticationNegative:
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Логин пользователя с зарегистрированным email и неподходящим паролем")
     def test_user_login_inappropriate_password(self, auth_client: AuthenticationAPIClient, user: UserFixture):
         request = LoginRequestSchema(email=user.email, password="wrong_password_123")
 
@@ -91,6 +96,7 @@ class TestAuthenticationNegative:
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Логин пользователя с отсутствующим паролем")
     def test_user_login_empty_password(self, auth_client: AuthenticationAPIClient, user: UserFixture):
         request = LoginRequestSchema(email=user.email, password="")
 

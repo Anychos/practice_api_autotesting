@@ -1,6 +1,6 @@
 import allure
 
-from clients.error_shemas import InputValidationErrorResponseSchema
+from clients.error_shemas import InputValidationErrorResponseSchema, HTTPValidationErrorResponseSchema
 from clients.user.schemas import CreateUserResponseSchema, CreateUserRequestSchema, GetUserResponseSchema, \
     UserSchema, UpdateUserResponseSchema, UpdateUserRequestSchema, DeleteUserResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
@@ -60,3 +60,34 @@ def assert_wrong_password_response(actual: InputValidationErrorResponseSchema) -
         warning in error.context.reason
         for warning in warnings
     ), f"Неожиданная ошибка: {error.context.reason}"
+
+@allure.step("Проверка ответа на запрос с некорректным номером телефона")
+def assert_wrong_phone_response(actual: InputValidationErrorResponseSchema) -> None:
+    warnings = [
+        "Value error, Phone number is too long",
+        "Value error, Phone number is too short",
+        "Value error, Phone number must contain only digits and optional + at the beginning"
+    ]
+
+    assert actual.detail, "Список ошибок пуст"
+
+    error = actual.detail[0]
+
+    assert error.type == "value_error"
+    assert error.location == ["body", "phone"]
+
+    assert any(
+        warning in error.message
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.message}"
+
+    assert error.context, "Контекст ошибки пуст"
+
+    if error.context.reason is not None: assert any(
+        warning in error.context.reason
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.context.reason}"
+
+@allure.step("Проверка ответа на запрос с уже зарегистрированным email")
+def assert_email_exists_response(actual: HTTPValidationErrorResponseSchema) -> None:
+    assert_value(actual.detail, "Email already registered", "detail")

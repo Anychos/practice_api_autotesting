@@ -25,6 +25,7 @@ class TestCartPositive:
     @pytest.mark.smoke
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Добавление единицы продукта в корзину")
     def test_add_item_to_cart(self, private_cart_client: CartAPIClient, create_product: ProductFixture):
         request = AddItemCartRequestSchema(product_id=create_product.product_id)
 
@@ -38,6 +39,7 @@ class TestCartPositive:
     @pytest.mark.smoke
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
+    @allure.title("Получение данных корзины")
     def test_get_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -48,6 +50,7 @@ class TestCartPositive:
 
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Удаление единицы продукта из корзины")
     def test_remove_item_from_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         response = private_cart_client.remove_item_cart_api(item_id=create_cart.item_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -58,6 +61,7 @@ class TestCartPositive:
 
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.CRITICAL)
+    @allure.title("Обновление количества единицы продукта в корзине")
     def test_update_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         request = UpdateCartItemRequestSchema()
 
@@ -70,6 +74,7 @@ class TestCartPositive:
 
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Удаление корзины")
     def test_delete_cart(self, private_cart_client: CartAPIClient, create_cart: CartFixture):
         response = private_cart_client.delete_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -85,15 +90,18 @@ class TestCartPositive:
 class TestCartNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Добавление товара без наличия в корзину")
     def test_add_not_available_product_to_cart(self):
         pass
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Добавление несуществующего товара в корзину")
     def test_add_not_existing_product_to_cart(self):
         pass
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
+    @allure.title("Добавление количества одного товара в корзину больше чем доступно")
     def test_add_more_than_available_product_to_cart(self):
         pass
