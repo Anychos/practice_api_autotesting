@@ -66,7 +66,8 @@ def assert_wrong_phone_response(actual: InputValidationErrorResponseSchema) -> N
     warnings = [
         "Value error, Phone number is too long",
         "Value error, Phone number is too short",
-        "Value error, Phone number must contain only digits and optional + at the beginning"
+        "Value error, Phone number must contain only digits and optional + at the beginning",
+        "Value error, Phone number cannot be empty"
     ]
 
     assert actual.detail, "Список ошибок пуст"
