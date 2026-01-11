@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMiwiaXNfYWRtaW4iOnRydWV9.0H9DFs-t2Qvg38hm1VyianUSGq66rntW3rml5AbHG30' \
+ -H 'content-length: 474' \
+ -H 'content-type: application/json' \
+ -d '{"name":"рабочий","description":"Место остановить еврейский передо деловой растеряться. Порода господь затянуться находить.\nВскинуть правый решетка мусор тревога близко посвятить. Лететь поговорить академик освобождение.","price":440,"is_available":true,"image_url":"https://picsum.photos/131/143.jpeg"}'

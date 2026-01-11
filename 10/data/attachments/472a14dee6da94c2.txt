@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOSwiaXNfYWRtaW4iOnRydWV9.clY8i3QhPunnqLpiDYqv_4-DZ3B9y5iqjjK1jx7HopI' \
+ -H 'content-length: 236' \
+ -H 'content-type: application/json' \
+ -d '{"name":"более","description":"Картинка оставить потрясти недостаток горький через добиться.","price":717,"is_available":false,"image_url":"https://placekitten.com/264/227.png"}'
