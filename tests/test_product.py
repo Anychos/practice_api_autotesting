@@ -3,6 +3,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.client import ProductAPIClient
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, GetProductResponseSchema, \
     UpdateProductRequestSchema, UpdateProductResponseSchema, DeleteProductResponseSchema
@@ -13,7 +14,8 @@ from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.product import assert_create_product_response, assert_get_product_response, \
-    assert_update_product_response, assert_delete_product_response
+    assert_update_product_response, assert_delete_product_response, assert_wrong_data_format_response, \
+    assert_empty_required_field_response
 
 
 @pytest.mark.regression
@@ -100,14 +102,35 @@ class TestProductNegative:
                                  ("name", "description", "price")
                              ]
                              )
-    @pytest.mark.skip(reason="Need to fix")
-    def test_create_product_wrong_data_format(self, name, description, price):
-        pass
+    def test_create_product_wrong_data_format(self, admin_private_product_client: ProductAPIClient, name, description, price):
+        request = CreateProductRequestSchema.model_construct(name=name, description=description, price=price)
+
+        response = admin_private_product_client.create_product_api(request)
+        assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
+
+        response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_wrong_data_format_response(response_data)
+        assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание продукта без заполнения обязательного поля")
-    @pytest.mark.skip(reason="Need to fix")
-    def test_create_product_without_required_field(self):
-        pass
+    @pytest.mark.parametrize("name, description, price, image_url",
+                             [
+                                 ("", "description", 123, "https://test.jpg"),
+                                 ("name", "", 123, "https://test.jpg"),
+                                 ("name", "description", "", "https://test.jpg"),
+                                 ("name", "description", 123, "")
+                             ]
+                             )
+    @pytest.mark.skip(reason="Доработать assertions")
+    def test_create_product_empty_required_field(self, admin_private_product_client: ProductAPIClient, name, description, price, image_url):
+        request = CreateProductRequestSchema.model_construct(name=name, description=description, price=price, image_url=image_url)
+
+        response = admin_private_product_client.create_product_api(request)
+        assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
+
+        response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_empty_required_field_response(response_data)
+        assert_json_schema(response.json(), response_data.model_json_schema())

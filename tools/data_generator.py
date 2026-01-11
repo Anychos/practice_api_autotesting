@@ -1,3 +1,5 @@
+import random
+
 from faker import Faker
 
 
@@ -12,7 +14,8 @@ class DataGenerator:
         return self.faker.first_name()
 
     def phone(self) -> str:
-        return "+7" + self.faker.msisdn()[1:11]
+        phone_start_digits = ["8", "7", "+7"]
+        return random.choice(phone_start_digits) + self.faker.msisdn()[1:11]
 
     def password(self) -> str:
         return self.faker.password()
@@ -24,12 +27,13 @@ class DataGenerator:
         return self.faker.text()
 
     def price(self) -> int:
-        return self.faker.random_int(min=400, max=1200)
+        return self.faker.random_int(min=250, max=2000)
 
     def availability(self) -> bool:
         return self.faker.boolean()
 
     def image_url(self) -> str:
-        return self.faker.image_url() + [".jpg", ".png", ".jpeg", ".webp"][self.faker.random_int(min=0, max=3)]
+        image_url_format = [".jpg", ".png", ".jpeg", ".webp"]
+        return self.faker.image_url() + random.choice(image_url_format)
 
 fake_ru = DataGenerator(Faker("ru_RU"))

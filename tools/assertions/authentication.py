@@ -42,12 +42,12 @@ def assert_invalid_email_format_response(actual: InputValidationErrorResponseSch
     expected_prefix = "value is not a valid email address:"
     assert error.message.startswith(expected_prefix)
 
-    assert error.context.reason, "Контекст пуст"
+    assert error.context, "Контекст пуст"
 
     assert any(
-        warning in error.context.reason
+        warning in error.context
         for warning in warnings
-    ), f"Неожиданная ошибка: {error.context.reason}"
+    ), f"Неожиданная ошибка: {error.context}"
 
     assert any(
         warning in error.message

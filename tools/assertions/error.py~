@@ -8,8 +8,8 @@ def assert_error(actual: ErrorSchema, expected: ErrorSchema) -> None:
     assert_value(actual.location, expected.location, "location")
 
 def assert_input_validation_error(actual: InputValidationErrorResponseSchema, expected: InputValidationErrorResponseSchema) -> None:
-    assert_error(actual, expected)
-    assert_value(actual.input, expected.input, "input")
+    assert_error(actual.detail[0], expected.detail[0])
+    assert_value(actual.detail[0].input, expected.input, "input")
     assert_value(actual.context, expected.context, "reason")
 
 def assert_input_validation_error_response(actual: InputValidationErrorResponseSchema, expected: InputValidationErrorResponseSchema) -> None:

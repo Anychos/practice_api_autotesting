@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -9,18 +9,11 @@ class ErrorSchema(BaseModel):
     type: str
     location: List[str | int] = Field(alias="loc")
     message: str = Field(alias="msg")
-
-class ContextSchema(BaseModel):
-    reason: str | None = Field(default=None)
-
-class InputValidationErrorSchema(ErrorSchema):
-    model_config = ConfigDict(populate_by_name=True)
-
-    input: str
-    context: ContextSchema | None = Field(alias="ctx")
+    input: str | int
+    context: dict[str, Any] | None = Field(alias="ctx", default=None)
 
 class InputValidationErrorResponseSchema(BaseModel):
-    detail: List[InputValidationErrorSchema]
+    detail: List[ErrorSchema]
 
 class HTTPValidationErrorResponseSchema(BaseModel):
     detail: str

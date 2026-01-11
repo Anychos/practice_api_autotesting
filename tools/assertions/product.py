@@ -60,3 +60,38 @@ def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema
         warning in error.message
         for warning in warnings
     ), f"Неожиданная ошибка: {error.message}"
+
+@allure.step("Проверка ответа на запрос создания продукта с пустым обязательным полем")
+def assert_empty_required_field_response(actual: InputValidationErrorResponseSchema) -> None:
+    warnings = [
+        "String should have at least 2 characters",
+        "String should have at least 10 characters",
+        "Input should be greater than 0",
+        "Value error, URL изображения не может быть пустым"
+    ]
+    error_types = [
+        "string_too_short",
+        "string_too_short",
+        "greater_than",
+        "value_error"
+    ]
+
+    assert actual.detail, "Список ошибок пуст"
+
+    error = actual.detail[0]
+
+    assert error.type in error_types
+    assert error.location[0] == "body"
+    assert error.location[1] in {"name", "description", "price", "image_url"}
+
+    assert any(
+        warning in error.message
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.message}"
+
+    assert error.context, "Контекст ошибки пуст"
+
+    if error.context is not None: assert any(
+        warning in error.context
+        for warning in warnings
+    ), f"Неожиданная ошибка: {error.context}"
