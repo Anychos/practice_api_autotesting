@@ -7,13 +7,13 @@ from clients.authentication.client import AuthenticationAPIClient
 from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema
 from clients.error_shemas import HTTPValidationErrorResponseSchema, InputValidationErrorResponseSchema
 from fixtures.user import UserFixture
+from tools.allure.epic import Epic
+from tools.allure.feature import Feature
+from tools.allure.severity import Severity
+from tools.allure.story import Story
 from tools.assertions.authentication import assert_login_response, assert_wrong_login_data_response, \
     assert_invalid_email_format_response
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
-from tools.allure.epic import Epic
-from tools.allure.feature import Feature
-from tools.allure.story import Story
-from tools.allure.severity import Severity
 
 
 @pytest.mark.regression

@@ -30,6 +30,6 @@ class DataGenerator:
         return self.faker.boolean()
 
     def image_url(self) -> str:
-        return self.faker.image_url()
+        return self.faker.image_url() + [".jpg", ".png", ".jpeg", ".webp"][self.faker.random_int(min=0, max=3)]
 
 fake_ru = DataGenerator(Faker("ru_RU"))

@@ -1,6 +1,6 @@
 from typing import Self
 
-from pydantic import BaseModel, HttpUrl, DirectoryPath
+from pydantic import BaseModel, HttpUrl, FilePath, DirectoryPath
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +15,16 @@ class HTTPClientSettings(BaseModel):
     def url(self) -> str:
         return str(self.base_url)
 
+class TestDataSettings(BaseModel):
+    """
+    Настройки тестовых данных
+    """
+    image_png: FilePath
+    image_jpg: FilePath
+    image_jpeg: FilePath
+    image_webp: FilePath
+    image_heic: FilePath
+
 class Settings(BaseSettings):
     """
     Настройки проекта
@@ -27,6 +37,7 @@ class Settings(BaseSettings):
     )
 
     http_client: HTTPClientSettings
+    test_data: TestDataSettings
     allure_results_dir: DirectoryPath = DirectoryPath("allure-results")
 
     @classmethod

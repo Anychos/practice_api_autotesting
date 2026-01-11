@@ -8,14 +8,14 @@ from clients.user.client import UserAPIClient
 from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSchema, GetUserResponseSchema, \
     UpdateUserResponseSchema, UpdateUserRequestSchema
 from fixtures.user import UserFixture
+from tools.allure.epic import Epic
+from tools.allure.feature import Feature
+from tools.allure.severity import Severity
+from tools.allure.story import Story
 from tools.assertions.authentication import assert_invalid_email_format_response
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.user import assert_create_user_response, assert_get_user_response, assert_update_user_response, \
     assert_wrong_password_response, assert_wrong_phone_response, assert_email_exists_response
-from tools.allure.epic import Epic
-from tools.allure.feature import Feature
-from tools.allure.story import Story
-from tools.allure.severity import Severity
 
 
 @pytest.mark.regression

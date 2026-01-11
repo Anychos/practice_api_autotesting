@@ -1,13 +1,13 @@
 import allure
 from httpx import Response
 
+from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema
 from clients.private_builder import get_private_client
 from clients.public_builder import get_public_client
 from tools.routes import Routes
-from clients.api_coverage import tracker
 
 
 class OrderAPIClient(BaseAPIClient):

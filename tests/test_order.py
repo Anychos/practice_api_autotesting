@@ -62,12 +62,14 @@ class TestOrderNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа если один из продуктов недоступен")
+    @pytest.mark.skip(reason="Нет валидации наличия")
     def test_create_order_without_availability_items_in_cart(self):
         pass
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа с удаленной корзиной")
-    def test_create_order_with_deleted_cart(self):
+    @pytest.mark.skip(reason="Дает создать заказ без товаров")
+    def test_create_order_with_empty_cart(self):
         pass
 

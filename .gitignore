@@ -3,6 +3,7 @@
 __pycache__
 
 allure-results
+allure-report
 
 coverage-history.json
 coverage-report.json

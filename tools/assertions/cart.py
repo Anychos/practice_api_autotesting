@@ -4,6 +4,7 @@ import allure
 
 from clients.cart.schemas import AddItemCartResponseSchema, AddItemCartRequestSchema, GetCartResponseSchema, \
     DeleteCartResponseSchema, DeleteCartItemResponseSchema, UpdateCartItemResponseSchema, UpdateCartItemRequestSchema
+from clients.error_shemas import HTTPValidationErrorResponseSchema
 from tools.assertions.base_assertions import assert_value, assert_field_exists, assert_length
 
 
@@ -48,4 +49,8 @@ def assert_delete_cart_response(actual: DeleteCartResponseSchema) -> None:
 @allure.step("Проверка ответа на запрос удаления продукта из корзины")
 def assert_delete_item_cart_response(actual: DeleteCartItemResponseSchema) -> None:
     assert_value(actual.message, "Item removed from cart successfully", "message")
+
+@allure.step("Проверка ответа на запрос с добавлением несуществующего продукта в корзину")
+def assert_not_found_product_response(actual: HTTPValidationErrorResponseSchema) -> None:
+    assert_value(actual.detail, "Product not found", "detail")
 
