@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNywiaXNfYWRtaW4iOnRydWV9.IGNazP21BTgyWJ_hcWWt107Dc-ajvVGVjeKOnoCxNe0' \
+ -H 'content-length: 448' \
+ -H 'content-type: application/json' \
+ -d '{"name":"за","description":"Угол легко расстройство коробка избегать кпсс порядок миг. Войти вскакивать неожиданный заявление механический спорт. Изображать выраженный дурацкий дорогой мрачно заплакать жить.","price":785,"is_available":true,"image_url":"https://picsum.photos/518/645.jpeg"}'
