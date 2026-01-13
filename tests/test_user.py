@@ -89,7 +89,7 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_invalid_email_format_response(response_data)
+        assert_invalid_email_format_response(response_data, email=email)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
@@ -107,7 +107,7 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_password_response(response_data)
+        assert_wrong_password_response(response_data, password=password)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
@@ -127,7 +127,7 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_phone_response(response_data)
+        assert_wrong_phone_response(response_data, phone=phone)
         assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)

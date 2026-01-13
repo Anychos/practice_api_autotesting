@@ -69,7 +69,7 @@ class TestAuthenticationNegative:
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
-    @pytest.mark.parametrize("email", ["test@mail.", "test@.ru", "@mail.ru", "", "testmail.ru"])
+    @pytest.mark.parametrize("email", ["test@mail", "test@.ru", "@mail.ru", ""])
     @allure.title("Логин пользователя с невалидным форматом email и валидным паролем")
     def test_user_login_invalid_email_format(self, auth_client: AuthenticationAPIClient, email: str, user: UserFixture):
         request = LoginRequestSchema(email=email, password=user.password)

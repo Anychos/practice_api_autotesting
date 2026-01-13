@@ -9,7 +9,7 @@ class ErrorSchema(BaseModel):
     type: str
     location: List[str | int] = Field(alias="loc")
     message: str = Field(alias="msg")
-    input: str | int
+    input: Any | None = Field(default=None)
     context: dict[str, Any] | None = Field(alias="ctx", default=None)
 
 class InputValidationErrorResponseSchema(BaseModel):

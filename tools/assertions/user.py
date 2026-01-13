@@ -1,3 +1,5 @@
+from typing import Any
+
 import allure
 
 from clients.error_shemas import InputValidationErrorResponseSchema, HTTPValidationErrorResponseSchema
@@ -36,34 +38,35 @@ def assert_delete_user_response(actual: DeleteUserResponseSchema) -> None:
     assert_value(actual.message, "User deleted successfully", "message")
 
 @allure.step("Проверка ответа на запрос с некорректным паролем")
-def assert_wrong_password_response(actual: InputValidationErrorResponseSchema) -> None:
-    warnings = [
+def assert_wrong_password_response(
+        actual: InputValidationErrorResponseSchema,
+        password: str) -> None:
+    error_messages = [
         "Value error, Password must be at least 6 characters long",
-        "Value error, Password must be at most 128 characters long"
+        "Value error, Password must be at most 128 characters long",
+        "Input should be a valid string"
     ]
 
     assert actual.detail, "Список ошибок пуст"
+    assert len(actual.detail) == 1, "В ответе более одной ошибки"
 
     error = actual.detail[0]
 
     assert error.type == "value_error"
     assert error.location == ["body", "password"]
-
-    assert any(
-        warning in error.message
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.message}"
-
+    assert any(message in error.message for message in error_messages), (
+        f"Неожиданная ошибка: {error.message}"
+    )
+    assert error.input == password
     assert error.context, "Контекст ошибки пуст"
+    assert "error" in error.context
 
-    if error.context is not None: assert any(
-        warning in error.context
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.context}"
 
 @allure.step("Проверка ответа на запрос с некорректным номером телефона")
-def assert_wrong_phone_response(actual: InputValidationErrorResponseSchema) -> None:
-    warnings = [
+def assert_wrong_phone_response(
+        actual: InputValidationErrorResponseSchema,
+        phone: str) -> None:
+    error_messages = [
         "Value error, Phone number is too long",
         "Value error, Phone number is too short",
         "Value error, Phone number must contain only digits and optional + at the beginning",
@@ -71,23 +74,18 @@ def assert_wrong_phone_response(actual: InputValidationErrorResponseSchema) -> N
     ]
 
     assert actual.detail, "Список ошибок пуст"
+    assert len(actual.detail) == 1, "В ответе более одной ошибки"
 
     error = actual.detail[0]
 
     assert error.type == "value_error"
     assert error.location == ["body", "phone"]
-
-    assert any(
-        warning in error.message
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.message}"
-
+    assert any(message in error.message for message in error_messages), (
+        f"Неожиданная ошибка: {error.message}"
+    )
+    assert error.input == phone
     assert error.context, "Контекст ошибки пуст"
-
-    if error.context is not None: assert any(
-        warning in error.context
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.context}"
+    assert "error" in error.context
 
 @allure.step("Проверка ответа на запрос с уже зарегистрированным email")
 def assert_email_exists_response(actual: HTTPValidationErrorResponseSchema) -> None:
