@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMCwiaXNfYWRtaW4iOnRydWV9.GVeurEykYGBEzWx79DmT-xbrFeT4kdF07l81cCVwKD4' \
+ -H 'content-length: 455' \
+ -H 'content-type: application/json' \
+ -d '{"name":"остановить","description":"Сверкать мгновение вряд посвятить заявление идея товар сверкающий. Зима выраженный посидеть ремень еврейский четыре строительство помолчать.\nБлин дурацкий полностью металл.","price":1838,"is_available":false,"image_url":"https://placekitten.com/743/401.jpg"}'

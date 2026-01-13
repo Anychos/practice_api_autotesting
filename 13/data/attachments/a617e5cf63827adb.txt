@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaXNfYWRtaW4iOnRydWV9.vXwoK0i0fpfRTf1KfVd4FjDD169ZWpH-fler93TGseY' \
+ -H 'content-length: 342' \
+ -H 'content-type: application/json' \
+ -d '{"name":"наступать","description":"Сопровождаться вообще танцевать еврейский вообще. Наслаждение задрать горький коллектив естественный изображать.","price":1611,"is_available":false,"image_url":"https://dummyimage.com/944x733.webp"}'

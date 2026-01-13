@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNSwiaXNfYWRtaW4iOnRydWV9.9ceP-vUTrpfMrUyYCrq_WaDY1xJWEJ9wdaK5gfw3Udg' \
+ -H 'content-length: 415' \
+ -H 'content-type: application/json' \
+ -d '{"name":"выразить","description":"Карандаш настать реклама самостоятельно картинка грустный поколение нажать. Висеть страсть социалистический хотеть. Сынок спалить порог песенка палка тута.","price":861,"is_available":true,"image_url":"https://dummyimage.com/66x360.webp"}'
