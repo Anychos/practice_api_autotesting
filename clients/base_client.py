@@ -5,6 +5,11 @@ from httpx import Client, URL
 
 
 class BaseAPIClient:
+    """
+    Базовый класс API клиента
+
+    Описывает все используемые HTTP методы
+    """
     def __init__(self, client: Client):
         self.client = client
 

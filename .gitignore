@@ -1,6 +1,7 @@
 .venv
 .idea
 __pycache__
+*~
 
 allure-results
 allure-report

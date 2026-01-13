@@ -11,6 +11,9 @@ from tools.routes import Routes
 
 
 class UserAPIClient(BaseAPIClient):
+    """
+    Клиент для работы с API пользователей
+    """
     @allure.step("Отправка запроса на создание пользователя")
     @tracker.track_coverage_httpx(Routes.USERS)
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
@@ -36,7 +39,18 @@ class UserAPIClient(BaseAPIClient):
         return self.delete(url=f"{Routes.USERS}/{user_id}")
 
 def get_public_user_client() -> UserAPIClient:
+    """
+    Создает публичный HTTP клиент для доступа к API пользователей
+
+    :return: Публичный HTTP клиент
+    """
     return UserAPIClient(client=get_public_client())
 
 def get_private_user_client(user: LoginRequestSchema) -> UserAPIClient:
+    """
+    Создает приватный HTTP клиент для доступа к API пользователей
+
+    :param user: Пользователь
+    :return: Приватный HTTP клиент
+    """
     return UserAPIClient(client=get_private_client(user))

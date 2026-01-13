@@ -11,6 +11,9 @@ from tools.routes import Routes
 
 
 class ProductAPIClient(BaseAPIClient):
+    """
+    Клиент для работы с API продуктов
+    """
     @allure.step("Отправка запроса на создание продукта")
     @tracker.track_coverage_httpx(Routes.PRODUCTS)
     def create_product_api(self, request: CreateProductRequestSchema) -> Response:
@@ -41,7 +44,18 @@ class ProductAPIClient(BaseAPIClient):
         return self.delete(url=f"{Routes.PRODUCTS}/{product_id}")
 
 def get_public_product_client() -> ProductAPIClient:
+    """
+    Создает публичный HTTP клиент для доступа к API продуктов
+
+    :return: Публичный HTTP клиент
+    """
     return ProductAPIClient(client=get_public_client())
 
 def get_private_product_client(user: LoginRequestSchema) -> ProductAPIClient:
+    """
+    Создает приватный HTTP клиент для доступа к API продуктов
+
+    :param user: Пользователь
+    :return: Приватный HTTP клиент
+    """
     return ProductAPIClient(client=get_private_client(user))

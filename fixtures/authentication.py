@@ -5,4 +5,9 @@ from clients.authentication.client import AuthenticationAPIClient, get_login_cli
 
 @pytest.fixture
 def auth_client() -> AuthenticationAPIClient:
+    """
+    Возвращает готовый HTTP клиент для доступа к API аутентификации
+
+    :return: HTTP клиент
+    """
     return get_login_client()

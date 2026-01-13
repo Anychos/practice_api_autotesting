@@ -7,6 +7,12 @@ from config import settings
 
 
 def get_private_client(user: LoginRequestSchema) -> Client:
+    """
+    Создает приватный HTTP клиент для доступа к защищенному API
+
+    :param user: Пользователь для авторизации
+    :return: Приватный HTTP клиент
+    """
     client = get_login_client()
     request = LoginRequestSchema(email=user.email, password=user.password)
 

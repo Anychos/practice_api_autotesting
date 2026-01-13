@@ -11,6 +11,9 @@ from tools.routes import Routes
 
 
 class OrderAPIClient(BaseAPIClient):
+    """
+    Клиент для работы с API заказов
+    """
     @allure.step("Отправка запроса на создание заказа")
     @tracker.track_coverage_httpx(Routes.ORDERS)
     def create_order_api(self, request: CreateOrderRequestSchema) -> Response:
@@ -31,7 +34,18 @@ class OrderAPIClient(BaseAPIClient):
         return self.get(url=Routes.ORDERS)
 
 def get_public_order_client() -> OrderAPIClient:
+    """
+    Создает публичный HTTP клиент для доступа к API заказов
+
+    :return: Публичный HTTP клиент
+    """
     return OrderAPIClient(client=get_public_client())
 
 def get_private_order_client(user: LoginRequestSchema) -> OrderAPIClient:
+    """
+    Создает приватный HTTP клиент для доступа к API заказов
+
+    :param user: Пользователь
+    :return: Приватный HTTP клиент
+    """
     return OrderAPIClient(client=get_private_client(user))

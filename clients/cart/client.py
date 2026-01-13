@@ -11,6 +11,9 @@ from tools.routes import Routes
 
 
 class CartAPIClient(BaseAPIClient):
+    """
+    Клиент для работы с API корзины
+    """
     @allure.step("Отправка запроса на создание корзины")
     @tracker.track_coverage_httpx(f"{Routes.CARTS}/items")
     def add_item_cart_api(self, request: AddItemCartRequestSchema) -> Response:
@@ -41,7 +44,18 @@ class CartAPIClient(BaseAPIClient):
         return self.delete(url=Routes.CARTS)
 
 def get_public_cart_client() -> CartAPIClient:
+    """
+    Создает публичный HTTP клиент для доступа к API корзины
+
+    :return: Публичный HTTP клиент
+    """
     return CartAPIClient(client=get_public_client())
 
 def get_private_cart_client(user: LoginRequestSchema) -> CartAPIClient:
+    """
+    Создает приватный HTTP клиент для доступа к API корзины
+
+    :param user: Пользователь
+    :return: Приватный HTTP клиент
+    """
     return CartAPIClient(client=get_private_client(user))
