@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaXNfYWRtaW4iOnRydWV9.iaT9JZnnj2ZXyMgkgj-sgPk56qwJMPPIUHUryn-C6S8' \
+ -H 'content-length: 328' \
+ -H 'content-type: application/json' \
+ -d '{"name":"вскинуть","description":"Грудь рот рассуждение единый войти командир нервно. Вообще мрачно подробность прошептать очко металл секунда.","price":899,"is_available":true,"image_url":"https://dummyimage.com/109x494.jpg"}'

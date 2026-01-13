@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMywiaXNfYWRtaW4iOnRydWV9.bRcKQp3_LU_9t9gm0Nul7VtsyGvrMb0NjTRWeZ64jwE' \
+ -H 'content-length: 115' \
+ -H 'content-type: application/json' \
+ -d '{"name":"name","description":12345,"price":123,"is_available":false,"image_url":"https://picsum.photos/44/305.jpg"}'

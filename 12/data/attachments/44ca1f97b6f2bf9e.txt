@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMCwiaXNfYWRtaW4iOnRydWV9.GVeurEykYGBEzWx79DmT-xbrFeT4kdF07l81cCVwKD4' \
+ -H 'content-length: 439' \
+ -H 'content-type: application/json' \
+ -d '{"name":"район","description":"Социалистический мелочь неправда теория ученый интернет. Изменение головной вскинуть сбросить смеяться пропадать решение. Аллея счастье кузнец социалистический пища песня.","price":1477,"is_available":true,"image_url":"https://picsum.photos/568/17.jpg"}'

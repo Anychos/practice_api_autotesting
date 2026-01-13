@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOSwiaXNfYWRtaW4iOnRydWV9.aQsvr4Dneh69SwiAXrczacINg6E3dpQzr2lBGkWSakw' \
+ -H 'content-length: 492' \
+ -H 'content-type: application/json' \
+ -d '{"name":"добиться","description":"Естественный следовательно лапа. Спалить прежний падаль пасть. Расстегнуть порог потом витрина смертельный.\nСтакан рассуждение мусор.\nЗатянуться славный одиннадцать космос поставить одиннадцать.","price":1643,"is_available":true,"image_url":"https://placekitten.com/905/495.jpg"}'

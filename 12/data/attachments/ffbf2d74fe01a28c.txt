@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNiwiaXNfYWRtaW4iOnRydWV9.h8JtNKGozBpN_fauGHo7CT7a60d96IKB0OTdVYUzG-c' \
+ -H 'content-length: 129' \
+ -H 'content-type: application/json' \
+ -d '{"name":"name","description":"description","price":"price","is_available":true,"image_url":"https://placekitten.com/845/71.jpeg"}'
