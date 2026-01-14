@@ -1,3 +1,5 @@
+from typing import Any
+
 import allure
 
 from clients.error_shemas import InputValidationErrorResponseSchema
@@ -42,28 +44,28 @@ def assert_delete_product_response(actual: DeleteProductResponseSchema) -> None:
     assert_value(actual.message, "Product deleted successfully", "message")
 
 @allure.step("Проверка ответа на запрос создания продукта с некорректным форматом в данных")
-def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema):
-    warnings = [
+def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:
+    error_messages = [
         "Input should be a valid string",
         "Input should be a valid number, unable to parse string as a number"
     ]
 
     assert actual.detail, "Список ошибок пуст"
+    assert len(actual.detail) == 1, "В ответе более одной ошибки"
 
     error = actual.detail[0]
 
     assert error.type in ["string_type", "float_parsing"]
-    assert error.location[0] == "body"
-    assert error.location[1] in {"name", "description", "price"}
+    assert error.location == ["body", wrong_field]
+    assert any(message in error.message for message in error_messages), (
+        f"Неожиданная ошибка: {error.message}"
+    )
+    assert error.input == wrong_value
 
-    assert any(
-        warning in error.message
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.message}"
 
 @allure.step("Проверка ответа на запрос создания продукта с пустым обязательным полем")
-def assert_empty_required_field_response(actual: InputValidationErrorResponseSchema) -> None:
-    warnings = [
+def assert_empty_required_field_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:
+    error_messages = [
         "String should have at least 2 characters",
         "String should have at least 10 characters",
         "Input should be greater than 0",
@@ -71,27 +73,20 @@ def assert_empty_required_field_response(actual: InputValidationErrorResponseSch
     ]
     error_types = [
         "string_too_short",
-        "string_too_short",
+        "string_too_long",
         "greater_than",
         "value_error"
     ]
 
     assert actual.detail, "Список ошибок пуст"
+    assert len(actual.detail) == 1, "В ответе более одной ошибки"
 
     error = actual.detail[0]
 
     assert error.type in error_types
-    assert error.location[0] == "body"
-    assert error.location[1] in {"name", "description", "price", "image_url"}
-
-    assert any(
-        warning in error.message
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.message}"
-
+    assert error.location == ["body", wrong_field]
+    assert any(message in error.message for message in error_messages), (
+        f"Неожиданная ошибка: {error.message}"
+    )
+    assert error.input == wrong_value
     assert error.context, "Контекст ошибки пуст"
-
-    if error.context is not None: assert any(
-        warning in error.context
-        for warning in warnings
-    ), f"Неожиданная ошибка: {error.context}"
