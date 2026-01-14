@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNSwiaXNfYWRtaW4iOnRydWV9.3U7A6tvP2XMXDVhK8muZRBj_OWK5oJHw1-0bV5MTsdk' \
+ -H 'content-length: 368' \
+ -H 'content-type: application/json' \
+ -d '{"name":"картинка","description":"Дыхание правление тута рай мгновение штаб. Соответствие райком неудобно приходить совет новый. Степь расстройство низкий дурацкий.","price":1265,"is_available":false,"image_url":"https://picsum.photos/402/410.jpg"}'

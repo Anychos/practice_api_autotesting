@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMywiaXNfYWRtaW4iOnRydWV9.IzWei_IO1dZPrQdEnHwINYsi11KWeyfI7fFqZ7UjqYk' \
+ -H 'content-length: 279' \
+ -H 'content-type: application/json' \
+ -d '{"name":"плавно","description":"Левый плод космос коллектив услать эффект виднеться. Выбирать мусор поймать господь.","price":560,"is_available":false,"image_url":"https://placekitten.com/261/465.jpg"}'

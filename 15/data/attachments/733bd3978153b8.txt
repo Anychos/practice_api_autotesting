@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMiwiaXNfYWRtaW4iOnRydWV9.ISW997DuWeT31YUGe9citonTiwgZvdsX7lsBM4aLwxk' \
+ -H 'content-length: 381' \
+ -H 'content-type: application/json' \
+ -d '{"name":"ныне","description":"Издали адвокат провинция промолчать низкий. Выраженный механический металл инфекция налево. Сходить белье ответить вскинуть девка коммунизм.","price":1458,"is_available":false,"image_url":"https://picsum.photos/431/445.webp"}'

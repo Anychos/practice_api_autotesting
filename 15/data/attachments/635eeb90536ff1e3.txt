@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNSwiaXNfYWRtaW4iOnRydWV9.lrdyIAOrQT9dKetwF68u8aj4oRqiuEKKioKggk5TCbk' \
+ -H 'content-length: 415' \
+ -H 'content-type: application/json' \
+ -d '{"name":123456,"description":"Запретить ленинград рот. Сверкающий неожиданно плавно нажать приятель развитый протягивать. Остановить вариант слишком господь сомнительный проход коммунизм за.","price":1775,"is_available":false,"image_url":"https://picsum.photos/373/649.webp"}'

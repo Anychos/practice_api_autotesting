@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMiwiaXNfYWRtaW4iOnRydWV9.avMTNhcb0dbOlWrcF3G5v9L5T1gv4e6kdUYTpEtjl68' \
+ -H 'content-length: 462' \
+ -H 'content-type: application/json' \
+ -d '{"name":"скользить","description":"Адвокат коллектив монета торопливый угроза еврейский. Командующий вздрогнуть мгновение прежний отражение карман результат. Домашний встать достоинство табак назначить ребятишки.","price":964,"is_available":false,"image_url":"https://placekitten.com/684/586.png"}'

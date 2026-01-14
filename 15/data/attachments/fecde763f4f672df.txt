@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOCwiaXNfYWRtaW4iOnRydWV9.kzXI7BuLQJthJTQnzsQ6bJU7S806xj3CwqAIrOzSH-I' \
+ -H 'content-length: 365' \
+ -H 'content-type: application/json' \
+ -d '{"name":"намерение","description":"Кожа плод некоторый вздрагивать художественный неправда. Аллея металл славный выгнать пропадать. Страсть сомнительный за очко.","price":1891,"is_available":true,"image_url":"https://placekitten.com/932/924.jpeg"}'
