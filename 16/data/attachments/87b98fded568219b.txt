@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MCwiaXNfYWRtaW4iOnRydWV9.keQp9YFQhA_jwU4XJW7DIXgdNpVvf8C3if-AbaO3gQM' \
+ -H 'content-length: 141' \
+ -H 'content-type: application/json' \
+ -d '{"name":"налево","description":"","price":1253,"is_available":false,"image_url":"https://picsum.photos/468/270.jpg","stock_quantity":8}'

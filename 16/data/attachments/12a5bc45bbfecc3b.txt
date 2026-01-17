@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOSwiaXNfYWRtaW4iOnRydWV9.aQsvr4Dneh69SwiAXrczacINg6E3dpQzr2lBGkWSakw' \
+ -H 'content-length: 432' \
+ -H 'content-type: application/json' \
+ -d '{"name":"горький","description":"Необычный смертельный означать приходить багровый полоска жить. Нервно ботинок тяжелый доставать торопливый тусклый плавно. Правление указанный ответить.","price":1123,"is_available":true,"image_url":"https://dummyimage.com/1022x590.jpeg","stock_quantity":8}'

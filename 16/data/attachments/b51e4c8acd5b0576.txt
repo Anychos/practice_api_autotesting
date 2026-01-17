@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaXNfYWRtaW4iOnRydWV9.iYoMGAsBfUDdkaUeV1VR1UIUdKN2VBpkedjL64OqX5A' \
+ -H 'content-length: 412' \
+ -H 'content-type: application/json' \
+ -d '{"name":"чувство","description":"Перебивать товар изредка совещание крыса а полоска. Поймать направо около число. Манера бок мелькнуть поздравлять очередной приходить танцевать.","price":1469,"is_available":true,"image_url":"https://placekitten.com/634/811.jpg","stock_quantity":6}'

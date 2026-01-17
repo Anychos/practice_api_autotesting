@@ -1,0 +1,10 @@
+curl -X 'PUT' 'http://localhost:8080/products/12' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNSwiaXNfYWRtaW4iOnRydWV9.lrdyIAOrQT9dKetwF68u8aj4oRqiuEKKioKggk5TCbk' \
+ -H 'content-length: 373' \
+ -H 'content-type: application/json' \
+ -d '{"name":"наткнуться","description":"Крутой иной отражение. Трубка тусклый сомнительный слишком похороны освободить. Важный обида собеседник встать оставить.","price":272,"is_available":true,"image_url":"https://dummyimage.com/973x217.jpeg","stock_quantity":8}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMCwiaXNfYWRtaW4iOnRydWV9.GTjGmusIzWtB8a0OJxAcMuvu7GlG6Ugj0qAkhmDtQzs' \
+ -H 'content-length: 412' \
+ -H 'content-type: application/json' \
+ -d '{"name":123456,"description":"Единый ремень банда невозможно. Изменение космос строительство труп. Совет выражение трясти головной чем дальний. Грудь разводить возбуждение тревога.","price":1103,"is_available":false,"image_url":"https://picsum.photos/128/142.jpg","stock_quantity":6}'

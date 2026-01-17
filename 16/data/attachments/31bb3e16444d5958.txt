@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNSwiaXNfYWRtaW4iOnRydWV9.9ceP-vUTrpfMrUyYCrq_WaDY1xJWEJ9wdaK5gfw3Udg' \
+ -H 'content-length: 291' \
+ -H 'content-type: application/json' \
+ -d '{"name":"интернет","description":"Устройство виднеться ботинок покидать парень куча. Тюрьма магазин миф пропасть.","price":840,"is_available":true,"image_url":"https://dummyimage.com/767x864.jpg","stock_quantity":3}'

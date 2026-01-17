@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMCwiaXNfYWRtaW4iOnRydWV9.GVeurEykYGBEzWx79DmT-xbrFeT4kdF07l81cCVwKD4' \
+ -H 'content-length: 508' \
+ -H 'content-type: application/json' \
+ -d '{"name":"порядок","description":"Через ручей монета торопливый ручей тысяча.\nСлишком наслаждение художественный слишком намерение ручей цвет. Бригада актриса прежде спалить космос уронить. Налево хозяйка палата висеть рота упорно.","price":353,"is_available":true,"image_url":"https://picsum.photos/915/509.png","stock_quantity":6}'
