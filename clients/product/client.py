@@ -17,7 +17,10 @@ class ProductAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(Routes.PRODUCTS)
     @allure.step("Отправка запроса на создание продукта")
-    def create_product_api(self, request: CreateProductRequestSchema) -> Response:
+    def create_product_api(self,
+                           *,
+                           request: CreateProductRequestSchema
+                           ) -> Response:
         """
         Отправляет запрос на создание продукта
 
@@ -27,13 +30,19 @@ class ProductAPIClient(BaseAPIClient):
 
         return self.post(url=Routes.PRODUCTS, json=request.model_dump())
 
-    def create_product(self, request: CreateProductRequestSchema) -> CreateProductResponseSchema:
-        response = self.create_product_api(request)
+    def create_product(self,
+                       *,
+                       request: CreateProductRequestSchema
+                       ) -> CreateProductResponseSchema:
+        response = self.create_product_api(request=request)
         return CreateProductResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
     @allure.step("Отправка запроса на получение продукта")
-    def get_product_api(self, product_id: int) -> Response:
+    def get_product_api(self,
+                        *,
+                        product_id: int
+                        ) -> Response:
         """
         Отправляет запрос на получение продукта
 
@@ -57,6 +66,7 @@ class ProductAPIClient(BaseAPIClient):
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
     @allure.step("Отправка запроса на обновление продукта")
     def update_product_api(self,
+                           *,
                            product_id: int,
                            request: UpdateProductRequestSchema
                            ) -> Response:
@@ -72,7 +82,10 @@ class ProductAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
     @allure.step("Отправка запроса на удаление продукта")
-    def delete_product_api(self, product_id: int) -> Response:
+    def delete_product_api(self,
+                           *,
+                           product_id: int
+                           ) -> Response:
         """
         Отправляет запрос на удаление продукта
 
@@ -92,7 +105,10 @@ def get_public_product_client() -> ProductAPIClient:
 
     return ProductAPIClient(client=get_public_client())
 
-def get_private_product_client(user: LoginRequestSchema) -> ProductAPIClient:
+def get_private_product_client(
+        *,
+        user: LoginRequestSchema
+) -> ProductAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API продуктов
 
@@ -100,4 +116,4 @@ def get_private_product_client(user: LoginRequestSchema) -> ProductAPIClient:
     :return: Приватный HTTP клиент
     """
 
-    return ProductAPIClient(client=get_private_client(user))
+    return ProductAPIClient(client=get_private_client(user=user))

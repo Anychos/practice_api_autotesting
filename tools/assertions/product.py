@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 import allure
 
@@ -9,7 +9,11 @@ from tools.assertions.base_assertions import assert_field_exists, assert_value
 
 
 @allure.step("Проверка данных продукта по схеме")
-def assert_product(actual: ProductSchema, expected: ProductSchema) -> None:
+def assert_product(
+        *,
+        actual: ProductSchema,
+        expected: ProductSchema
+) -> None:
     assert_value(actual.name, expected.name, "name")
     assert_value(actual.description, expected.description, "description")
     assert_value(actual.price, expected.price, "price")
@@ -19,28 +23,41 @@ def assert_product(actual: ProductSchema, expected: ProductSchema) -> None:
 
 
 @allure.step("Проверка ответа на запрос создания продукта")
-def assert_create_product_response(actual: CreateProductResponseSchema, expected: CreateProductRequestSchema) -> None:
+def assert_create_product_response(
+        *,
+        actual: CreateProductResponseSchema,
+        expected: CreateProductRequestSchema
+) -> None:
     assert_field_exists(actual.id, "id")
     assert_product(actual, expected)
 
 
 @allure.step("Проверка ответа на запрос получения продукта")
-def assert_get_product_response(actual: GetProductResponseSchema, expected: CreateProductResponseSchema) -> None:
+def assert_get_product_response(
+        *,
+        actual: GetProductResponseSchema,
+        expected: CreateProductResponseSchema
+) -> None:
     assert_value(actual.id, expected.id, "id")
     assert_product(actual, expected)
 
 
 @allure.step("Проверка ответа на запрос списка продуктов")
 def assert_get_products_response(
-        get_products_response: list[GetProductResponseSchema],
-        create_product_responses: list[CreateProductResponseSchema]
+        *,
+        get_products_response: List[GetProductResponseSchema],
+        create_product_responses: List[CreateProductResponseSchema]
 ) -> None:
     for index, create_product_response in enumerate(create_product_responses):
         assert_product(get_products_response[index], create_product_response)
 
 
 @allure.step("Проверка ответа на запрос обновления продукта")
-def assert_update_product_response(actual: UpdateProductResponseSchema, expected: UpdateProductRequestSchema) -> None:
+def assert_update_product_response(
+        *,
+        actual: UpdateProductResponseSchema,
+        expected: UpdateProductRequestSchema
+) -> None:
     assert_field_exists(actual.id, "id")
     assert_product(actual, expected)
 
@@ -51,7 +68,12 @@ def assert_delete_product_response(actual: DeleteProductResponseSchema) -> None:
 
 
 @allure.step("Проверка ответа на запрос создания продукта с некорректным форматом в данных")
-def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:
+def assert_wrong_data_format_response(
+        *,
+        actual: InputValidationErrorResponseSchema,
+        wrong_field: str,
+        wrong_value: Any
+) -> None:
     error_messages = [
         "Input should be a valid string",
         "Input should be a valid number, unable to parse string as a number"
@@ -71,7 +93,12 @@ def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema
 
 
 @allure.step("Проверка ответа на запрос создания продукта с пустым обязательным полем")
-def assert_empty_required_field_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:
+def assert_empty_required_field_response(
+        *,
+        actual: InputValidationErrorResponseSchema,
+        wrong_field: str,
+        wrong_value: Any
+) -> None:
     error_messages = [
         "String should have at least 2 characters",
         "String should have at least 10 characters",

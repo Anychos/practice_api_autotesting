@@ -17,7 +17,10 @@ class OrderAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(Routes.ORDERS)
     @allure.step("Отправка запроса на создание заказа")
-    def create_order_api(self, request: CreateOrderRequestSchema) -> Response:
+    def create_order_api(self,
+                         *,
+                         request: CreateOrderRequestSchema
+                         ) -> Response:
         """
         Отправляет запрос на создание заказа
 
@@ -27,13 +30,19 @@ class OrderAPIClient(BaseAPIClient):
 
         return self.post(url=Routes.ORDERS, json=request.model_dump())
 
-    def create_order(self, request: CreateOrderRequestSchema) -> CreateOrderResponseSchema:
-        response = self.create_order_api(request)
+    def create_order(self,
+                     *,
+                     request: CreateOrderRequestSchema
+                     ) -> CreateOrderResponseSchema:
+        response = self.create_order_api(request=request)
         return CreateOrderResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(f"{Routes.ORDERS}/" + "{order_id}")
     @allure.step("Отправка запроса на получение заказа")
-    def get_order_api(self, order_id: int) -> Response:
+    def get_order_api(self,
+                      *,
+                      order_id: int
+                      ) -> Response:
         """
         Отправляет запрос на получение заказа
 
@@ -64,7 +73,10 @@ def get_public_order_client() -> OrderAPIClient:
 
     return OrderAPIClient(client=get_public_client())
 
-def get_private_order_client(user: LoginRequestSchema) -> OrderAPIClient:
+def get_private_order_client(
+        *,
+        user: LoginRequestSchema
+) -> OrderAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API заказов
 
@@ -72,4 +84,4 @@ def get_private_order_client(user: LoginRequestSchema) -> OrderAPIClient:
     :return: Приватный HTTP клиент
     """
 
-    return OrderAPIClient(client=get_private_client(user))
+    return OrderAPIClient(client=get_private_client(user=user))

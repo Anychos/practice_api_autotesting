@@ -6,7 +6,6 @@ from pydantic import BaseModel, Field, ConfigDict
 class ErrorSchema(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-
     type: str
     location: List[str | int] = Field(alias="loc")
     message: str = Field(alias="msg")

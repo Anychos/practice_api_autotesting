@@ -17,7 +17,10 @@ class UserAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(Routes.USERS)
     @allure.step("Отправка запроса на создание пользователя")
-    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
+    def create_user_api(self,
+                        *,
+                        request: CreateUserRequestSchema
+                        ) -> Response:
         """
         Отправляет запрос на создание пользователя
 
@@ -27,13 +30,19 @@ class UserAPIClient(BaseAPIClient):
 
         return self.post(url=Routes.USERS, json=request.model_dump())
 
-    def create_user(self, request: CreateUserRequestSchema) -> CreateUserResponseSchema:
-        response = self.create_user_api(request)
+    def create_user(self,
+                    *,
+                    request: CreateUserRequestSchema
+                    ) -> CreateUserResponseSchema:
+        response = self.create_user_api(request=request)
         return CreateUserResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
     @allure.step("Отправка запроса на получение пользователя")
-    def get_user_api(self, user_id: int) -> Response:
+    def get_user_api(self,
+                     *,
+                     user_id: int
+                     ) -> Response:
         """
         Отправляет запрос на получение пользователя
 
@@ -46,6 +55,7 @@ class UserAPIClient(BaseAPIClient):
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
     @allure.step("Отправка запроса на обновление пользователя")
     def update_user_api(self,
+                        *,
                         user_id: int,
                         request: UpdateUserRequestSchema
                         ) -> Response:
@@ -61,7 +71,10 @@ class UserAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
     @allure.step("Отправка запроса на удаление пользователя")
-    def delete_user_api(self, user_id: int) -> Response:
+    def delete_user_api(self,
+                        *,
+                        user_id: int
+                        ) -> Response:
         """
         Отправляет запрос на удаление пользователя
 
@@ -81,7 +94,10 @@ def get_public_user_client() -> UserAPIClient:
 
     return UserAPIClient(client=get_public_client())
 
-def get_private_user_client(user: LoginRequestSchema) -> UserAPIClient:
+def get_private_user_client(
+        *,
+        user: LoginRequestSchema
+) -> UserAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API пользователей
 
@@ -89,4 +105,4 @@ def get_private_user_client(user: LoginRequestSchema) -> UserAPIClient:
     :return: Приватный HTTP клиент
     """
 
-    return UserAPIClient(client=get_private_client(user))
+    return UserAPIClient(client=get_private_client(user=user))

@@ -6,7 +6,10 @@ from clients.event_hooks import request_curl_event_hook
 from config import settings
 
 
-def get_private_client(user: LoginRequestSchema) -> Client:
+def get_private_client(
+        *,
+        user: LoginRequestSchema
+) -> Client:
     """
     Создает HTTP клиент для доступа к приватному API
 
@@ -17,7 +20,7 @@ def get_private_client(user: LoginRequestSchema) -> Client:
     client = get_login_client()
     request = LoginRequestSchema(email=user.email, password=user.password)
 
-    response = client.login(request)
+    response = client.login(request=request)
     token = response.access_token
     return Client(
         base_url=settings.http_client.url,

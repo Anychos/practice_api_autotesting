@@ -66,6 +66,7 @@ def create_product_factory(admin_private_product_client: ProductAPIClient) -> Ca
     """
 
     def _create_product(
+            *,
             is_available: bool = True,
             stock_quantity: int = 1
     ) -> ProductFixture:
@@ -81,7 +82,7 @@ def create_product_factory(admin_private_product_client: ProductAPIClient) -> Ca
             is_available=is_available,
             stock_quantity=stock_quantity
         )
-        response = admin_private_product_client.create_product(request)
+        response = admin_private_product_client.create_product(request=request)
         return ProductFixture(request=request, response=response)
 
     return _create_product

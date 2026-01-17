@@ -31,7 +31,7 @@ class TestProductPositive:
     def test_create_product(self, admin_private_product_client: ProductAPIClient) -> None:
         request = CreateProductRequestSchema()
 
-        response = admin_private_product_client.create_product_api(request)
+        response = admin_private_product_client.create_product_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateProductResponseSchema.model_validate_json(response.text)
@@ -131,7 +131,7 @@ class TestProductNegative:
                                                              description=description,
                                                              price=price)
 
-        response = admin_private_product_client.create_product_api(request)
+        response = admin_private_product_client.create_product_api(request=request)
         print(response.text)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
@@ -171,7 +171,7 @@ class TestProductNegative:
                                                              price=price,
                                                              image_url=image_url)
 
-        response = admin_private_product_client.create_product_api(request)
+        response = admin_private_product_client.create_product_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)

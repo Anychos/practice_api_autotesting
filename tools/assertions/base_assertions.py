@@ -5,7 +5,10 @@ from jsonschema.validators import validate, Draft202012Validator
 
 
 @allure.step("Проверка соответствия статус кода ответа. Ожидался {expected}, получен {actual}")
-def assert_status_code(actual: int, expected: int) -> None:
+def assert_status_code(
+        actual: int,
+        expected: int
+) -> None:
     """
     Функция для проверки статус кода
 
@@ -19,7 +22,11 @@ def assert_status_code(actual: int, expected: int) -> None:
 
 
 @allure.step("Проверка соответствия значения в поле {field_name}. Ожидалось {expected}, получено {actual}")
-def assert_value(actual: Any, expected: Any, field_name: str) -> None:
+def assert_value(
+        actual: Any,
+        expected: Any,
+        field_name: str
+) -> None:
     """
     Функция для проверки значения в поле ответа
 
@@ -34,7 +41,10 @@ def assert_value(actual: Any, expected: Any, field_name: str) -> None:
 
 
 @allure.step("Проверка наличия поля {field_name} в ответе")
-def assert_field_exists(actual: Any, field_name: str) -> None:
+def assert_field_exists(
+        actual: Any,
+        field_name: str
+) -> None:
     """
     Проверяет, что поле присутствует в ответе
 
@@ -48,7 +58,11 @@ def assert_field_exists(actual: Any, field_name: str) -> None:
 
 
 @allure.step("Проверка длины объекта {name}. Ожидалась {expected}, получена {actual}")
-def assert_length(actual: Sized, expected: Sized, name: str) -> None:
+def assert_length(
+        actual: Sized,
+        expected: Sized,
+        name: str
+) -> None:
     """
     Проверяет, что длины двух объектов совпадают
 
@@ -65,7 +79,10 @@ def assert_length(actual: Sized, expected: Sized, name: str) -> None:
 
 
 @allure.step("Валидация JSON схемы ответа")
-def assert_json_schema(instance: Any, schema: dict) -> None:
+def assert_json_schema(
+        instance: Any,
+        schema: dict
+) -> None:
     """
     Проверяет, соответствует ли JSON в ответе заданной схеме
 

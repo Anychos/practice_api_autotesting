@@ -33,7 +33,7 @@ class TestAuthenticationPositive:
         user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password=user.password)
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
@@ -51,7 +51,7 @@ class TestAuthenticationPositive:
         admin = create_user_factory(is_admin=True)
         request = LoginRequestSchema(email=admin.email, password=admin.password)
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
@@ -74,7 +74,7 @@ class TestAuthenticationNegative:
         user = create_user_factory()
         request = LoginRequestSchema(email="test@mail.ru", password=user.password)
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNAUTHORIZED)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
@@ -99,7 +99,7 @@ class TestAuthenticationNegative:
         user = create_user_factory()
         request = LoginRequestSchema.model_construct(email=email, password=user.password)
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -116,7 +116,7 @@ class TestAuthenticationNegative:
         user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password="wrong_password_123")
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNAUTHORIZED)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
@@ -133,7 +133,7 @@ class TestAuthenticationNegative:
         user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password="")
 
-        response = auth_client.login_api(request)
+        response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNAUTHORIZED)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)

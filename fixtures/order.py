@@ -46,7 +46,10 @@ def private_order_client(create_user_factory: Callable[..., UserFixture]) -> Ord
 
 
 @pytest.fixture
-def create_order(private_order_client: OrderAPIClient, create_cart: CartFixture) -> OrderFixture:
+def create_order(
+        private_order_client: OrderAPIClient,
+        create_cart: CartFixture
+) -> OrderFixture:
     """
     Создает заказ
 
@@ -56,5 +59,5 @@ def create_order(private_order_client: OrderAPIClient, create_cart: CartFixture)
     """
 
     request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
-    response = private_order_client.create_order(request)
+    response = private_order_client.create_order(request=request)
     return OrderFixture(request=request, response=response)

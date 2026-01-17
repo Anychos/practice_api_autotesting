@@ -58,7 +58,7 @@ def create_user_factory(public_user_client: UserAPIClient) -> Callable[..., User
         """
 
         request = CreateUserRequestSchema(is_admin=is_admin)
-        response = public_user_client.create_user(request)
+        response = public_user_client.create_user(request=request)
         return UserFixture(request=request, response=response)
 
     return _create_user

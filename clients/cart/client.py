@@ -17,7 +17,10 @@ class CartAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(f"{Routes.CARTS}/items")
     @allure.step("Отправка запроса на создание корзины")
-    def add_item_cart_api(self, request: AddItemCartRequestSchema) -> Response:
+    def add_item_cart_api(self,
+                          *,
+                          request: AddItemCartRequestSchema
+                          ) -> Response:
         """
         Отправляет запрос на добавление продукта в корзину
 
@@ -27,8 +30,11 @@ class CartAPIClient(BaseAPIClient):
 
         return self.post(url=f"{Routes.CARTS}/items", json=request.model_dump())
 
-    def add_item_cart(self, request: AddItemCartRequestSchema) -> AddItemCartResponseSchema:
-        response = self.add_item_cart_api(request)
+    def add_item_cart(self,
+                      *,
+                      request: AddItemCartRequestSchema
+                      ) -> AddItemCartResponseSchema:
+        response = self.add_item_cart_api(request=request)
         return AddItemCartResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(Routes.CARTS)
@@ -45,6 +51,7 @@ class CartAPIClient(BaseAPIClient):
     @tracker.track_coverage_httpx(f"{Routes.CARTS}/items/" + "{product_id}")
     @allure.step("Отправка запроса на обновление корзины")
     def update_cart_item_api(self,
+                             *,
                              item_id: int,
                              request: UpdateCartItemRequestSchema
                              ) -> Response:
@@ -60,7 +67,10 @@ class CartAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(f"{Routes.CARTS}/items/" + "{product_id}")
     @allure.step("Отправка запроса на удаление продукта из корзины")
-    def remove_item_cart_api(self, item_id: int) -> Response:
+    def remove_item_cart_api(self,
+                             *,
+                             item_id: int
+                             ) -> Response:
         """
         Отправляет запрос на удаление продукта из корзины
 
@@ -91,7 +101,10 @@ def get_public_cart_client() -> CartAPIClient:
 
     return CartAPIClient(client=get_public_client())
 
-def get_private_cart_client(user: LoginRequestSchema) -> CartAPIClient:
+def get_private_cart_client(
+        *,
+        user: LoginRequestSchema
+) -> CartAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API корзины
 
@@ -99,4 +112,4 @@ def get_private_cart_client(user: LoginRequestSchema) -> CartAPIClient:
     :return: Приватный HTTP клиент
     """
 
-    return CartAPIClient(client=get_private_client(user))
+    return CartAPIClient(client=get_private_client(user=user))

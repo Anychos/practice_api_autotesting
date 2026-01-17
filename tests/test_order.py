@@ -32,7 +32,7 @@ class TestOrderPositive:
                           ) -> None:
         request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
 
-        response = private_order_client.create_order_api(request)
+        response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateOrderResponseSchema.model_validate_json(response.text)
@@ -83,7 +83,7 @@ class TestOrderNegative:
 
         request = CreateOrderRequestSchema(cart_id=cart.cart_id)
 
-        response = private_order_client.create_order_api(request)
+        response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
@@ -99,7 +99,7 @@ class TestOrderNegative:
                                           ) -> None:
         request = CreateOrderRequestSchema(cart_id=1)
 
-        response = private_order_client.create_order_api(request)
+        response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)

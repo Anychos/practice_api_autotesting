@@ -15,7 +15,10 @@ class AuthenticationAPIClient(BaseAPIClient):
 
     @tracker.track_coverage_httpx(Routes.LOGIN)
     @allure.step("Отправка запроса на логин пользователя")
-    def login_api(self, request: LoginRequestSchema) -> Response:
+    def login_api(self,
+                  *,
+                  request: LoginRequestSchema
+                  ) -> Response:
         """
         Отправляет запрос на логин пользователя
 
@@ -25,8 +28,11 @@ class AuthenticationAPIClient(BaseAPIClient):
 
         return self.post(url=Routes.LOGIN, json=request.model_dump())
 
-    def login(self, request: LoginRequestSchema) -> LoginResponseSchema:
-        response = self.login_api(request)
+    def login(self,
+              *,
+              request: LoginRequestSchema
+              ) -> LoginResponseSchema:
+        response = self.login_api(request=request)
         return LoginResponseSchema.model_validate_json(response.text)
 
 

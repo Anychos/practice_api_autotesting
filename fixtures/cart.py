@@ -78,7 +78,7 @@ def create_cart_factory(
         product = create_product_factory(is_available=is_available,
                                          stock_quantity=stock_quantity)
         request = AddItemCartRequestSchema(product_id=product.product_id)
-        response = private_cart_client.add_item_cart(request)
+        response = private_cart_client.add_item_cart(request=request)
         return CartFixture(request=request, response=response)
 
     return _create_cart

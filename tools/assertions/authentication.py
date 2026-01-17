@@ -9,7 +9,11 @@ from tools.assertions.user import assert_user
 
 
 @allure.step("Проверка ответа на запрос логина пользователя")
-def assert_login_response(actual: LoginResponseSchema, expected: CreateUserRequestSchema) -> None:
+def assert_login_response(
+        *,
+        actual: LoginResponseSchema,
+        expected: CreateUserRequestSchema
+) -> None:
     assert_field_exists(actual.access_token, "access_token")
     assert_value(actual.token_type, "bearer", "token_type")
     assert_field_exists(actual.user.id, "user_id")
@@ -21,13 +25,15 @@ def assert_wrong_login_data_response(actual: HTTPValidationErrorResponseSchema) 
     expected = HTTPValidationErrorResponseSchema(
         detail="Невалидный логин или пароль"
     )
-    assert_http_validation_error_response(actual, expected)
+    assert_http_validation_error_response(actual=actual, expected=expected)
 
 
 @allure.step("Проверка ответа на запрос логина пользователя с некорректным форматом email")
 def assert_invalid_email_format_response(
-    actual: InputValidationErrorResponseSchema,
-    email: str) -> None:
+        *,
+        actual: InputValidationErrorResponseSchema,
+        email: str
+) -> None:
     error_messages = [
         "The part after the @-sign is not valid. It should have a period.",
         "An email address cannot end with a period.",

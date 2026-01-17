@@ -30,7 +30,7 @@ class TestUserPositive:
     def test_create_user(self, public_user_client: UserAPIClient) -> None:
         request = CreateUserRequestSchema()
 
-        response = public_user_client.create_user_api(request)
+        response = public_user_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateUserResponseSchema.model_validate_json(response.text)
@@ -98,7 +98,7 @@ class TestUserNegative:
                                      ) -> None:
         request = CreateUserRequestSchema(email=email)
 
-        response = public_user_client.create_user_api(request)
+        response = public_user_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -119,7 +119,7 @@ class TestUserNegative:
                                         ) -> None:
         request = CreateUserRequestSchema(password=password)
 
-        response = public_user_client.create_user_api(request)
+        response = public_user_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -142,7 +142,7 @@ class TestUserNegative:
                                      ) -> None:
         request = CreateUserRequestSchema(phone=phone)
 
-        response = public_user_client.create_user_api(request)
+        response = public_user_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -158,7 +158,7 @@ class TestUserNegative:
                                         ) -> None:
         request = CreateUserRequestSchema(email=user.email)
 
-        response = public_user_client.create_user_api(request)
+        response = public_user_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)

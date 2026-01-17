@@ -34,7 +34,7 @@ class TestCartPositive:
                               ) -> None:
         request = AddItemCartRequestSchema(product_id=create_product.product_id)
 
-        response = private_cart_client.add_item_cart_api(request)
+        response = private_cart_client.add_item_cart_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = AddItemCartResponseSchema.model_validate_json(response.text)
@@ -112,7 +112,7 @@ class TestCartNegative:
         product = create_product_factory(is_available=False, stock_quantity=0)
         request = AddItemCartRequestSchema(product_id=product.product_id)
 
-        response = private_cart_client.add_item_cart_api(request)
+        response = private_cart_client.add_item_cart_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.NOT_FOUND)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
@@ -125,7 +125,7 @@ class TestCartNegative:
     def test_add_not_existing_product_to_cart(self, private_cart_client: CartAPIClient) -> None:
         request = AddItemCartRequestSchema(product_id=1001)
 
-        response = private_cart_client.add_item_cart_api(request)
+        response = private_cart_client.add_item_cart_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.NOT_FOUND)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
@@ -142,7 +142,7 @@ class TestCartNegative:
         product = create_product_factory(is_available=True, stock_quantity=1)
         request = AddItemCartRequestSchema(product_id=product.product_id, quantity=2)
 
-        response = private_cart_client.add_item_cart_api(request)
+        response = private_cart_client.add_item_cart_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)

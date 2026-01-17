@@ -7,27 +7,43 @@ from tools.assertions.base_assertions import assert_field_exists, assert_value
 
 
 @allure.step("Проверка данных пользователя по схеме")
-def assert_user(actual: UserSchema, expected: UserSchema) -> None:
+def assert_user(
+        *,
+        actual: UserSchema,
+        expected: UserSchema
+) -> None:
     assert_value(actual.email, expected.email, "email")
     assert_value(actual.name, expected.name, "name")
     assert_value(actual.phone, expected.phone, "phone")
 
 
 @allure.step("Проверка ответа на запрос создания пользователя")
-def assert_create_user_response(actual: CreateUserResponseSchema, expected: CreateUserRequestSchema) -> None:
+def assert_create_user_response(
+        *,
+        actual: CreateUserResponseSchema,
+        expected: CreateUserRequestSchema
+) -> None:
     assert_field_exists(actual.id, "id")
     assert_field_exists(actual.is_admin, "is_admin")
     assert_user(actual, expected)
 
 
 @allure.step("Проверка ответа на запрос получения пользователя")
-def assert_get_user_response(actual: GetUserResponseSchema, expected: CreateUserResponseSchema) -> None:
+def assert_get_user_response(
+        *,
+        actual: GetUserResponseSchema,
+        expected: CreateUserResponseSchema
+) -> None:
     assert_value(actual.id, expected.id, "id")
     assert_user(actual, expected)
 
 
 @allure.step("Проверка ответа на запрос обновления пользователя")
-def assert_update_user_response(actual: UpdateUserResponseSchema, expected: UpdateUserRequestSchema) -> None:
+def assert_update_user_response(
+        *,
+        actual: UpdateUserResponseSchema,
+        expected: UpdateUserRequestSchema
+) -> None:
     assert_field_exists(actual.id, "id")
     assert_value(actual.email, expected.email, "email")
     assert_value(actual.name, expected.name, "name")
@@ -42,8 +58,10 @@ def assert_delete_user_response(actual: DeleteUserResponseSchema) -> None:
 
 @allure.step("Проверка ответа на запрос с некорректным паролем")
 def assert_wrong_password_response(
+        *,
         actual: InputValidationErrorResponseSchema,
-        password: str) -> None:
+        password: str
+) -> None:
     error_messages = [
         "Value error, Пароль должен содержать не менее 6 символов",
         "Value error, Пароль должен содержать не более 128 символов",
@@ -67,8 +85,10 @@ def assert_wrong_password_response(
 
 @allure.step("Проверка ответа на запрос с некорректным номером телефона")
 def assert_wrong_phone_response(
+        *,
         actual: InputValidationErrorResponseSchema,
-        phone: str) -> None:
+        phone: str
+) -> None:
     error_messages = [
         "Value error, Номер телефона должен содержать не более 12 цифр",
         "Value error, Номер телефона должен содержать не менее 10 цифр",
