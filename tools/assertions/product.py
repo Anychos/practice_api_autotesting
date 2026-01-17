@@ -15,6 +15,7 @@ def assert_product(actual: ProductSchema, expected: ProductSchema) -> None:
     assert_value(actual.price, expected.price, "price")
     assert_value(actual.is_available, expected.is_available, "is_available")
     assert_value(actual.image_url, expected.image_url, "image_url")
+    assert_value(actual.stock_quantity, expected.stock_quantity, "stock_quantity")
 
 @allure.step("Проверка ответа на запрос создания продукта")
 def assert_create_product_response(actual: CreateProductResponseSchema, expected: CreateProductRequestSchema) -> None:
@@ -41,7 +42,7 @@ def assert_update_product_response(actual: UpdateProductResponseSchema, expected
 
 @allure.step("Проверка ответа на запрос удаления продукта")
 def assert_delete_product_response(actual: DeleteProductResponseSchema) -> None:
-    assert_value(actual.message, "Product deleted successfully", "message")
+    assert_value(actual.message, "Продукт удален", "message")
 
 @allure.step("Проверка ответа на запрос создания продукта с некорректным форматом в данных")
 def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:
@@ -90,3 +91,7 @@ def assert_empty_required_field_response(actual: InputValidationErrorResponseSch
     )
     assert error.input == wrong_value
     assert error.context, "Контекст ошибки пуст"
+
+@allure.step("Проверка ответа на запрос создания продукта с некорректным URL изображения")
+def assert_invalid_image_url_response():
+    pass

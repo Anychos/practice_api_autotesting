@@ -1,5 +1,3 @@
-from typing import Any
-
 import allure
 
 from clients.error_shemas import InputValidationErrorResponseSchema, HTTPValidationErrorResponseSchema
@@ -35,15 +33,15 @@ def assert_update_user_response(actual: UpdateUserResponseSchema, expected: Upda
 
 @allure.step("Проверка ответа на запрос удаления пользователя")
 def assert_delete_user_response(actual: DeleteUserResponseSchema) -> None:
-    assert_value(actual.message, "User deleted successfully", "message")
+    assert_value(actual.message, "Пользователь удален", "message")
 
 @allure.step("Проверка ответа на запрос с некорректным паролем")
 def assert_wrong_password_response(
         actual: InputValidationErrorResponseSchema,
         password: str) -> None:
     error_messages = [
-        "Value error, Password must be at least 6 characters long",
-        "Value error, Password must be at most 128 characters long",
+        "Value error, Пароль должен содержать не менее 6 символов",
+        "Value error, Пароль должен содержать не более 128 символов",
         "Input should be a valid string"
     ]
 
@@ -67,10 +65,10 @@ def assert_wrong_phone_response(
         actual: InputValidationErrorResponseSchema,
         phone: str) -> None:
     error_messages = [
-        "Value error, Phone number is too long",
-        "Value error, Phone number is too short",
-        "Value error, Phone number must contain only digits and optional + at the beginning",
-        "Value error, Phone number cannot be empty"
+        "Value error, Номер телефона должен содержать не более 12 цифр",
+        "Value error, Номер телефона должен содержать не менее 10 цифр",
+        "Value error, Номер телефона должен содержать только цифры и опционально символ + в начале",
+        "Value error, Номер телефона не может быть пустым"
     ]
 
     assert actual.detail, "Список ошибок пуст"
@@ -89,4 +87,4 @@ def assert_wrong_phone_response(
 
 @allure.step("Проверка ответа на запрос с уже зарегистрированным email")
 def assert_email_exists_response(actual: HTTPValidationErrorResponseSchema) -> None:
-    assert_value(actual.detail, "Email already registered", "detail")
+    assert_value(actual.detail, "Email уже зарегистрирован", "detail")

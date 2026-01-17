@@ -14,10 +14,11 @@ class GetCartResponseSchema(BaseModel):
     id: int
     user_id: int
     total_quantity: int
+    total_price: int
     items: List[AddItemCartRequestSchema]
 
 class UpdateCartItemRequestSchema(BaseModel):
-    quantity: int = Field(default=2)
+    quantity: int = Field(default=1)
 
 class UpdateCartItemResponseSchema(AddItemCartResponseSchema):
     pass

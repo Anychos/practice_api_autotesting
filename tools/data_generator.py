@@ -36,4 +36,7 @@ class DataGenerator:
         image_url_format = [".jpg", ".png", ".jpeg", ".webp"]
         return self.faker.image_url() + random.choice(image_url_format)
 
+    def quantity(self) -> int:
+        return self.faker.random_int(min=1, max=10)
+
 fake_ru = DataGenerator(Faker("ru_RU"))

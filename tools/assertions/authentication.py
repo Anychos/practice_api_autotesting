@@ -1,10 +1,10 @@
 import allure
 
 from clients.authentication.schemas import LoginResponseSchema
-from clients.error_shemas import HTTPValidationErrorResponseSchema, InputValidationErrorResponseSchema, ErrorSchema
+from clients.error_shemas import HTTPValidationErrorResponseSchema, InputValidationErrorResponseSchema
 from clients.user.schemas import CreateUserRequestSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
-from tools.assertions.error import assert_http_validation_error_response, assert_input_validation_error_response
+from tools.assertions.error import assert_http_validation_error_response
 from tools.assertions.user import assert_user
 
 
@@ -18,7 +18,7 @@ def assert_login_response(actual: LoginResponseSchema, expected: CreateUserReque
 @allure.step("Проверка ответа на запрос логина пользователя с некорректными данными")
 def assert_wrong_login_data_response(actual: HTTPValidationErrorResponseSchema) -> None:
     expected = HTTPValidationErrorResponseSchema(
-        detail="Incorrect email or password"
+        detail="Невалидный логин или пароль"
     )
     assert_http_validation_error_response(actual, expected)
 

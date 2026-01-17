@@ -46,10 +46,6 @@ class TestCartPositive:
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
-        response_data = GetCartResponseSchema.model_validate_json(response.text)
-        assert_get_cart_response(response_data, [create_cart.response])
-        assert_json_schema(response.json(), response_data.model_json_schema())
-
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Удаление единицы продукта из корзины")

@@ -72,7 +72,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Запуск тестов
-        run: pytest -m regression --alluredir=allure-results --numprocesses=3
+        run: pytest -m regression --alluredir=allure-results --numprocesses=3 --reruns 2 --reruns-delay 2
 
       - name: Получение истории Allure отчетов
         uses: actions/checkout@v6

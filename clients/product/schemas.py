@@ -9,6 +9,7 @@ class ProductSchema(BaseModel):
     price: float = Field(default_factory=fake_ru.price)
     is_available: bool = Field(default_factory=fake_ru.availability)
     image_url: str = Field(default_factory=fake_ru.image_url)
+    stock_quantity: int = Field(default_factory=fake_ru.quantity)
 
 class CreateProductRequestSchema(ProductSchema):
     pass

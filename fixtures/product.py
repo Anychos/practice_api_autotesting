@@ -54,6 +54,6 @@ def create_product(admin_private_product_client: ProductAPIClient) -> ProductFix
     :param admin_private_product_client: Приватный HTTP клиент для доступа к API продуктов
     :return: Информация о созданном продукте
     """
-    request = CreateProductRequestSchema()
+    request = CreateProductRequestSchema(is_available=True)
     response = admin_private_product_client.create_product(request)
     return ProductFixture(request=request, response=response)

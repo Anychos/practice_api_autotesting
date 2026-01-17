@@ -112,6 +112,7 @@ class TestProductNegative:
         request = CreateProductRequestSchema.model_construct(name=name, description=description, price=price)
 
         response = admin_private_product_client.create_product_api(request)
+        print(response.text)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
