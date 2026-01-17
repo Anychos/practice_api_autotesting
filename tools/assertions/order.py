@@ -2,6 +2,7 @@ from typing import List
 
 import allure
 
+from clients.error_shemas import HTTPValidationErrorResponseSchema
 from clients.order.schemas import CreateOrderResponseSchema, CreateOrderRequestSchema, GetOrderResponseSchema
 from tools.assertions.base_assertions import assert_value, assert_field_exists
 
@@ -13,9 +14,11 @@ def assert_create_order_response(actual: CreateOrderResponseSchema, expected: Cr
     assert_field_exists(actual.user_id, "user_id")
     assert_field_exists(actual.created_at, "created_at")
 
+
 @allure.step("Проверка ответа на запрос получения заказа")
 def assert_get_order_response(actual: GetOrderResponseSchema, expected: CreateOrderResponseSchema) -> None:
     assert_create_order_response(actual, expected)
+
 
 @allure.step("Проверка ответа на запрос получения списка заказов")
 def assert_get_orders_response(actual: List[GetOrderResponseSchema], expected: List[CreateOrderResponseSchema]) -> None:
@@ -27,3 +30,14 @@ def assert_get_orders_response(actual: List[GetOrderResponseSchema], expected: L
             assert_value(actual_order.user_id, expected_order.user_id, f"order[{order}].user_id")
         except AssertionError as e:
             raise AssertionError(f"Ошибка в элементе {order}: {str(e)}")
+
+
+@allure.step("Проверка ответа на запрос создания заказа с пустой корзиной")
+def assert_empty_cart_order_response(actual: HTTPValidationErrorResponseSchema) -> None:
+    assert_value(actual.detail, "Нельзя создать заказ с пустой корзиной", "detail")
+
+
+@allure.step("Проверка ответа на запрос создания заказа с недоступным продуктом")
+def assert_unavailable_product_order_response(actual: HTTPValidationErrorResponseSchema) -> None:
+    assert_value(actual.detail, "В корзине есть недоступные для заказа товары", "detail")
+

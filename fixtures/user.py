@@ -1,3 +1,5 @@
+from typing import Callable
+
 import pytest
 from pydantic import BaseModel
 
@@ -8,8 +10,9 @@ from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSche
 
 class UserFixture(BaseModel):
     """
-    Модель хранит данные о созданном пользователе
+    Хранит данные о созданном пользователе
     """
+
     request: CreateUserRequestSchema
     response: CreateUserResponseSchema
 
@@ -33,65 +36,66 @@ class UserFixture(BaseModel):
         )
         return schema
 
-def create_user_fixture(public_user_client: UserAPIClient, is_admin: bool) -> UserFixture:
-    """
-    Создает пользователя
-
-    :param public_user_client: Публичный HTTP клиент для доступа к API пользователей
-    :param is_admin: Флаг администратора
-    :return: Информация о созданном пользователе
-    """
-    request = CreateUserRequestSchema(is_admin=is_admin)
-    response = public_user_client.create_user(request)
-    return UserFixture(request=request, response=response)
 
 @pytest.fixture
-def user(public_user_client: UserAPIClient) -> UserFixture:
+def create_user_factory(public_user_client: UserAPIClient) -> Callable[..., UserFixture]:
     """
-    Создает пользователя
+    Возвращает фабрику для создания пользователя
 
-    :param public_user_client: Публичный HTTP клиент для доступа к API пользователей
-    :return: Информация о созданном пользователе
+    :param public_user_client: Публичный HTTP клиент для доступа к API пользователя
+    :return: Фабрика для создания пользователя
     """
-    return create_user_fixture(public_user_client, is_admin=False)
 
-@pytest.fixture
-def admin(public_user_client: UserAPIClient) -> UserFixture:
-    """
-    Создает администратора
+    def _create_user(
+            *,
+            is_admin: bool = False
+    ) -> UserFixture:
+        """
+        Создает пользователя с указанными параметрами
 
-    :param public_user_client: Публичный HTTP клиент для доступа к API пользователей
-    :return: Информация об созданном администраторе
-    """
-    return create_user_fixture(public_user_client, is_admin=True)
+        :param is_admin: Флаг администратора
+        :return: Объект UserFixture с информацией о пользователе
+        """
+
+        request = CreateUserRequestSchema(is_admin=is_admin)
+        response = public_user_client.create_user(request)
+        return UserFixture(request=request, response=response)
+
+    return _create_user
+
 
 @pytest.fixture
 def public_user_client() -> UserAPIClient:
     """
-    Возвращает готовый публичный HTTP клиент для доступа к API пользователей
+    Возвращает готовый публичный HTTP клиент для доступа к API пользователя
 
-    :return: HTTP клиент
+    :return: Публичный HTTP клиент для работы с API пользователя
     """
+
     return get_public_user_client()
 
 @pytest.fixture
-def private_user_client(user: UserFixture) -> UserAPIClient:
+def private_user_client(create_user_factory: Callable[..., UserFixture]) -> UserAPIClient:
     """
-    Возвращает готовый приватный HTTP клиент для доступа пользователя к API пользователей
+    Возвращает готовый приватный HTTP клиент для доступа пользователя к API пользователя
 
-    :param user: Пользователь
-    :return: HTTP клиент
+    :param create_user_factory: Фабрика для создания пользователя
+    :return: Приватный HTTP клиент для работы пользователя с API пользователя
     """
+
+    user = create_user_factory()
     return get_private_user_client(user=user.user_schema)
 
 @pytest.fixture
-def private_admin_client(admin: UserFixture) -> UserAPIClient:
+def private_admin_client(create_user_factory: Callable[..., UserFixture]) -> UserAPIClient:
     """
-    Возвращает готовый приватный HTTP клиент для доступа администратора к API пользователей
+    Возвращает готовый приватный HTTP клиент для доступа администратора к API пользователя
 
-    :param admin: Администратор
-    :return: HTTP клиент
+    :param create_user_factory: Фабрика для создания пользователя
+    :return: Приватный HTTP клиент для работы администратора с API пользователя
     """
+
+    admin = create_user_factory(is_admin=True)
     return get_private_user_client(user=admin.user_schema)
 
 

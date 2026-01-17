@@ -27,7 +27,7 @@ class TestUserPositive:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Создание пользователя с валидными данными")
-    def test_create_user(self, public_user_client: UserAPIClient):
+    def test_create_user(self, public_user_client: UserAPIClient) -> None:
         request = CreateUserRequestSchema()
 
         response = public_user_client.create_user_api(request)
@@ -40,7 +40,10 @@ class TestUserPositive:
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.CRITICAL)
     @allure.title("Получение существующего пользователя")
-    def test_get_user(self, private_user_client: UserAPIClient, user: UserFixture):
+    def test_get_user(self,
+                      private_user_client: UserAPIClient,
+                      user: UserFixture
+                      ) -> None:
         response = private_user_client.get_user_api(user_id=user.user_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
@@ -51,7 +54,10 @@ class TestUserPositive:
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Обновление данных существующего пользователя")
-    def test_update_user(self, private_user_client: UserAPIClient, user: UserFixture):
+    def test_update_user(self,
+                         private_user_client: UserAPIClient,
+                         user: UserFixture
+                         ) -> None:
         request = UpdateUserRequestSchema()
 
         response = private_user_client.update_user_api(user_id=user.user_id, request=request)
@@ -64,9 +70,13 @@ class TestUserPositive:
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.MINOR)
     @allure.title("Удаление существующего пользователя")
-    def test_delete_user(self, private_user_client: UserAPIClient, user: UserFixture):
+    def test_delete_user(self,
+                         private_user_client: UserAPIClient,
+                         user: UserFixture
+                         ) -> None:
         response = private_user_client.delete_user_api(user_id=user.user_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
+
 
 @pytest.mark.regression
 @pytest.mark.user
@@ -82,7 +92,10 @@ class TestUserNegative:
                               ""]
                              )
     @allure.title("Создание пользователя с невалидным email")
-    def test_create_user_wrong_email(self, public_user_client: UserAPIClient, email: str):
+    def test_create_user_wrong_email(self,
+                                     public_user_client: UserAPIClient,
+                                     email: str
+                                     ) -> None:
         request = CreateUserRequestSchema(email=email)
 
         response = public_user_client.create_user_api(request)
@@ -100,7 +113,10 @@ class TestUserNegative:
                               ""]
                              )
     @allure.title("Создание пользователя с невалидным паролем")
-    def test_create_user_wrong_password(self, public_user_client: UserAPIClient, password: str):
+    def test_create_user_wrong_password(self,
+                                        public_user_client: UserAPIClient,
+                                        password: str
+                                        ) -> None:
         request = CreateUserRequestSchema(password=password)
 
         response = public_user_client.create_user_api(request)
@@ -120,7 +136,10 @@ class TestUserNegative:
                               ""]
                              )
     @allure.title("Создание пользователя с невалидным телефоном")
-    def test_create_user_wrong_phone(self, public_user_client: UserAPIClient, phone: str):
+    def test_create_user_wrong_phone(self,
+                                     public_user_client: UserAPIClient,
+                                     phone: str
+                                     ) -> None:
         request = CreateUserRequestSchema(phone=phone)
 
         response = public_user_client.create_user_api(request)
@@ -133,7 +152,10 @@ class TestUserNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание пользователя с уже зарегистрированным email")
-    def test_create_user_existing_email(self, public_user_client: UserAPIClient, user: UserFixture):
+    def test_create_user_existing_email(self,
+                                        public_user_client: UserAPIClient,
+                                        user: UserFixture
+                                        ) -> None:
         request = CreateUserRequestSchema(email=user.email)
 
         response = public_user_client.create_user_api(request)

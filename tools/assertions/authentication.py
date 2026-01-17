@@ -15,12 +15,14 @@ def assert_login_response(actual: LoginResponseSchema, expected: CreateUserReque
     assert_field_exists(actual.user.id, "user_id")
     assert_user(actual.user, expected)
 
+
 @allure.step("Проверка ответа на запрос логина пользователя с некорректными данными")
 def assert_wrong_login_data_response(actual: HTTPValidationErrorResponseSchema) -> None:
     expected = HTTPValidationErrorResponseSchema(
         detail="Невалидный логин или пароль"
     )
     assert_http_validation_error_response(actual, expected)
+
 
 @allure.step("Проверка ответа на запрос логина пользователя с некорректным форматом email")
 def assert_invalid_email_format_response(

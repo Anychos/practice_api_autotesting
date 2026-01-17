@@ -28,7 +28,7 @@ class TestProductPositive:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Создание продукта с валидными данными")
-    def test_create_product(self, admin_private_product_client: ProductAPIClient):
+    def test_create_product(self, admin_private_product_client: ProductAPIClient) -> None:
         request = CreateProductRequestSchema()
 
         response = admin_private_product_client.create_product_api(request)
@@ -43,7 +43,10 @@ class TestProductPositive:
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Получение существующего продукта")
-    def test_get_product(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
+    def test_get_product(self,
+                         user_private_product_client: ProductAPIClient,
+                         create_product: ProductFixture
+                         ) -> None:
         response = user_private_product_client.get_product_api(product_id=create_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
@@ -56,17 +59,21 @@ class TestProductPositive:
     @allure.story(Story.GET_ENTITIES)
     @allure.severity(Severity.CRITICAL)
     @allure.title("Получение списка продуктов")
-    def test_get_products(self, user_private_product_client: ProductAPIClient, create_product: ProductFixture):
+    def test_get_products(self,
+                          user_private_product_client: ProductAPIClient,
+                          create_product: ProductFixture
+                          ) -> None:
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
-
-        # TODO: add assertions for response
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Обновление существующего продукта")
-    def test_update_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
+    def test_update_product(self,
+                            admin_private_product_client: ProductAPIClient,
+                            create_product: ProductFixture
+                            ) -> None:
         request = UpdateProductRequestSchema()
 
         response = admin_private_product_client.update_product_api(product_id=create_product.product_id, request=request)
@@ -80,13 +87,17 @@ class TestProductPositive:
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Удаление существующего продукта")
-    def test_delete_product(self, admin_private_product_client: ProductAPIClient, create_product: ProductFixture):
+    def test_delete_product(self,
+                            admin_private_product_client: ProductAPIClient,
+                            create_product: ProductFixture
+                            ) -> None:
         response = admin_private_product_client.delete_product_api(product_id=create_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteProductResponseSchema.model_validate_json(response.text)
         assert_delete_product_response(response_data)
         assert_json_schema(response.json(), response_data.model_json_schema())
+
 
 @pytest.mark.regression
 @pytest.mark.product
@@ -95,7 +106,6 @@ class TestProductNegative:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
-    @allure.title("Создание продукта с данными в невалидном формате")
     @pytest.mark.parametrize("name, description, price, wrong_field, wrong_value",
                              [
                                  (123456, fake_ru.description(), fake_ru.price(), "name", 123456),
@@ -108,8 +118,18 @@ class TestProductNegative:
                                  "price - string"
                              ]
                              )
-    def test_create_product_wrong_data_format(self, admin_private_product_client: ProductAPIClient, name, description, price, wrong_field, wrong_value):
-        request = CreateProductRequestSchema.model_construct(name=name, description=description, price=price)
+    @allure.title("Создание продукта с данными в невалидном формате")
+    def test_create_product_wrong_data_format(self,
+                                              admin_private_product_client: ProductAPIClient,
+                                              name,
+                                              description,
+                                              price,
+                                              wrong_field,
+                                              wrong_value
+                                              ) -> None:
+        request = CreateProductRequestSchema.model_construct(name=name,
+                                                             description=description,
+                                                             price=price)
 
         response = admin_private_product_client.create_product_api(request)
         print(response.text)
@@ -122,7 +142,6 @@ class TestProductNegative:
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
-    @allure.title("Создание продукта без заполнения обязательного поля")
     @pytest.mark.parametrize("name, description, price, image_url, wrong_field, wrong_value",
                              [
                                  ("", fake_ru.description(), fake_ru.price(), fake_ru.image_url(), "name", ""),
@@ -137,8 +156,20 @@ class TestProductNegative:
                                  "image_url - empty"
                              ]
                              )
-    def test_create_product_empty_required_field(self, admin_private_product_client: ProductAPIClient, name, description, price, image_url, wrong_field, wrong_value):
-        request = CreateProductRequestSchema.model_construct(name=name, description=description, price=price, image_url=image_url)
+    @allure.title("Создание продукта без заполнения обязательного поля")
+    def test_create_product_empty_required_field(self,
+                                                 admin_private_product_client: ProductAPIClient,
+                                                 name,
+                                                 description,
+                                                 price,
+                                                 image_url,
+                                                 wrong_field,
+                                                 wrong_value
+                                                 ) -> None:
+        request = CreateProductRequestSchema.model_construct(name=name,
+                                                             description=description,
+                                                             price=price,
+                                                             image_url=image_url)
 
         response = admin_private_product_client.create_product_api(request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)

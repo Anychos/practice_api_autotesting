@@ -12,31 +12,65 @@ from tools.routes import Routes
 
 class UserAPIClient(BaseAPIClient):
     """
-    Клиент для работы с API пользователей
+    Клиент для работы с API пользователя
     """
-    @allure.step("Отправка запроса на создание пользователя")
+
     @tracker.track_coverage_httpx(Routes.USERS)
+    @allure.step("Отправка запроса на создание пользователя")
     def create_user_api(self, request: CreateUserRequestSchema) -> Response:
+        """
+        Отправляет запрос на создание пользователя
+
+        :param request: Данные для создания пользователя
+        :return: Ответ сервера с данными созданного пользователя
+        """
+
         return self.post(url=Routes.USERS, json=request.model_dump())
 
     def create_user(self, request: CreateUserRequestSchema) -> CreateUserResponseSchema:
         response = self.create_user_api(request)
         return CreateUserResponseSchema.model_validate_json(response.text)
 
-    @allure.step("Отправка запроса на получение пользователя")
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
+    @allure.step("Отправка запроса на получение пользователя")
     def get_user_api(self, user_id: int) -> Response:
+        """
+        Отправляет запрос на получение пользователя
+
+        :param user_id: Идентификатор пользователя
+        :return: Ответ сервера с данными пользователя
+        """
+
         return self.get(url=f"{Routes.USERS}/{user_id}")
 
-    @allure.step("Отправка запроса на обновление пользователя")
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
-    def update_user_api(self, user_id: int, request: UpdateUserRequestSchema) -> Response:
+    @allure.step("Отправка запроса на обновление пользователя")
+    def update_user_api(self,
+                        user_id: int,
+                        request: UpdateUserRequestSchema
+                        ) -> Response:
+        """
+        Отправляет запрос на обновление пользователя
+
+        :param user_id: Идентификатор пользователя
+        :param request: Данные для обновления пользователя
+        :return: Ответ сервера с данными обновленного пользователя
+        """
+
         return self.put(url=f"{Routes.USERS}/{user_id}", json=request.model_dump())
 
-    @allure.step("Отправка запроса на удаление пользователя")
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
+    @allure.step("Отправка запроса на удаление пользователя")
     def delete_user_api(self, user_id: int) -> Response:
+        """
+        Отправляет запрос на удаление пользователя
+
+        :param user_id: Идентификатор пользователя
+        :return: Ответ сервера с сообщением об успешном удалении
+        """
+
         return self.delete(url=f"{Routes.USERS}/{user_id}")
+
 
 def get_public_user_client() -> UserAPIClient:
     """
@@ -44,13 +78,15 @@ def get_public_user_client() -> UserAPIClient:
 
     :return: Публичный HTTP клиент
     """
+
     return UserAPIClient(client=get_public_client())
 
 def get_private_user_client(user: LoginRequestSchema) -> UserAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API пользователей
 
-    :param user: Пользователь
+    :param user: Данные пользователя для авторизации
     :return: Приватный HTTP клиент
     """
+
     return UserAPIClient(client=get_private_client(user))

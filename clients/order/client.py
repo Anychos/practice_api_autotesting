@@ -14,24 +14,46 @@ class OrderAPIClient(BaseAPIClient):
     """
     Клиент для работы с API заказов
     """
-    @allure.step("Отправка запроса на создание заказа")
+
     @tracker.track_coverage_httpx(Routes.ORDERS)
+    @allure.step("Отправка запроса на создание заказа")
     def create_order_api(self, request: CreateOrderRequestSchema) -> Response:
+        """
+        Отправляет запрос на создание заказа
+
+        :param request: Данные для создания заказа
+        :return: Ответ сервера с данными созданного заказа
+        """
+
         return self.post(url=Routes.ORDERS, json=request.model_dump())
 
     def create_order(self, request: CreateOrderRequestSchema) -> CreateOrderResponseSchema:
         response = self.create_order_api(request)
         return CreateOrderResponseSchema.model_validate_json(response.text)
 
-    @allure.step("Отправка запроса на получение заказа")
     @tracker.track_coverage_httpx(f"{Routes.ORDERS}/" + "{order_id}")
+    @allure.step("Отправка запроса на получение заказа")
     def get_order_api(self, order_id: int) -> Response:
+        """
+        Отправляет запрос на получение заказа
+
+        :param order_id: Идентификатор заказа
+        :return: Ответ сервера с данными заказа
+        """
+
         return self.get(url=f"{Routes.ORDERS}/{order_id}")
 
-    @allure.step("Отправка запроса на получение заказов пользователя")
     @tracker.track_coverage_httpx(Routes.ORDERS)
+    @allure.step("Отправка запроса на получение заказов пользователя")
     def get_orders_api(self) -> Response:
+        """
+        Отправляет запрос на получение заказов пользователя
+
+        :return: Ответ сервера со списком заказов
+        """
+
         return self.get(url=Routes.ORDERS)
+
 
 def get_public_order_client() -> OrderAPIClient:
     """
@@ -39,13 +61,15 @@ def get_public_order_client() -> OrderAPIClient:
 
     :return: Публичный HTTP клиент
     """
+
     return OrderAPIClient(client=get_public_client())
 
 def get_private_order_client(user: LoginRequestSchema) -> OrderAPIClient:
     """
     Создает приватный HTTP клиент для доступа к API заказов
 
-    :param user: Пользователь
+    :param user: Данные пользователя для авторизации
     :return: Приватный HTTP клиент
     """
+
     return OrderAPIClient(client=get_private_client(user))

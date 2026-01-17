@@ -9,11 +9,13 @@ def assert_error(actual: ErrorSchema, expected: ErrorSchema) -> None:
     assert_value(actual.input, expected.input, "input")
     assert_value(actual.context, expected.context, "reason")
 
+
 def assert_input_validation_error_response(actual: InputValidationErrorResponseSchema, expected: InputValidationErrorResponseSchema) -> None:
     assert_length(actual.detail, expected.detail, "detail")
 
     for index, expected_error in enumerate(expected.detail):
         assert_error(actual.detail[index], expected_error)
+
 
 def assert_http_validation_error_response(actual: HTTPValidationErrorResponseSchema, expected: HTTPValidationErrorResponseSchema) -> None:
     assert_value(actual.detail, expected.detail, "detail")

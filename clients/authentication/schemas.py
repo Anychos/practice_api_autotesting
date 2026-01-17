@@ -1,11 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 from clients.user.schemas import CreateUserResponseSchema
 
 
 class LoginRequestSchema(BaseModel):
-    email: str
+    email: EmailStr
     password: str
+
 
 class LoginResponseSchema(BaseModel):
     access_token: str

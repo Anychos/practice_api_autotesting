@@ -12,16 +12,19 @@ def assert_user(actual: UserSchema, expected: UserSchema) -> None:
     assert_value(actual.name, expected.name, "name")
     assert_value(actual.phone, expected.phone, "phone")
 
+
 @allure.step("Проверка ответа на запрос создания пользователя")
 def assert_create_user_response(actual: CreateUserResponseSchema, expected: CreateUserRequestSchema) -> None:
     assert_field_exists(actual.id, "id")
     assert_field_exists(actual.is_admin, "is_admin")
     assert_user(actual, expected)
 
+
 @allure.step("Проверка ответа на запрос получения пользователя")
 def assert_get_user_response(actual: GetUserResponseSchema, expected: CreateUserResponseSchema) -> None:
     assert_value(actual.id, expected.id, "id")
     assert_user(actual, expected)
+
 
 @allure.step("Проверка ответа на запрос обновления пользователя")
 def assert_update_user_response(actual: UpdateUserResponseSchema, expected: UpdateUserRequestSchema) -> None:
@@ -31,9 +34,11 @@ def assert_update_user_response(actual: UpdateUserResponseSchema, expected: Upda
     assert_value(actual.phone, expected.phone, "phone")
     assert_value(actual.is_admin, False, "is_admin")
 
+
 @allure.step("Проверка ответа на запрос удаления пользователя")
 def assert_delete_user_response(actual: DeleteUserResponseSchema) -> None:
     assert_value(actual.message, "Пользователь удален", "message")
+
 
 @allure.step("Проверка ответа на запрос с некорректным паролем")
 def assert_wrong_password_response(
@@ -84,6 +89,7 @@ def assert_wrong_phone_response(
     assert error.input == phone
     assert error.context, "Контекст ошибки пуст"
     assert "error" in error.context
+
 
 @allure.step("Проверка ответа на запрос с уже зарегистрированным email")
 def assert_email_exists_response(actual: HTTPValidationErrorResponseSchema) -> None:

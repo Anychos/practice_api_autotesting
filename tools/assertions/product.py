@@ -17,15 +17,18 @@ def assert_product(actual: ProductSchema, expected: ProductSchema) -> None:
     assert_value(actual.image_url, expected.image_url, "image_url")
     assert_value(actual.stock_quantity, expected.stock_quantity, "stock_quantity")
 
+
 @allure.step("Проверка ответа на запрос создания продукта")
 def assert_create_product_response(actual: CreateProductResponseSchema, expected: CreateProductRequestSchema) -> None:
     assert_field_exists(actual.id, "id")
     assert_product(actual, expected)
 
+
 @allure.step("Проверка ответа на запрос получения продукта")
 def assert_get_product_response(actual: GetProductResponseSchema, expected: CreateProductResponseSchema) -> None:
     assert_value(actual.id, expected.id, "id")
     assert_product(actual, expected)
+
 
 @allure.step("Проверка ответа на запрос списка продуктов")
 def assert_get_products_response(
@@ -35,14 +38,17 @@ def assert_get_products_response(
     for index, create_product_response in enumerate(create_product_responses):
         assert_product(get_products_response[index], create_product_response)
 
+
 @allure.step("Проверка ответа на запрос обновления продукта")
 def assert_update_product_response(actual: UpdateProductResponseSchema, expected: UpdateProductRequestSchema) -> None:
     assert_field_exists(actual.id, "id")
     assert_product(actual, expected)
 
+
 @allure.step("Проверка ответа на запрос удаления продукта")
 def assert_delete_product_response(actual: DeleteProductResponseSchema) -> None:
     assert_value(actual.message, "Продукт удален", "message")
+
 
 @allure.step("Проверка ответа на запрос создания продукта с некорректным форматом в данных")
 def assert_wrong_data_format_response(actual: InputValidationErrorResponseSchema, wrong_field: str, wrong_value: Any) -> None:

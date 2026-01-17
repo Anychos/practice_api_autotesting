@@ -3,6 +3,7 @@ from http import HTTPStatus
 import allure
 import pytest
 
+from clients.error_shemas import HTTPValidationErrorResponseSchema
 from clients.order.client import OrderAPIClient
 from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema, GetOrderResponseSchema
 from fixtures.cart import CartFixture
@@ -12,7 +13,8 @@ from tools.allure.feature import Feature
 from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
-from tools.assertions.order import assert_create_order_response, assert_get_order_response
+from tools.assertions.order import assert_create_order_response, assert_get_order_response, \
+    assert_empty_cart_order_response, assert_unavailable_product_order_response
 
 
 @pytest.mark.regression
@@ -24,7 +26,10 @@ class TestOrderPositive:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Создание заказа")
-    def test_create_order(self, private_order_client: OrderAPIClient, create_cart: CartFixture):
+    def test_create_order(self,
+                          private_order_client: OrderAPIClient,
+                          create_cart: CartFixture
+                          ) -> None:
         request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
 
         response = private_order_client.create_order_api(request)
@@ -37,7 +42,10 @@ class TestOrderPositive:
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.CRITICAL)
     @allure.title("Получение заказа по id")
-    def test_get_order_by_id(self, private_order_client: OrderAPIClient, create_order: OrderFixture):
+    def test_get_order_by_id(self,
+                             private_order_client: OrderAPIClient,
+                             create_order: OrderFixture
+                             ) -> None:
         response = private_order_client.get_order_api(order_id=create_order.order_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
@@ -48,11 +56,13 @@ class TestOrderPositive:
     @allure.story(Story.GET_ENTITIES)
     @allure.severity(Severity.NORMAL)
     @allure.title("Получение списка заказов")
-    def test_get_orders(self, private_order_client: OrderAPIClient, create_order: OrderFixture):
+    def test_get_orders(self,
+                        private_order_client: OrderAPIClient,
+                        create_order: OrderFixture
+                        ) -> None:
         response = private_order_client.get_orders_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
-        # TODO: add assertions for list
 
 @pytest.mark.regression
 @pytest.mark.cart
@@ -62,14 +72,37 @@ class TestOrderNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа если один из продуктов недоступен")
-    @pytest.mark.skip(reason="Нет валидации наличия")
-    def test_create_order_without_availability_items_in_cart(self):
-        pass
+    @pytest.mark.skip
+    def test_create_order_without_availability_items_in_cart(self,
+                                                             private_order_client: OrderAPIClient,
+                                                             create_cart_factory,
+                                                             update_product_factory
+                                                             ) -> None:
+        cart = create_cart_factory(is_available=True, stock_quantity=1)
+        update_product_factory(is_available=False, stock_quantity=0)
+
+        request = CreateOrderRequestSchema(cart_id=cart.cart_id)
+
+        response = private_order_client.create_order_api(request)
+        assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
+
+        response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_unavailable_product_order_response(response_data)
+        assert_json_schema(response.json(), response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа с удаленной корзиной")
-    @pytest.mark.skip(reason="Дает создать заказ без товаров")
-    def test_create_order_with_empty_cart(self):
-        pass
+    def test_create_order_with_empty_cart(self,
+                                          private_order_client: OrderAPIClient,
+                                          clear_cart
+                                          ) -> None:
+        request = CreateOrderRequestSchema(cart_id=1)
+
+        response = private_order_client.create_order_api(request)
+        assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
+
+        response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_empty_cart_order_response(response_data)
+        assert_json_schema(response.json(), response_data.model_json_schema())
 

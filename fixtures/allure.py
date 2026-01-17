@@ -6,7 +6,8 @@ from tools.allure.enviroment import create_allure_environment_file
 @pytest.fixture(scope="session", autouse=True)
 def save_allure_environment_file():
     """
-    Сохраняет информацию об окружении для Allure
+    Сохраняет информацию об окружении для Allure отчета
     """
+
     yield
     create_allure_environment_file()

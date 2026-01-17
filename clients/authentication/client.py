@@ -12,14 +12,23 @@ class AuthenticationAPIClient(BaseAPIClient):
     """
     Клиент для работы с API аутентификации
     """
-    @allure.step("Отправка запроса на логин пользователя")
+
     @tracker.track_coverage_httpx(Routes.LOGIN)
+    @allure.step("Отправка запроса на логин пользователя")
     def login_api(self, request: LoginRequestSchema) -> Response:
+        """
+        Отправляет запрос на логин пользователя
+
+        :param request: Данные пользователя для логина
+        :return: Ответ сервера с данными пользователя и токеном
+        """
+
         return self.post(url=Routes.LOGIN, json=request.model_dump())
 
     def login(self, request: LoginRequestSchema) -> LoginResponseSchema:
         response = self.login_api(request)
         return LoginResponseSchema.model_validate_json(response.text)
+
 
 def get_login_client() -> AuthenticationAPIClient:
     """
@@ -27,4 +36,5 @@ def get_login_client() -> AuthenticationAPIClient:
 
     :return: Публичный HTTP клиент
     """
+
     return AuthenticationAPIClient(client=get_public_client())
