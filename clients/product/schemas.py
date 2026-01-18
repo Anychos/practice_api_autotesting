@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 from tools.data_generator import fake_ru
@@ -20,14 +22,17 @@ class CreateProductResponseSchema(ProductSchema):
     id: int
 
 
-class UpdateProductRequestSchema(BaseModel):
-    name: str | None = Field(default=None)
-    description: str | None = Field(default=None)
-    price: int | float | None = Field(default=None)
-    is_available: bool | None = Field(default=None)
-    image_url: str | None = Field(default=None)
-    stock_quantity: int | None = Field(default=None)
+class FullUpdateProductRequestSchema(ProductSchema):
+    pass
 
+
+class PartialUpdateProductRequestSchema(BaseModel):
+    name: Optional[str] = Field(default=None)
+    description: Optional[str] = Field(default=None)
+    price: Optional[int | float] = Field(default=None)
+    is_available: Optional[bool] = Field(default=None)
+    image_url: Optional[str] = Field(default=None)
+    stock_quantity: Optional[int] = Field(default=None)
 
 class UpdateProductResponseSchema(ProductSchema):
     id: int

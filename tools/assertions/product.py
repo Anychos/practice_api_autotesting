@@ -4,13 +4,13 @@ import allure
 
 from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.schemas import CreateProductResponseSchema, CreateProductRequestSchema, ProductSchema, \
-    GetProductResponseSchema, UpdateProductResponseSchema, UpdateProductRequestSchema, DeleteProductResponseSchema
+    GetProductResponseSchema, UpdateProductResponseSchema, FullUpdateProductRequestSchema, DeleteProductResponseSchema, \
+    PartialUpdateProductRequestSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
 
 
 @allure.step("Проверка данных продукта по схеме")
 def assert_product(
-        *,
         actual: ProductSchema,
         expected: ProductSchema
 ) -> None:
@@ -52,14 +52,27 @@ def assert_get_products_response(
         assert_product(get_products_response[index], create_product_response)
 
 
-@allure.step("Проверка ответа на запрос обновления продукта")
-def assert_update_product_response(
+@allure.step("Проверка ответа на запрос полного обновления продукта")
+def assert_full_update_product_response(
         *,
         actual: UpdateProductResponseSchema,
-        expected: UpdateProductRequestSchema
+        expected: FullUpdateProductRequestSchema
 ) -> None:
     assert_field_exists(actual.id, "id")
     assert_product(actual, expected)
+
+
+@allure.step("Проверка ответа на запрос частичного обновления продукта")
+def assert_partial_update_product_response(
+        *,
+        actual: UpdateProductResponseSchema,
+        expected: PartialUpdateProductRequestSchema
+) -> None:
+    expected_data = expected.model_dump(exclude_none=True)
+
+    for field, expected_value in expected_data.items():
+        actual_value = getattr(actual, field)
+        assert_value(actual_value, expected_value, field)
 
 
 @allure.step("Проверка ответа на запрос удаления продукта")

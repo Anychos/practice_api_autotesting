@@ -3,7 +3,6 @@ from tools.assertions.base_assertions import assert_value, assert_length
 
 
 def assert_error(
-        *,
         actual: ErrorSchema,
         expected: ErrorSchema
 ) -> None:

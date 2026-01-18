@@ -23,6 +23,10 @@ class GetUserResponseSchema(CreateUserResponseSchema):
     pass
 
 
+class GetUserMeResponseSchema(CreateUserResponseSchema):
+    pass
+
+
 class UpdateUserRequestSchema(UserSchema):
     password: str = Field(default_factory=fake_ru.password)
 

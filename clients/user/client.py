@@ -38,7 +38,7 @@ class UserAPIClient(BaseAPIClient):
         return CreateUserResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
-    @allure.step("Отправка запроса на получение пользователя")
+    @allure.step("Отправка запроса на получение пользователя по id")
     def get_user_api(self,
                      *,
                      user_id: int
@@ -51,6 +51,17 @@ class UserAPIClient(BaseAPIClient):
         """
 
         return self.get(url=f"{Routes.USERS}/{user_id}")
+
+    @tracker.track_coverage_httpx("/user/me")
+    @allure.step("Отправка запроса на получение текущего пользователя")
+    def get_user_me_api(self) -> Response:
+        """
+        Отправляет запрос на получение текущего пользователя
+
+        :return: Ответ сервера с данными пользователя
+        """
+
+        return self.get(url="/user/me")
 
     @tracker.track_coverage_httpx(f"{Routes.USERS}/" + "{user_id}")
     @allure.step("Отправка запроса на обновление пользователя")

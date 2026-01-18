@@ -8,7 +8,6 @@ from tools.assertions.base_assertions import assert_field_exists, assert_value
 
 @allure.step("Проверка данных пользователя по схеме")
 def assert_user(
-        *,
         actual: UserSchema,
         expected: UserSchema
 ) -> None:
@@ -24,7 +23,7 @@ def assert_create_user_response(
         expected: CreateUserRequestSchema
 ) -> None:
     assert_field_exists(actual.id, "id")
-    assert_field_exists(actual.is_admin, "is_admin")
+    assert_value(actual.is_admin, expected.is_admin, "is_admin")
     assert_user(actual, expected)
 
 
@@ -35,6 +34,7 @@ def assert_get_user_response(
         expected: CreateUserResponseSchema
 ) -> None:
     assert_value(actual.id, expected.id, "id")
+    assert_value(actual.is_admin, expected.is_admin, "is_admin")
     assert_user(actual, expected)
 
 

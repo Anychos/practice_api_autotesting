@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import Callable
 
 import allure
 import pytest
@@ -34,22 +35,36 @@ class TestUserPositive:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateUserResponseSchema.model_validate_json(response.text)
-        assert_create_user_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_create_user_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.GET_ENTITY)
     @allure.severity(Severity.CRITICAL)
     @allure.title("Получение существующего пользователя")
-    def test_get_user(self,
-                      private_user_client: UserAPIClient,
+    def test_get_user_by_id(self,
+                      private_admin_client: UserAPIClient,
                       user: UserFixture
                       ) -> None:
-        response = private_user_client.get_user_api(user_id=user.user_id)
+        response = private_admin_client.get_user_api(user_id=user.user_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = GetUserResponseSchema.model_validate_json(response.text)
-        assert_get_user_response(response_data, user.response)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_get_user_response(actual=response_data, expected=user.response)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
+
+    @allure.story(Story.GET_ENTITY)
+    @allure.severity(Severity.CRITICAL)
+    @allure.title("Получение текущего пользователя")
+    def test_get_user_me(self,
+                         private_user_client: UserAPIClient,
+                         user: UserFixture
+                         ) -> None:
+        response = private_user_client.get_user_me_api()
+        assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = GetUserResponseSchema.model_validate_json(response.text)
+        assert_get_user_response(actual=response_data, expected=user.response)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -64,8 +79,8 @@ class TestUserPositive:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = UpdateUserResponseSchema.model_validate_json(response.text)
-        assert_update_user_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_update_user_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.MINOR)
@@ -102,8 +117,8 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_invalid_email_format_response(response_data, email=email)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_invalid_email_format_response(actual=response_data, email=email)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -123,8 +138,8 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_password_response(response_data, password=password)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_wrong_password_response(actual=response_data, password=password)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -146,8 +161,8 @@ class TestUserNegative:
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_phone_response(response_data, phone=phone)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_wrong_phone_response(actual=response_data, phone=phone)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -163,4 +178,4 @@ class TestUserNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_email_exists_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())

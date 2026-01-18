@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import Callable
 
 import allure
 import pytest
@@ -30,16 +31,17 @@ class TestCartPositive:
     @allure.title("Добавление единицы продукта в корзину")
     def test_add_item_to_cart(self,
                               private_cart_client: CartAPIClient,
-                              create_product: ProductFixture
+                              create_product_factory: Callable[..., ProductFixture]
                               ) -> None:
-        request = AddItemCartRequestSchema(product_id=create_product.product_id)
+        product = create_product_factory()
+        request = AddItemCartRequestSchema(product_id=product.product_id)
 
         response = private_cart_client.add_item_cart_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = AddItemCartResponseSchema.model_validate_json(response.text)
-        assert_add_item_to_cart_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_add_item_to_cart_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
     @allure.story(Story.GET_ENTITY)
@@ -47,8 +49,9 @@ class TestCartPositive:
     @allure.title("Получение данных корзины")
     def test_get_cart(self,
                       private_cart_client: CartAPIClient,
-                      create_cart: CartFixture
+                      create_cart_factory: Callable[..., CartFixture]
                       ) -> None:
+        create_cart_factory()
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
@@ -57,44 +60,47 @@ class TestCartPositive:
     @allure.title("Удаление единицы продукта из корзины")
     def test_remove_item_from_cart(self,
                                    private_cart_client: CartAPIClient,
-                                   create_cart: CartFixture
+                                   create_cart_factory: Callable[..., CartFixture]
                                    ) -> None:
-        response = private_cart_client.remove_item_cart_api(item_id=create_cart.item_id)
+        cart = create_cart_factory()
+        response = private_cart_client.remove_item_cart_api(item_id=cart.item_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteCartItemResponseSchema.model_validate_json(response.text)
         assert_delete_item_cart_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.CRITICAL)
     @allure.title("Обновление количества единицы продукта в корзине")
     def test_update_cart(self,
                          private_cart_client: CartAPIClient,
-                         create_cart: CartFixture
+                         create_cart_factory: Callable[..., CartFixture]
                          ) -> None:
+        cart = create_cart_factory()
         request = UpdateCartItemRequestSchema()
 
-        response = private_cart_client.update_cart_item_api(item_id=create_cart.item_id, request=request)
+        response = private_cart_client.update_cart_item_api(item_id=cart.item_id, request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = UpdateCartItemResponseSchema.model_validate_json(response.text)
-        assert_update_cart_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_update_cart_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Удаление корзины")
     def test_delete_cart(self,
                          private_cart_client: CartAPIClient,
-                         create_cart: CartFixture
+                         create_cart_factory: Callable[..., CartFixture]
                          ) -> None:
+        create_cart_factory()
         response = private_cart_client.delete_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteCartResponseSchema.model_validate_json(response.text)
         assert_delete_cart_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
 
 @pytest.mark.regression
@@ -107,7 +113,7 @@ class TestCartNegative:
     @allure.title("Добавление товара без наличия в корзину")
     def test_add_not_available_product_to_cart(self,
                                                private_cart_client: CartAPIClient,
-                                               create_product_factory
+                                               create_product_factory: Callable[..., ProductFixture]
                                                ) -> None:
         product = create_product_factory(is_available=False, stock_quantity=0)
         request = AddItemCartRequestSchema(product_id=product.product_id)
@@ -117,7 +123,7 @@ class TestCartNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_not_found_product_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
@@ -130,14 +136,14 @@ class TestCartNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_not_found_product_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Добавление количества одного товара в корзину больше чем доступно")
     def test_add_more_than_available_product_to_cart(self,
                                                      private_cart_client: CartAPIClient,
-                                                     create_product_factory
+                                                     create_product_factory: Callable[..., ProductFixture]
                                                      ) -> None:
         product = create_product_factory(is_available=True, stock_quantity=1)
         request = AddItemCartRequestSchema(product_id=product.product_id, quantity=2)
@@ -147,4 +153,4 @@ class TestCartNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_not_enough_product_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())

@@ -62,6 +62,22 @@ class BaseAPIClient:
 
         return self.client.put(url=url, json=json)
 
+    @allure.step("Отправка PATCH запроса на {url}")
+    def patch(self,
+            *,
+            url: str | URL,
+            json: Any
+            ) -> Response:
+        """
+        Отправляет PATCH запрос
+
+        :param url: URL ресурса
+        :param json: Данные запроса в формате JSON
+        :return: Ответ сервера
+        """
+
+        return self.client.patch(url=url, json=json)
+
     @allure.step("Отправка DELETE запроса на {url}")
     def delete(self,
                *,

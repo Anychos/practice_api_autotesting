@@ -80,18 +80,19 @@ def assert_length(
 
 @allure.step("Валидация JSON схемы ответа")
 def assert_json_schema(
-        instance: Any,
+        *,
+        actual: Any,
         schema: dict
 ) -> None:
     """
     Проверяет, соответствует ли JSON в ответе заданной схеме
 
-    :param instance: Ответ в формате JSON
+    :param actual: Ответ в формате JSON
     :param schema: Ожидаемая JSON схема
     """
 
     validate(
-        instance=instance,
+        instance=actual,
         schema=schema,
         format_checker=Draft202012Validator.FORMAT_CHECKER
     ), "JSON в ответе не соответствует схеме"

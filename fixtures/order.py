@@ -33,31 +33,31 @@ def public_order_client() -> OrderAPIClient:
     return get_public_order_client()
 
 @pytest.fixture
-def private_order_client(create_user_factory: Callable[..., UserFixture]) -> OrderAPIClient:
+def private_order_client(user: UserFixture) -> OrderAPIClient:
     """
     Возвращает готовый приватный HTTP клиент для доступа к API заказов
 
-    :param create_user_factory: Фабрика для создания пользователя
+    :param user: Созданный пользователь
     :return: Приватный HTTP клиент для работы с API заказа
     """
 
-    user = create_user_factory()
     return get_private_order_client(user=user.user_schema)
 
 
 @pytest.fixture
 def create_order(
         private_order_client: OrderAPIClient,
-        create_cart: CartFixture
+        create_cart_factory: Callable[..., CartFixture]
 ) -> OrderFixture:
     """
     Создает заказ
 
     :param private_order_client: Приватный HTTP клиент для доступа к API заказов
-    :param create_cart: Созданная корзина
+    :param create_cart_factory: Фабрика для создания корзины
     :return: Информация о созданном заказе
     """
 
-    request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
+    cart = create_cart_factory()
+    request = CreateOrderRequestSchema(cart_id=cart.cart_id)
     response = private_order_client.create_order(request=request)
     return OrderFixture(request=request, response=response)

@@ -37,15 +37,14 @@ def public_cart_client() -> CartAPIClient:
     return get_public_cart_client()
 
 @pytest.fixture
-def private_cart_client(create_user_factory: Callable[..., UserFixture]) -> CartAPIClient:
+def private_cart_client(user: UserFixture) -> CartAPIClient:
     """
     Возвращает готовый приватный HTTP клиент для доступа к API корзины
 
-    :param create_user_factory: Фабрика для создания пользователя
+    :param user: Созданный пользователь
     :return: Приватный HTTP клиент для работы с API корзины
     """
 
-    user = create_user_factory()
     return get_private_cart_client(user=user.user_schema)
 
 

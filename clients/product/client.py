@@ -5,7 +5,8 @@ from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.private_builder import get_private_client
-from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, UpdateProductRequestSchema
+from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, \
+    FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema
 from clients.public_builder import get_public_client
 from tools.routes import Routes
 
@@ -64,14 +65,14 @@ class ProductAPIClient(BaseAPIClient):
         return self.get(url=Routes.PRODUCTS)
 
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
-    @allure.step("Отправка запроса на обновление продукта")
-    def update_product_api(self,
-                           *,
-                           product_id: int,
-                           request: UpdateProductRequestSchema
-                           ) -> Response:
+    @allure.step("Отправка запроса на полное обновление продукта")
+    def full_update_product_api(self,
+                                *,
+                                product_id: int,
+                                request: FullUpdateProductRequestSchema
+                                ) -> Response:
         """
-        Отправляет запрос на обновление продукта
+        Отправляет запрос на полное обновление продукта
 
         :param product_id: Идентификатор продукта
         :param request: Данные для обновления продукта
@@ -79,6 +80,23 @@ class ProductAPIClient(BaseAPIClient):
         """
 
         return self.put(url=f"{Routes.PRODUCTS}/{product_id}", json=request.model_dump())
+
+    @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
+    @allure.step("Отправка запроса на частичное обновление продукта")
+    def partial_update_product_api(self,
+                                *,
+                                product_id: int,
+                                request: PartialUpdateProductRequestSchema
+                                ) -> Response:
+        """
+        Отправляет запрос на частичное обновление продукта
+
+        :param product_id: Идентификатор продукта
+        :param request: Данные для обновления продукта
+        :return: Ответ сервера с данными обновленного продукта
+        """
+
+        return self.patch(url=f"{Routes.PRODUCTS}/{product_id}", json=request.model_dump(exclude_none=True))
 
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
     @allure.step("Отправка запроса на удаление продукта")

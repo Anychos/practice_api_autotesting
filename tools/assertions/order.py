@@ -25,7 +25,7 @@ def assert_get_order_response(
         actual: GetOrderResponseSchema,
         expected: CreateOrderResponseSchema
 ) -> None:
-    assert_create_order_response(actual, expected)
+    assert_create_order_response(actual=actual, expected=expected)
 
 
 @allure.step("Проверка ответа на запрос получения списка заказов")

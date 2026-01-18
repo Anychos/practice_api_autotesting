@@ -28,17 +28,16 @@ class TestAuthenticationPositive:
     @allure.title("Логин пользователя с валидными данными")
     def test_user_login(self,
                         auth_client: AuthenticationAPIClient,
-                        create_user_factory: Callable[..., UserFixture]
+                        user: UserFixture
                         ) -> None:
-        user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password=user.password)
 
         response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
-        assert_login_response(response_data, user.request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_login_response(actual=response_data, expected=user.request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
@@ -46,17 +45,16 @@ class TestAuthenticationPositive:
     @allure.title("Логин админа с валидными данными")
     def test_admin_login(self,
                          auth_client: AuthenticationAPIClient,
-                         create_user_factory: Callable[..., UserFixture]
+                         admin: UserFixture
                          ) -> None:
-        admin = create_user_factory(is_admin=True)
         request = LoginRequestSchema(email=admin.email, password=admin.password)
 
         response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
-        assert_login_response(response_data, admin.request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_login_response(actual=response_data, expected=admin.request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
 
 @pytest.mark.regression
@@ -69,9 +67,8 @@ class TestAuthenticationNegative:
     @allure.title("Логин пользователя с валидным, но не зарегистрированным email и валидным паролем")
     def test_user_login_unregistered_email(self,
                                            auth_client: AuthenticationAPIClient,
-                                           create_user_factory: Callable[..., UserFixture]
+                                           user: UserFixture
                                            ) -> None:
-        user = create_user_factory()
         request = LoginRequestSchema(email="test@mail.ru", password=user.password)
 
         response = auth_client.login_api(request=request)
@@ -79,7 +76,7 @@ class TestAuthenticationNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_wrong_login_data_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
@@ -94,26 +91,24 @@ class TestAuthenticationNegative:
     def test_user_login_invalid_email_format(self,
                                              auth_client: AuthenticationAPIClient,
                                              email: str,
-                                             create_user_factory: Callable[..., UserFixture]
+                                             user: UserFixture
                                              ) -> None:
-        user = create_user_factory()
         request = LoginRequestSchema.model_construct(email=email, password=user.password)
 
         response = auth_client.login_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_invalid_email_format_response(response_data, email=email)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_invalid_email_format_response(actual=response_data, email=email)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с зарегистрированным email и неподходящим паролем")
     def test_user_login_inappropriate_password(self,
                                                auth_client: AuthenticationAPIClient,
-                                               create_user_factory: Callable[..., UserFixture]
+                                               user: UserFixture
                                                ) -> None:
-        user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password="wrong_password_123")
 
         response = auth_client.login_api(request=request)
@@ -121,16 +116,15 @@ class TestAuthenticationNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_wrong_login_data_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с отсутствующим паролем")
     def test_user_login_empty_password(self,
                                        auth_client: AuthenticationAPIClient,
-                                       create_user_factory: Callable[..., UserFixture]
+                                       user: UserFixture
                                        ) -> None:
-        user = create_user_factory()
         request = LoginRequestSchema(email=user.email, password="")
 
         response = auth_client.login_api(request=request)
@@ -138,6 +132,6 @@ class TestAuthenticationNegative:
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
         assert_wrong_login_data_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
 

@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import Callable
 
 import allure
 import pytest
@@ -6,7 +7,8 @@ import pytest
 from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.client import ProductAPIClient
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, GetProductResponseSchema, \
-    UpdateProductRequestSchema, UpdateProductResponseSchema, DeleteProductResponseSchema
+    FullUpdateProductRequestSchema, UpdateProductResponseSchema, DeleteProductResponseSchema, \
+    PartialUpdateProductRequestSchema
 from fixtures.product import ProductFixture
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
@@ -14,8 +16,8 @@ from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.product import assert_create_product_response, assert_get_product_response, \
-    assert_update_product_response, assert_delete_product_response, assert_wrong_data_format_response, \
-    assert_empty_required_field_response
+    assert_full_update_product_response, assert_delete_product_response, assert_wrong_data_format_response, \
+    assert_empty_required_field_response, assert_partial_update_product_response
 from tools.data_generator import fake_ru
 
 
@@ -35,8 +37,8 @@ class TestProductPositive:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateProductResponseSchema.model_validate_json(response.text)
-        assert_create_product_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_create_product_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
@@ -45,14 +47,15 @@ class TestProductPositive:
     @allure.title("Получение существующего продукта")
     def test_get_product(self,
                          user_private_product_client: ProductAPIClient,
-                         create_product: ProductFixture
+                         create_product_factory: Callable[..., ProductFixture]
                          ) -> None:
-        response = user_private_product_client.get_product_api(product_id=create_product.product_id)
+        product = create_product_factory()
+        response = user_private_product_client.get_product_api(product_id=product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = GetProductResponseSchema.model_validate_json(response.text)
-        assert_get_product_response(response_data, create_product.response)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_get_product_response(actual=response_data, expected=product.response)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
@@ -61,27 +64,47 @@ class TestProductPositive:
     @allure.title("Получение списка продуктов")
     def test_get_products(self,
                           user_private_product_client: ProductAPIClient,
-                          create_product: ProductFixture
+                          create_product_factory: Callable[..., ProductFixture]
                           ) -> None:
+        create_product_factory()
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)
     @allure.severity(Severity.NORMAL)
-    @allure.title("Обновление существующего продукта")
-    def test_update_product(self,
+    @allure.title("Полное обновление существующего продукта")
+    def test_full_update_product(self,
                             admin_private_product_client: ProductAPIClient,
-                            create_product: ProductFixture
+                            create_product_factory: Callable[..., ProductFixture]
                             ) -> None:
-        request = UpdateProductRequestSchema()
+        product = create_product_factory()
+        request = FullUpdateProductRequestSchema()
 
-        response = admin_private_product_client.update_product_api(product_id=create_product.product_id, request=request)
+        response = admin_private_product_client.full_update_product_api(product_id=product.product_id, request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = UpdateProductResponseSchema.model_validate_json(response.text)
-        assert_update_product_response(response_data, request)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_full_update_product_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
+
+    @allure.epic(Epic.ADMIN)
+    @allure.story(Story.UPDATE_ENTITY)
+    @allure.severity(Severity.NORMAL)
+    @allure.title("Частичное обновление существующего продукта")
+    def test_partial_update_product(self,
+                                 admin_private_product_client: ProductAPIClient,
+                                 create_product_factory: Callable[..., ProductFixture]
+                                 ) -> None:
+        product = create_product_factory()
+        request = PartialUpdateProductRequestSchema(name=fake_ru.first_name())
+
+        response = admin_private_product_client.partial_update_product_api(product_id=product.product_id, request=request)
+        assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = UpdateProductResponseSchema.model_validate_json(response.text)
+        assert_partial_update_product_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.DELETE_ENTITY)
@@ -89,14 +112,15 @@ class TestProductPositive:
     @allure.title("Удаление существующего продукта")
     def test_delete_product(self,
                             admin_private_product_client: ProductAPIClient,
-                            create_product: ProductFixture
+                            create_product_factory: Callable[..., ProductFixture]
                             ) -> None:
-        response = admin_private_product_client.delete_product_api(product_id=create_product.product_id)
+        product = create_product_factory()
+        response = admin_private_product_client.delete_product_api(product_id=product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteProductResponseSchema.model_validate_json(response.text)
         assert_delete_product_response(response_data)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
 
 @pytest.mark.regression
@@ -124,20 +148,25 @@ class TestProductNegative:
                                               name,
                                               description,
                                               price,
-                                              wrong_field,
+                                              wrong_field: str,
                                               wrong_value
                                               ) -> None:
-        request = CreateProductRequestSchema.model_construct(name=name,
-                                                             description=description,
-                                                             price=price)
+        request = CreateProductRequestSchema.model_construct(
+            name=name,
+            description=description,
+            price=price
+        )
 
         response = admin_private_product_client.create_product_api(request=request)
-        print(response.text)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_wrong_data_format_response(response_data, wrong_field, wrong_value)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_wrong_data_format_response(
+            actual=response_data,
+            wrong_field=wrong_field,
+            wrong_value=wrong_value
+        )
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.CREATE_ENTITY)
@@ -163,17 +192,19 @@ class TestProductNegative:
                                                  description,
                                                  price,
                                                  image_url,
-                                                 wrong_field,
+                                                 wrong_field: str,
                                                  wrong_value
                                                  ) -> None:
-        request = CreateProductRequestSchema.model_construct(name=name,
-                                                             description=description,
-                                                             price=price,
-                                                             image_url=image_url)
+        request = CreateProductRequestSchema.model_construct(
+            name=name,
+            description=description,
+            price=price,
+            image_url=image_url
+        )
 
         response = admin_private_product_client.create_product_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
-        assert_empty_required_field_response(response_data, wrong_field,wrong_value)
-        assert_json_schema(response.json(), response_data.model_json_schema())
+        assert_empty_required_field_response(actual=response_data, wrong_field=wrong_field, wrong_value=wrong_value)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
