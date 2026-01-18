@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNSwiaXNfYWRtaW4iOnRydWV9.lrdyIAOrQT9dKetwF68u8aj4oRqiuEKKioKggk5TCbk' \
+ -H 'content-length: 489' \
+ -H 'content-type: application/json' \
+ -d '{"name":"запустить","description":"Реклама механический скользить радость рабочий. Провинция граница пища угол.\nНалево привлекать шлем запретить. Равнодушный миф развитый выраженный стакан. Нервно дальний набор горький.","price":394,"is_available":true,"image_url":"https://dummyimage.com/258x181.jpg","stock_quantity":1}'

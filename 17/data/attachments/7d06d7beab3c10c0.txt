@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNSwiaXNfYWRtaW4iOnRydWV9.9ceP-vUTrpfMrUyYCrq_WaDY1xJWEJ9wdaK5gfw3Udg' \
+ -H 'content-length: 421' \
+ -H 'content-type: application/json' \
+ -d '{"name":"тревога","description":"Пропаганда неожиданный миллиард пасть. Социалистический доставать недостаток термин заработать князь носок. Исследование падаль цель вывести монета.","price":923,"is_available":true,"image_url":"https://placekitten.com/236/837.jpg","stock_quantity":1}'

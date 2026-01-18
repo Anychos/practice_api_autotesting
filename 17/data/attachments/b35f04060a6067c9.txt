@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiaXNfYWRtaW4iOnRydWV9.yIzN6nL2XeP8aJTK1tiZOtDF2Sp7fJSgSliRVDyHlgk' \
+ -H 'content-length: 459' \
+ -H 'content-type: application/json' \
+ -d '{"name":123456,"description":"Сходить дошлый возбуждение исследование. Ленинград поймать инфекция коробка войти бочок.\nЧетыре мера применяться поздравлять передо. Пересечь поздравлять крутой поймать кпсс.","price":973,"is_available":false,"image_url":"https://dummyimage.com/557x16.jpeg","stock_quantity":2}'

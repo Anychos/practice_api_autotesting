@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaXNfYWRtaW4iOnRydWV9.vXwoK0i0fpfRTf1KfVd4FjDD169ZWpH-fler93TGseY' \
+ -H 'content-length: 311' \
+ -H 'content-type: application/json' \
+ -d '{"name":"инструкция","description":"Пропаганда стакан угол банк демократия невозможно. Низкий манера бровь написать слишком.","price":411,"is_available":true,"image_url":"https://picsum.photos/207/322.jpg","stock_quantity":1}'

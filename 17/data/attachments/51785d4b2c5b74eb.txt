@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/cart/items' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNCwiaXNfYWRtaW4iOmZhbHNlfQ.Tc3jm1p8kKH93Kb2yaY1AhKL4haCkohWc25zL1qBmLE' \
+ -H 'content-length: 32' \
+ -H 'content-type: application/json' \
+ -d '{"product_id":1001,"quantity":1}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMCwiaXNfYWRtaW4iOnRydWV9.GVeurEykYGBEzWx79DmT-xbrFeT4kdF07l81cCVwKD4' \
+ -H 'content-length: 330' \
+ -H 'content-type: application/json' \
+ -d '{"name":"означать","description":"Смелый дьявол фонарик госпожа задрать горький. Написать дрогнуть рабочий товар. Бегать спасть сустав.","price":763,"is_available":true,"image_url":"https://picsum.photos/166/616.jpg","stock_quantity":1}'

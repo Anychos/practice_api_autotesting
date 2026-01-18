@@ -1,0 +1,7 @@
+curl -X 'DELETE' 'http://localhost:8080/users/52' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MiwiaXNfYWRtaW4iOmZhbHNlfQ.F66kF8XNkPV9KS_ZVrVkQKuK5XTwF5AC6GYc6h3NlDA'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MCwiaXNfYWRtaW4iOnRydWV9.keQp9YFQhA_jwU4XJW7DIXgdNpVvf8C3if-AbaO3gQM' \
+ -H 'content-length: 422' \
+ -H 'content-type: application/json' \
+ -d '{"name":"совет","description":"Следовательно вздрогнуть цвет висеть. Следовательно дорогой конструкция исполнять кидать прошептать. Спалить носок упорно возбуждение решетка присесть.","price":1967,"is_available":true,"image_url":"https://picsum.photos/100/876.png","stock_quantity":1}'
