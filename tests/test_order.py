@@ -9,6 +9,7 @@ from clients.order.client import OrderAPIClient
 from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema, GetOrderResponseSchema
 from fixtures.cart import CartFixture
 from fixtures.order import OrderFixture
+from fixtures.product import CreateProductFixture
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.severity import Severity
@@ -29,10 +30,9 @@ class TestOrderPositive:
     @allure.title("Создание заказа")
     def test_create_order(self,
                           private_order_client: OrderAPIClient,
-                          create_cart_factory: Callable[..., CartFixture]
+                          create_cart: CartFixture
                           ) -> None:
-        cart = create_cart_factory()
-        request = CreateOrderRequestSchema(cart_id=cart.cart_id)
+        request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
 
         response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
@@ -74,16 +74,14 @@ class TestOrderNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа если один из продуктов недоступен")
-    @pytest.mark.skip
     def test_create_order_without_availability_items_in_cart(self,
                                                              private_order_client: OrderAPIClient,
-                                                             create_cart_factory: Callable[..., CartFixture],
-                                                             update_product_factory
+                                                             create_cart: CartFixture,
+                                                             update_product_factory: Callable[..., CreateProductFixture]
                                                              ) -> None:
-        cart = create_cart_factory(is_available=True, stock_quantity=1)
-        update_product_factory(is_available=False, stock_quantity=0)
+        update_product_factory(product_id=create_cart.item_id, is_available=False, stock_quantity=0)
 
-        request = CreateOrderRequestSchema(cart_id=cart.cart_id)
+        request = CreateOrderRequestSchema(cart_id=create_cart.cart_id)
 
         response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
@@ -95,12 +93,11 @@ class TestOrderNegative:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание заказа с удаленной корзиной")
-    @pytest.mark.skip
     def test_create_order_with_empty_cart(self,
                                           private_order_client: OrderAPIClient,
-                                          clear_cart
+                                          empty_cart: CartFixture
                                           ) -> None:
-        request = CreateOrderRequestSchema(cart_id=1)
+        request = CreateOrderRequestSchema(cart_id=empty_cart.cart_id)
 
         response = private_order_client.create_order_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)

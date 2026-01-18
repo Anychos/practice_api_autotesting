@@ -6,7 +6,7 @@ from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.private_builder import get_private_client
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, \
-    FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema
+    FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema, UpdateProductResponseSchema
 from clients.public_builder import get_public_client
 from tools.routes import Routes
 
@@ -80,6 +80,15 @@ class ProductAPIClient(BaseAPIClient):
         """
 
         return self.put(url=f"{Routes.PRODUCTS}/{product_id}", json=request.model_dump())
+
+    def full_update_product(
+            self,
+            *,
+            product_id: int,
+            request: FullUpdateProductRequestSchema
+    ) -> UpdateProductResponseSchema:
+        response = self.full_update_product_api(product_id=product_id, request=request)
+        return UpdateProductResponseSchema.model_validate_json(response.text)
 
     @tracker.track_coverage_httpx(f"{Routes.PRODUCTS}/" + "{product_id}")
     @allure.step("Отправка запроса на частичное обновление продукта")

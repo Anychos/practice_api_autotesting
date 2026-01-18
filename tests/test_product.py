@@ -9,7 +9,7 @@ from clients.product.client import ProductAPIClient
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, GetProductResponseSchema, \
     FullUpdateProductRequestSchema, UpdateProductResponseSchema, DeleteProductResponseSchema, \
     PartialUpdateProductRequestSchema
-from fixtures.product import ProductFixture
+from fixtures.product import CreateProductFixture
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
 from tools.allure.severity import Severity
@@ -17,7 +17,7 @@ from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.product import assert_create_product_response, assert_get_product_response, \
     assert_full_update_product_response, assert_delete_product_response, assert_wrong_data_format_response, \
-    assert_empty_required_field_response, assert_partial_update_product_response
+    assert_empty_required_field_response, assert_partial_update_product_response, assert_invalid_image_url_response
 from tools.data_generator import fake_ru
 
 
@@ -47,14 +47,13 @@ class TestProductPositive:
     @allure.title("Получение существующего продукта")
     def test_get_product(self,
                          user_private_product_client: ProductAPIClient,
-                         create_product_factory: Callable[..., ProductFixture]
+                         create_available_product: CreateProductFixture
                          ) -> None:
-        product = create_product_factory()
-        response = user_private_product_client.get_product_api(product_id=product.product_id)
+        response = user_private_product_client.get_product_api(product_id=create_available_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = GetProductResponseSchema.model_validate_json(response.text)
-        assert_get_product_response(actual=response_data, expected=product.response)
+        assert_get_product_response(actual=response_data, expected=create_available_product.response)
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
@@ -64,9 +63,8 @@ class TestProductPositive:
     @allure.title("Получение списка продуктов")
     def test_get_products(self,
                           user_private_product_client: ProductAPIClient,
-                          create_product_factory: Callable[..., ProductFixture]
+                          create_available_product: CreateProductFixture
                           ) -> None:
-        create_product_factory()
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
 
@@ -76,12 +74,11 @@ class TestProductPositive:
     @allure.title("Полное обновление существующего продукта")
     def test_full_update_product(self,
                             admin_private_product_client: ProductAPIClient,
-                            create_product_factory: Callable[..., ProductFixture]
+                            create_available_product: CreateProductFixture
                             ) -> None:
-        product = create_product_factory()
         request = FullUpdateProductRequestSchema()
 
-        response = admin_private_product_client.full_update_product_api(product_id=product.product_id, request=request)
+        response = admin_private_product_client.full_update_product_api(product_id=create_available_product.product_id, request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = UpdateProductResponseSchema.model_validate_json(response.text)
@@ -94,12 +91,11 @@ class TestProductPositive:
     @allure.title("Частичное обновление существующего продукта")
     def test_partial_update_product(self,
                                  admin_private_product_client: ProductAPIClient,
-                                 create_product_factory: Callable[..., ProductFixture]
+                                 create_available_product: CreateProductFixture
                                  ) -> None:
-        product = create_product_factory()
         request = PartialUpdateProductRequestSchema(name=fake_ru.first_name())
 
-        response = admin_private_product_client.partial_update_product_api(product_id=product.product_id, request=request)
+        response = admin_private_product_client.partial_update_product_api(product_id=create_available_product.product_id, request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = UpdateProductResponseSchema.model_validate_json(response.text)
@@ -112,10 +108,9 @@ class TestProductPositive:
     @allure.title("Удаление существующего продукта")
     def test_delete_product(self,
                             admin_private_product_client: ProductAPIClient,
-                            create_product_factory: Callable[..., ProductFixture]
+                            create_available_product: CreateProductFixture
                             ) -> None:
-        product = create_product_factory()
-        response = admin_private_product_client.delete_product_api(product_id=product.product_id)
+        response = admin_private_product_client.delete_product_api(product_id=create_available_product.product_id)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = DeleteProductResponseSchema.model_validate_json(response.text)
@@ -207,4 +202,22 @@ class TestProductNegative:
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
         assert_empty_required_field_response(actual=response_data, wrong_field=wrong_field, wrong_value=wrong_value)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
+
+    @pytest.mark.parametrize("image_url",
+                             ["http:/example.com/image.jpg",
+                              "https://example.com/image.gif"]
+                             )
+    @allure.title("Создание продукта с некорректным URL изображения")
+    def test_create_product_with_wrong_image_url(self,
+                                                 admin_private_product_client: ProductAPIClient,
+                                                 image_url: str
+                                                 ) -> None:
+        request = CreateProductRequestSchema(image_url=image_url)
+
+        response = admin_private_product_client.create_product_api(request=request)
+        assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
+
+        response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_invalid_image_url_response(actual=response_data, image_url=image_url)
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())

@@ -138,6 +138,26 @@ def assert_empty_required_field_response(
     assert error.input == wrong_value
     assert error.context, "Контекст ошибки пуст"
 
+
 @allure.step("Проверка ответа на запрос создания продукта с некорректным URL изображения")
-def assert_invalid_image_url_response():
-    pass
+def assert_invalid_image_url_response(
+        actual: InputValidationErrorResponseSchema,
+        image_url: str
+) -> None:
+    error_messages = [
+        "Value error, URL должен быть в формате: jpg, jpeg, png, webp",
+        "Value error, Некорректный URL изображения"
+    ]
+
+    assert actual.detail, "Список ошибок пуст"
+    assert len(actual.detail) == 1, "В ответе более одной ошибки"
+
+    error = actual.detail[0]
+
+    assert error.type == "value_error"
+    assert error.location == ["body", "image_url"]
+    assert any(message in error.message for message in error_messages), (
+        f"Неожиданная ошибка: {error.message}"
+    )
+    assert error.input == image_url
+    assert error.context, "Контекст ошибки пуст"

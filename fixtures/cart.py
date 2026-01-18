@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from clients.cart.client import CartAPIClient, get_public_cart_client, get_private_cart_client
 from clients.cart.schemas import AddItemCartRequestSchema, AddItemCartResponseSchema
-from fixtures.product import ProductFixture
+from fixtures.product import CreateProductFixture
 from fixtures.user import UserFixture
 
 
@@ -49,35 +49,35 @@ def private_cart_client(user: UserFixture) -> CartAPIClient:
 
 
 @pytest.fixture
-def create_cart_factory(
+def create_cart(
         private_cart_client: CartAPIClient,
-        create_product_factory: Callable[..., ProductFixture]
-) -> Callable[..., CartFixture]:
+        create_available_product: CreateProductFixture
+) -> CartFixture:
     """
-    Возвращает фабрику для создания корзины с продуктом
+    Создает корзину с продуктом
 
     :param private_cart_client: Приватный HTTP клиент для доступа к API корзины
-    :param create_product_factory: Фабрика для создания продукта
-    :return: Фабрика для создания корзины с продуктом
+    :param create_available_product: Созданный продукт
+    :return: Объект CartFixture с информацией о корзине
     """
 
-    def _create_cart(
-            *,
-            is_available: bool = True,
-            stock_quantity: int = 1
-    ) -> CartFixture:
-        """
-        Создает корзину с продуктом с указанными параметрами
+    request = AddItemCartRequestSchema(product_id=create_available_product.product_id)
+    response = private_cart_client.add_item_cart(request=request)
+    return CartFixture(request=request, response=response)
 
-        :param is_available: Флаг доступности продукта
-        :param stock_quantity: Количество продукта на складе
-        :return: Объект CartFixture с информацией о корзине
-        """
 
-        product = create_product_factory(is_available=is_available,
-                                         stock_quantity=stock_quantity)
-        request = AddItemCartRequestSchema(product_id=product.product_id)
-        response = private_cart_client.add_item_cart(request=request)
-        return CartFixture(request=request, response=response)
+@pytest.fixture
+def empty_cart(
+    private_cart_client: CartAPIClient,
+    create_cart: CartFixture
+) -> CartFixture:
+    """
+    Создает корзину и очищает ее
 
-    return _create_cart
+    :param private_cart_client: Приватный HTTP клиент для доступа к API корзины
+    :param create_cart: Созданная корзина
+    :return: Объект CartFixture с информацией о корзине
+    """
+    private_cart_client.delete_cart_api()
+    return create_cart
+
