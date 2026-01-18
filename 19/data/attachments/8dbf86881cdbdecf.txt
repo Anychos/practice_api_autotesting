@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozOSwiaXNfYWRtaW4iOnRydWV9.l_FgKa-rRrshzhrI9796J6qGv62ZG_GhjZCVFIG6Fw8' \
+ -H 'content-length: 405' \
+ -H 'content-type: application/json' \
+ -d '{"name":"солнце","description":"Госпожа светило успокоиться приятель скользить. Дальний механический деньги намерение монета. Блин светило заведение увеличиваться танцевать.","price":1796,"is_available":true,"image_url":"https://picsum.photos/984/394.png","stock_quantity":1}'

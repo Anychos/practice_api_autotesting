@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiaXNfYWRtaW4iOnRydWV9.yIzN6nL2XeP8aJTK1tiZOtDF2Sp7fJSgSliRVDyHlgk' \
+ -H 'content-length: 229' \
+ -H 'content-type: application/json' \
+ -d '{"name":"нажать","description":"Отражение плавно снимать солнце снимать радость.","price":915,"is_available":true,"image_url":"https://dummyimage.com/0x263.webp","stock_quantity":1}'

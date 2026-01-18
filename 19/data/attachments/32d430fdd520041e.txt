@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MCwiaXNfYWRtaW4iOnRydWV9.keQp9YFQhA_jwU4XJW7DIXgdNpVvf8C3if-AbaO3gQM' \
+ -H 'content-length: 507' \
+ -H 'content-type: application/json' \
+ -d '{"name":"казнь","description":"Передо сомнительный лететь кузнец поезд. Оборот промолчать направо понятный механический изучить столетие. Деньги район исполнять куча.\nЖить висеть вывести смеяться. Грустный падать основание болото.","price":260,"is_available":true,"image_url":"https://picsum.photos/83/69.jpeg","stock_quantity":1}'

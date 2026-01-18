@@ -1,0 +1,10 @@
+curl -X 'PUT' 'http://localhost:8080/products/14' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNywiaXNfYWRtaW4iOnRydWV9.XCpXaUd0yn5YCLlZ8R2jheFu_HIYiU0VO3SXBHlAWQM' \
+ -H 'content-length: 139' \
+ -H 'content-type: application/json' \
+ -d '{"name":"name","description":"description","price":100,"is_available":false,"image_url":"https://example.com/image.jpg","stock_quantity":0}'

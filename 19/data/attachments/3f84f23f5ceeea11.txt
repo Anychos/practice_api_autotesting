@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNywiaXNfYWRtaW4iOnRydWV9.IGNazP21BTgyWJ_hcWWt107Dc-ajvVGVjeKOnoCxNe0' \
+ -H 'content-length: 408' \
+ -H 'content-type: application/json' \
+ -d '{"name":"космос","description":"Слать порядок порода покинуть рис тута грудь пересечь. Покидать дорогой армейский.\nГолубчик прощение написать палец. Палец четыре костер монета.","price":489,"is_available":true,"image_url":"https://placekitten.com/233/699.png","stock_quantity":1}'

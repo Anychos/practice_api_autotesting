@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMiwiaXNfYWRtaW4iOnRydWV9.avMTNhcb0dbOlWrcF3G5v9L5T1gv4e6kdUYTpEtjl68' \
+ -H 'content-length: 511' \
+ -H 'content-type: application/json' \
+ -d '{"name":"страсть","description":"Около тревога чувство кузнец госпожа госпожа. Сохранять сутки природа. Роса хлеб голубчик реклама мгновение.\nНажать плод войти близко экзамен песня. Оборот миллиард художественный прелесть премьера.","price":455,"is_available":false,"image_url":"https://picsum.photos/809/434.webp","stock_quantity":1}'
