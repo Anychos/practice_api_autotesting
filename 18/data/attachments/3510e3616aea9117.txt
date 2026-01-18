@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMCwiaXNfYWRtaW4iOnRydWV9.GVeurEykYGBEzWx79DmT-xbrFeT4kdF07l81cCVwKD4' \
+ -H 'content-length: 476' \
+ -H 'content-type: application/json' \
+ -d '{"name":"адвокат","description":"Сустав палец анализ. Приличный инвалид снимать услать головка миф военный приятель. Второй пища зачем желание упорно. Волк магазин приятель забирать вздрогнуть разуметься витрина.","price":432,"is_available":true,"image_url":"https://placekitten.com/176/569.webp","stock_quantity":1}'

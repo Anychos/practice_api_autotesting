@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNSwiaXNfYWRtaW4iOnRydWV9.9ceP-vUTrpfMrUyYCrq_WaDY1xJWEJ9wdaK5gfw3Udg' \
+ -H 'content-length: 383' \
+ -H 'content-type: application/json' \
+ -d '{"name":"запретить","description":"Еврейский сходить адвокат песенка прошептать бок. Оборот провал покидать.\nБоец передо приятель смеяться термин собеседник блин.","price":286,"is_available":true,"image_url":"https://picsum.photos/781/579.webp","stock_quantity":1}'

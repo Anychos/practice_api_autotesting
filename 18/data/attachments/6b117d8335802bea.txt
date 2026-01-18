@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0NiwiaXNfYWRtaW4iOnRydWV9.UFX-sV_c7DLE5bBUw3-pbSk6dCWJRkNbsvlI0ijd8mU' \
+ -H 'content-length: 143' \
+ -H 'content-type: application/json' \
+ -d '{"name":"цепочка","description":"","price":1674,"is_available":false,"image_url":"https://picsum.photos/578/125.jpg","stock_quantity":5}'

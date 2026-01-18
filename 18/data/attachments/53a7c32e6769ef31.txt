@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNiwiaXNfYWRtaW4iOnRydWV9.hnjRcZR6X7l8tX6K3BvFJHVVQ9pxXsGWjD6BwYJVr_w' \
+ -H 'content-length: 496' \
+ -H 'content-type: application/json' \
+ -d '{"name":"слишком","description":"Покинуть очко смертельный роса. Выдержать мягкий даль функция спалить командир.\nРот зарплата тяжелый угол. Низкий песенка иной бетонный торопливый жить палата. Мальчишка сверкающий медицина.","price":1362,"is_available":true,"image_url":"https://dummyimage.com/924x665.png","stock_quantity":1}'

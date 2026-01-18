@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNywiaXNfYWRtaW4iOnRydWV9.IGNazP21BTgyWJ_hcWWt107Dc-ajvVGVjeKOnoCxNe0' \
+ -H 'content-length: 481' \
+ -H 'content-type: application/json' \
+ -d '{"name":"жить","description":"Увеличиваться уничтожение господь цвет потом цвет. Основание засунуть белье. Протягивать изображать бабочка желание демократия торговля. Дурацкий бегать пасть мгновение жидкий головка.","price":1433,"is_available":true,"image_url":"https://dummyimage.com/495x522.jpg","stock_quantity":1}'

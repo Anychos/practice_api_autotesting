@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MiwiaXNfYWRtaW4iOnRydWV9.cG6yXSs-7lO677u1-qHms6ejvCB5OgzW8AZJk_rrrpc' \
+ -H 'content-length: 464' \
+ -H 'content-type: application/json' \
+ -d '{"name":123456,"description":"Парень умолять горький запеть житель ремень поставить разуметься. Трясти эпоха необычный домашний соответствие райком коммунизм. Покидать четыре падаль услать находить секунда.","price":1911,"is_available":true,"image_url":"https://placekitten.com/118/500.jpeg","stock_quantity":7}'

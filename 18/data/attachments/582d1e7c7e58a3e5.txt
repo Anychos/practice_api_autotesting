@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MSwiaXNfYWRtaW4iOnRydWV9.XmFe4TKB4VfsHrbpe4hGKeNvM3ahbCxz0uzrc14HCjs' \
+ -H 'content-length: 500' \
+ -H 'content-type: application/json' \
+ -d '{"name":"затянуться","description":"Левый да означать. Ставить что умирать полоска отражение мелочь спешить. Мгновение дрогнуть миллиард ленинград столетие пламя возникновение посвятить. Поколение функция привлекать мучительно.","price":630,"is_available":true,"image_url":"https://example.com/image.gif","stock_quantity":2}'

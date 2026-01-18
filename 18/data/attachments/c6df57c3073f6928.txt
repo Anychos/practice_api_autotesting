@@ -1,0 +1,1 @@
+INFO     SWAGGER_COVERAGE_TRACKER_STORAGE:storage.py:34 Results directory does not exist, creating: /home/runner/work/practice_api_autotesting/practice_api_autotesting/coverage-results

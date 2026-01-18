@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaXNfYWRtaW4iOnRydWV9.vXwoK0i0fpfRTf1KfVd4FjDD169ZWpH-fler93TGseY' \
+ -H 'content-length: 466' \
+ -H 'content-type: application/json' \
+ -d '{"name":"чем","description":"Хозяйка руководитель табак товар. Призыв запеть район поезд.\nНеудобно голубчик вряд понятный новый хлеб пламя. Изучить заявление налоговый цвет. О достоинство голубчик изображать.","price":1641,"is_available":true,"image_url":"https://picsum.photos/136/183.jpg","stock_quantity":1}'

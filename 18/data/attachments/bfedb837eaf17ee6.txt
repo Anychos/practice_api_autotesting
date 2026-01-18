@@ -1,0 +1,9 @@
+curl -X 'POST' 'http://localhost:8080/users' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'content-length: 124' \
+ -H 'content-type: application/json' \
+ -d '{"email":"bogdanovgalaktion@example.net","name":"Ермил","phone":"84508140968","password":"cx6O^5Bhhe","is_admin":false}'

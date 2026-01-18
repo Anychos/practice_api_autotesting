@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaXNfYWRtaW4iOnRydWV9.iaT9JZnnj2ZXyMgkgj-sgPk56qwJMPPIUHUryn-C6S8' \
+ -H 'content-length: 418' \
+ -H 'content-type: application/json' \
+ -d '{"name":"жестокий","description":"Командование народ угодный рис развернуться правление второй. Отдел зачем слишком медицина.\nСтроительство рассуждение эффект настать подземный о.","price":1147,"is_available":true,"image_url":"https://dummyimage.com/644x1021.png","stock_quantity":1}'

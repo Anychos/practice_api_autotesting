@@ -1,0 +1,10 @@
+curl -X 'PUT' 'http://localhost:8080/products/13' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozNCwiaXNfYWRtaW4iOnRydWV9.rA3PZ6uaMrLNf-YKIvy34hbisssPbW0_qbR3Ba4snyg' \
+ -H 'content-length: 451' \
+ -H 'content-type: application/json' \
+ -d '{"name":"изредка","description":"Блин лететь военный триста. Ученый мгновение добиться посвятить.\nПища конструкция результат один покидать смертельный. Спорт предоставить дремать а реклама понятный.","price":940,"is_available":false,"image_url":"https://picsum.photos/686/644.webp","stock_quantity":4}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MCwiaXNfYWRtaW4iOnRydWV9.keQp9YFQhA_jwU4XJW7DIXgdNpVvf8C3if-AbaO3gQM' \
+ -H 'content-length: 349' \
+ -H 'content-type: application/json' \
+ -d '{"name":"способ","description":"Миллиард магазин табак крыса художественный разводить князь.\nУслать освобождение выражаться тревога заявление.","price":417,"is_available":true,"image_url":"https://dummyimage.com/836x398.webp","stock_quantity":1}'

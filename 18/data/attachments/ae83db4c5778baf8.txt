@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMSwiaXNfYWRtaW4iOnRydWV9.l7vR8e8cvDX6-hDoOOVPgu3lCoR7nW4nCCMxhxvSYj4' \
+ -H 'content-length: 338' \
+ -H 'content-type: application/json' \
+ -d '{"name":"материя","description":"Цель вытаскивать кузнец запустить падать. Способ бок затянуться рабочий пастух поговорить ботинок палец.","price":1502,"is_available":false,"image_url":"https://dummyimage.com/314x903.jpg","stock_quantity":1}'

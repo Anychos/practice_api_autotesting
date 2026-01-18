@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaXNfYWRtaW4iOnRydWV9.gX4ZZ2hmbqfbo9rQyg_kyHA6_MvHh3WZKG2GfJWds9U' \
+ -H 'content-length: 422' \
+ -H 'content-type: application/json' \
+ -d '{"name":"забирать","description":"Головной выгнать ленинград полюбить деньги бабочка. Роса миллиард левый функция дурацкий район угодный рот. Горький плавно бок неожиданно юный нервно.","price":943,"is_available":true,"image_url":"https://dummyimage.com/107x353.jpg","stock_quantity":1}'
