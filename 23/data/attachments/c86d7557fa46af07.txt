@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaXNfYWRtaW4iOnRydWV9.iYoMGAsBfUDdkaUeV1VR1UIUdKN2VBpkedjL64OqX5A' \
+ -H 'content-length: 397' \
+ -H 'content-type: application/json' \
+ -d '{"name":"сохранять","description":"Демократия изображать песенка крутой конференция. О освобождение триста затянуться заведение юный. Табак термин успокоиться ребятишки.","price":1333,"is_available":true,"image_url":"https://picsum.photos/597/641.png","stock_quantity":1}'

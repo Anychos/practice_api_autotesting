@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MCwiaXNfYWRtaW4iOnRydWV9.LOIWcOO3Ft2sZMmMRszenaF3lj-WBzo_4UZiRiiW5lY' \
+ -H 'content-length: 326' \
+ -H 'content-type: application/json' \
+ -d '{"name":123456,"description":"Что недостаток желание рассуждение страсть запеть аж. Изба банк пламя рай покидать пропаганда добиться.","price":469,"is_available":false,"image_url":"https://placekitten.com/199/476.png","stock_quantity":10}'

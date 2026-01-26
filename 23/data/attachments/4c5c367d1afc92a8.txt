@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MiwiaXNfYWRtaW4iOnRydWV9.2x3ieb7O35kCNjfyNTVWwlUEsOao8VbSPje9ryyLoV0' \
+ -H 'content-length: 415' \
+ -H 'content-type: application/json' \
+ -d '{"name":"зачем","description":"Деловой мотоцикл помолчать сопровождаться. Лететь конференция природа материя пространство тесно пропасть. Упор заложить трубка монета вывести горький разнообразный.","price":1825,"is_available":true,"image_url":"","stock_quantity":3}'

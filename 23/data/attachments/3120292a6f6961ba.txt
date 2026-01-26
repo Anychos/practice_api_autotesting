@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0NSwiaXNfYWRtaW4iOnRydWV9.Pf7z18-V7IsVjFsZr20AcHzKn1rqBWCjikdIYy7daVU' \
+ -H 'content-length: 159' \
+ -H 'content-type: application/json' \
+ -d '{"name":"художественный","description":"","price":1375,"is_available":true,"image_url":"https://placekitten.com/262/565.jpeg","stock_quantity":3}'

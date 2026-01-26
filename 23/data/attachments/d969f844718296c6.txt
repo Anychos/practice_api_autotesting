@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMywiaXNfYWRtaW4iOnRydWV9.bRcKQp3_LU_9t9gm0Nul7VtsyGvrMb0NjTRWeZ64jwE' \
+ -H 'content-length: 456' \
+ -H 'content-type: application/json' \
+ -d '{"name":"палец","description":"Смертельный сутки смеяться слать пробовать инструкция. Витрина призыв трясти уничтожение передо.\nРавнодушный аллея конференция правый. Горький художественный опасность.","price":1900,"is_available":true,"image_url":"https://placekitten.com/57/938.webp","stock_quantity":1}'

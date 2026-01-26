@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiaXNfYWRtaW4iOnRydWV9.yIzN6nL2XeP8aJTK1tiZOtDF2Sp7fJSgSliRVDyHlgk' \
+ -H 'content-length: 434' \
+ -H 'content-type: application/json' \
+ -d '{"name":"разводить","description":"Прежде постоянный смертельный конструкция.\nВыраженный пламя секунда очко четко недостаток район. Дорогой князь пересечь художественный призыв валюта пол.","price":917,"is_available":true,"image_url":"https://placekitten.com/383/11.webp","stock_quantity":1}'

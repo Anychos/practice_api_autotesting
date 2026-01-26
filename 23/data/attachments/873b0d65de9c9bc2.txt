@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozOSwiaXNfYWRtaW4iOnRydWV9.l_FgKa-rRrshzhrI9796J6qGv62ZG_GhjZCVFIG6Fw8' \
+ -H 'content-length: 379' \
+ -H 'content-type: application/json' \
+ -d '{"name":"находить","description":"Четыре развернуться запретить художественный пастух возникновение гулять. Подробность очутиться изредка жидкий куча лететь.","price":1988,"is_available":false,"image_url":"https://dummyimage.com/937x623.webp","stock_quantity":1}'
