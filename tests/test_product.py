@@ -204,7 +204,7 @@ class TestProductNegative:
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.parametrize("image_url",
-                             ["http:/example.com/image.jpg",
+                             ["example.com/image.jpg",
                               "https://example.com/image.gif"]
                              )
     @allure.title("Создание продукта с некорректным URL изображения")
