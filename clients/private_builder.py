@@ -7,10 +7,6 @@ from clients.event_hooks import request_curl_event_hook
 from config import settings
 
 
-class AdminLoginSchema(BaseModel):
-    email: str = Field(default="test@admin.com")
-    password: str = Field(default="Test_Admin_Password_123")
-
 def private_user_client_builder(
         *,
         user: LoginRequestSchema
@@ -35,19 +31,15 @@ def private_user_client_builder(
     )
 
 
-def private_admin_client_builder(
-        *,
-        admin: AdminLoginSchema
-) -> Client:
+def private_admin_client_builder() -> Client:
     """
     Создает HTTP клиент администратора для доступа к приватному API
 
-    :param admin: Данные администратора для авторизации
     :return: Приватный HTTP клиент
     """
 
     client = get_authentication_client()
-    request = LoginRequestSchema(email=admin.email, password=admin.password)
+    request = LoginRequestSchema(email=settings.admin_data.email, password=settings.admin_data.password)
 
     response = client.login(request=request)
     token = response.access_token

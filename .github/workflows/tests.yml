@@ -47,6 +47,10 @@ jobs:
       - name: Применение миграций
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
+          ADMIN_EMAIL: test_admin@mail.ru
+          ADMIN_PASSWORD: test_admin_password
+          ADMIN_NAME: Admin
+          ADMIN_PHONE: +71234567890
         run: |
           cd practice_api_test_server
           alembic upgrade head

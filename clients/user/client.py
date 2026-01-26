@@ -4,9 +4,10 @@ from httpx import Response
 from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
-from clients.private_builder import private_user_client_builder, private_admin_client_builder, AdminLoginSchema
+from clients.private_builder import private_user_client_builder, private_admin_client_builder
 from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSchema, UpdateUserRequestSchema, \
     UpdatePasswordRequestSchema
+from config import settings
 from tools.routes import Routes
 
 
@@ -126,16 +127,12 @@ def get_private_user_client(
 
     return UserAPIClient(client=private_user_client_builder(user=user))
 
-def get_private_admin_client(
-        *,
-        admin: AdminLoginSchema
-) -> UserAPIClient:
+def get_private_admin_client() -> UserAPIClient:
     """
     Создает приватный HTTP клиент администратора для доступа к API пользователей
 
-    :param admin: Данные администратора для авторизации
     :return: Приватный HTTP клиент
     """
 
-    return UserAPIClient(client=private_admin_client_builder(admin=admin))
+    return UserAPIClient(client=private_admin_client_builder())
 

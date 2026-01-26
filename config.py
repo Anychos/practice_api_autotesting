@@ -15,6 +15,10 @@ class HTTPClientSettings(BaseModel):
     def url(self) -> str:
         return str(self.base_url)
 
+class AdminLoginSchema(BaseModel):
+    email: str
+    password: str
+
 class Settings(BaseSettings):
     """
     Настройки проекта
@@ -28,6 +32,7 @@ class Settings(BaseSettings):
 
     http_client: HTTPClientSettings
     allure_results_dir: DirectoryPath = DirectoryPath("allure-results")
+    admin_data: AdminLoginSchema
 
     @classmethod
     def init(cls) -> Self:

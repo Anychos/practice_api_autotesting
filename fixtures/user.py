@@ -4,10 +4,10 @@ import pytest
 from pydantic import BaseModel
 
 from clients.authentication.schemas import LoginRequestSchema
-from clients.private_builder import AdminLoginSchema
 from clients.user.client import UserAPIClient, get_private_admin_client, \
     get_private_user_client
 from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSchema
+from config import settings
 
 
 class UserFixture(BaseModel):
@@ -47,7 +47,7 @@ def private_admin_client() -> UserAPIClient:
     :return: Приватный HTTP клиент для работы администратора с API пользователя
     """
 
-    return get_private_admin_client(admin=AdminLoginSchema())
+    return get_private_admin_client()
 
 @pytest.fixture
 def create_user_factory(private_admin_client: UserAPIClient) -> Callable[..., UserFixture]:
