@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from clients.product.client import ProductAPIClient, get_public_product_client, get_private_product_client
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, \
-    FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema, UpdateProductResponseSchema
+    FullUpdateProductRequestSchema, UpdateProductResponseSchema
 from fixtures.user import UserFixture
 
 

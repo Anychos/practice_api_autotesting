@@ -5,7 +5,7 @@ from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema
-from clients.private_builder import get_private_client
+from clients.private_builder import private_user_client_builder
 from clients.public_builder import get_public_client
 from tools.routes import Routes
 
@@ -84,4 +84,4 @@ def get_private_order_client(
     :return: Приватный HTTP клиент
     """
 
-    return OrderAPIClient(client=get_private_client(user=user))
+    return OrderAPIClient(client=private_user_client_builder(user=user))

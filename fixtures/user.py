@@ -4,7 +4,9 @@ import pytest
 from pydantic import BaseModel
 
 from clients.authentication.schemas import LoginRequestSchema
-from clients.user.client import UserAPIClient, get_public_user_client, get_private_user_client
+from clients.private_builder import AdminLoginSchema
+from clients.user.client import UserAPIClient, get_private_admin_client, \
+    get_private_user_client
 from clients.user.schemas import CreateUserRequestSchema, CreateUserResponseSchema
 
 
@@ -38,11 +40,21 @@ class UserFixture(BaseModel):
 
 
 @pytest.fixture
-def create_user_factory(public_user_client: UserAPIClient) -> Callable[..., UserFixture]:
+def private_admin_client() -> UserAPIClient:
+    """
+    Возвращает готовый приватный HTTP клиент для доступа администратора к API пользователя
+
+    :return: Приватный HTTP клиент для работы администратора с API пользователя
+    """
+
+    return get_private_admin_client(admin=AdminLoginSchema())
+
+@pytest.fixture
+def create_user_factory(private_admin_client: UserAPIClient) -> Callable[..., UserFixture]:
     """
     Возвращает фабрику для создания пользователя
 
-    :param public_user_client: Публичный HTTP клиент для доступа к API пользователя
+    :param private_admin_client: приватный HTTP клиент для доступа администратора к API пользователя
     :return: Фабрика для создания пользователя
     """
 
@@ -58,21 +70,10 @@ def create_user_factory(public_user_client: UserAPIClient) -> Callable[..., User
         """
 
         request = CreateUserRequestSchema(is_admin=is_admin)
-        response = public_user_client.create_user(request=request)
+        response = private_admin_client.create_user(request=request)
         return UserFixture(request=request, response=response)
 
     return _create_user
-
-
-@pytest.fixture
-def public_user_client() -> UserAPIClient:
-    """
-    Возвращает готовый публичный HTTP клиент для доступа к API пользователя
-
-    :return: Публичный HTTP клиент для работы с API пользователя
-    """
-
-    return get_public_user_client()
 
 @pytest.fixture
 def user(create_user_factory: Callable[..., UserFixture]) -> UserFixture:
@@ -99,24 +100,13 @@ def private_user_client(user: UserFixture) -> UserAPIClient:
 @pytest.fixture
 def admin(create_user_factory: Callable[..., UserFixture]) -> UserFixture:
     """
-    Возвращает готового пользователя
+    Возвращает готового администратора
 
     :param create_user_factory: Фабрика для создания пользователя
-    :return: Объект UserFixture с информацией о пользователе
+    :return: Объект UserFixture с информацией об администраторе
     """
 
     return create_user_factory(is_admin=True)
-
-@pytest.fixture
-def private_admin_client(admin: UserFixture) -> UserAPIClient:
-    """
-    Возвращает готовый приватный HTTP клиент для доступа администратора к API пользователя
-
-    :param admin: Созданный администратор
-    :return: Приватный HTTP клиент для работы администратора с API пользователя
-    """
-
-    return get_private_user_client(user=admin.user_schema)
 
 
 

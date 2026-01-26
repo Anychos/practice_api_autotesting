@@ -4,7 +4,7 @@ from httpx import Response
 from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
-from clients.private_builder import get_private_client
+from clients.private_builder import private_user_client_builder
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, \
     FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema, UpdateProductResponseSchema
 from clients.public_builder import get_public_client
@@ -143,4 +143,4 @@ def get_private_product_client(
     :return: Приватный HTTP клиент
     """
 
-    return ProductAPIClient(client=get_private_client(user=user))
+    return ProductAPIClient(client=private_user_client_builder(user=user))

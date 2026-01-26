@@ -2,7 +2,8 @@ import allure
 from httpx import Response
 
 from clients.api_coverage import tracker
-from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema
+from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema, RegistrationRequestSchema, \
+    RegistrationResponseSchema
 from clients.base_client import BaseAPIClient
 from clients.public_builder import get_public_client
 from tools.routes import Routes
@@ -35,8 +36,30 @@ class AuthenticationAPIClient(BaseAPIClient):
         response = self.login_api(request=request)
         return LoginResponseSchema.model_validate_json(response.text)
 
+    @tracker.track_coverage_httpx(Routes.REGISTRATION)
+    @allure.step("Отправка запроса на регистрацию пользователя")
+    def registration_api(self,
+                         *,
+                         request: RegistrationRequestSchema
+                         ) -> Response:
+        """
+        Отправляет запрос на регистрацию пользователя
 
-def get_login_client() -> AuthenticationAPIClient:
+        :param request: Данные пользователя для регистрации
+        :return: Ответ сервера с данными пользователя и токеном
+        """
+
+        return self.post(url=Routes.REGISTRATION, json=request.model_dump())
+
+    def registration(self,
+              *,
+              request: RegistrationRequestSchema
+              ) -> RegistrationResponseSchema:
+        response = self.registration_api(request=request)
+        return RegistrationResponseSchema.model_validate_json(response.text)
+
+
+def get_authentication_client() -> AuthenticationAPIClient:
     """
     Создает публичный HTTP клиент для доступа к API аутентификации
 

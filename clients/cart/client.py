@@ -5,7 +5,7 @@ from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.cart.schemas import AddItemCartRequestSchema, AddItemCartResponseSchema, UpdateCartItemRequestSchema
-from clients.private_builder import get_private_client
+from clients.private_builder import private_user_client_builder
 from clients.public_builder import get_public_client
 from tools.routes import Routes
 
@@ -112,4 +112,4 @@ def get_private_cart_client(
     :return: Приватный HTTP клиент
     """
 
-    return CartAPIClient(client=get_private_client(user=user))
+    return CartAPIClient(client=private_user_client_builder(user=user))

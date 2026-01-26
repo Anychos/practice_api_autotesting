@@ -1,6 +1,6 @@
 import pytest
 
-from clients.authentication.client import AuthenticationAPIClient, get_login_client
+from clients.authentication.client import AuthenticationAPIClient, get_authentication_client
 
 
 @pytest.fixture
@@ -11,4 +11,4 @@ def auth_client() -> AuthenticationAPIClient:
     :return: HTTP клиент для работы с API аутентификации
     """
 
-    return get_login_client()
+    return get_authentication_client()

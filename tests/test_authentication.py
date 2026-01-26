@@ -1,11 +1,11 @@
 from http import HTTPStatus
-from typing import Callable
 
 import allure
 import pytest
 
 from clients.authentication.client import AuthenticationAPIClient
-from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema
+from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema, RegistrationRequestSchema, \
+    RegistrationResponseSchema
 from clients.error_shemas import HTTPValidationErrorResponseSchema, InputValidationErrorResponseSchema
 from fixtures.user import UserFixture
 from tools.allure.epic import Epic
@@ -13,7 +13,7 @@ from tools.allure.feature import Feature
 from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.authentication import assert_login_response, assert_wrong_login_data_response, \
-    assert_invalid_email_format_response
+    assert_invalid_email_format_response, assert_register_response
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 
 
@@ -22,6 +22,18 @@ from tools.assertions.base_assertions import assert_status_code, assert_json_sch
 @allure.feature(Feature.AUTHENTICATION)
 @allure.story(Story.LOGIN)
 class TestAuthenticationPositive:
+    def test_user_registration(self,
+                              auth_client: AuthenticationAPIClient
+                              ) -> None:
+        request = RegistrationRequestSchema()
+
+        response = auth_client.registration_api(request=request)
+        assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = RegistrationResponseSchema.model_validate_json(response.text)
+        assert_register_response(actual=response_data, expected=request)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
+
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
     @allure.severity(Severity.BLOCKER)
@@ -36,7 +48,7 @@ class TestAuthenticationPositive:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
-        assert_login_response(actual=response_data, expected=user.request)
+        assert_login_response(actual=response_data, expected=user.response)
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @pytest.mark.smoke
@@ -53,7 +65,7 @@ class TestAuthenticationPositive:
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = LoginResponseSchema.model_validate_json(response.text)
-        assert_login_response(actual=response_data, expected=admin.request)
+        assert_login_response(actual=response_data, expected=admin.response)
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
 

@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import Callable
 
 import allure
 import pytest
@@ -28,10 +27,10 @@ class TestUserPositive:
     @allure.story(Story.CREATE_ENTITY)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Создание пользователя с валидными данными")
-    def test_create_user(self, public_user_client: UserAPIClient) -> None:
+    def test_create_user(self, private_admin_client: UserAPIClient) -> None:
         request = CreateUserRequestSchema()
 
-        response = public_user_client.create_user_api(request=request)
+        response = private_admin_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.OK)
 
         response_data = CreateUserResponseSchema.model_validate_json(response.text)
@@ -108,12 +107,12 @@ class TestUserNegative:
                              )
     @allure.title("Создание пользователя с невалидным email")
     def test_create_user_wrong_email(self,
-                                     public_user_client: UserAPIClient,
+                                     private_admin_client: UserAPIClient,
                                      email: str
                                      ) -> None:
         request = CreateUserRequestSchema(email=email)
 
-        response = public_user_client.create_user_api(request=request)
+        response = private_admin_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -129,12 +128,12 @@ class TestUserNegative:
                              )
     @allure.title("Создание пользователя с невалидным паролем")
     def test_create_user_wrong_password(self,
-                                        public_user_client: UserAPIClient,
+                                        private_admin_client: UserAPIClient,
                                         password: str
                                         ) -> None:
         request = CreateUserRequestSchema(password=password)
 
-        response = public_user_client.create_user_api(request=request)
+        response = private_admin_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -152,12 +151,12 @@ class TestUserNegative:
                              )
     @allure.title("Создание пользователя с невалидным телефоном")
     def test_create_user_wrong_phone(self,
-                                     public_user_client: UserAPIClient,
+                                     private_admin_client: UserAPIClient,
                                      phone: str
                                      ) -> None:
         request = CreateUserRequestSchema(phone=phone)
 
-        response = public_user_client.create_user_api(request=request)
+        response = private_admin_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.UNPROCESSABLE_ENTITY)
 
         response_data = InputValidationErrorResponseSchema.model_validate_json(response.text)
@@ -168,12 +167,12 @@ class TestUserNegative:
     @allure.severity(Severity.NORMAL)
     @allure.title("Создание пользователя с уже зарегистрированным email")
     def test_create_user_existing_email(self,
-                                        public_user_client: UserAPIClient,
+                                        private_admin_client: UserAPIClient,
                                         user: UserFixture
                                         ) -> None:
         request = CreateUserRequestSchema(email=user.email)
 
-        response = public_user_client.create_user_api(request=request)
+        response = private_admin_client.create_user_api(request=request)
         assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
 
         response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)

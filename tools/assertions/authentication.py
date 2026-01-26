@@ -1,8 +1,8 @@
 import allure
 
-from clients.authentication.schemas import LoginResponseSchema
+from clients.authentication.schemas import LoginResponseSchema, RegistrationResponseSchema, RegistrationRequestSchema
 from clients.error_shemas import HTTPValidationErrorResponseSchema, InputValidationErrorResponseSchema
-from clients.user.schemas import CreateUserRequestSchema
+from clients.user.schemas import CreateUserResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
 from tools.assertions.error import assert_http_validation_error_response
 from tools.assertions.user import assert_user
@@ -12,12 +12,27 @@ from tools.assertions.user import assert_user
 def assert_login_response(
         *,
         actual: LoginResponseSchema,
-        expected: CreateUserRequestSchema
+        expected: CreateUserResponseSchema
 ) -> None:
     assert_field_exists(actual.access_token, "access_token")
     assert_value(actual.token_type, "bearer", "token_type")
     assert_field_exists(actual.user.id, "user_id")
     assert_user(actual.user, expected)
+
+
+@allure.step("Проверка ответа на запрос регистрации пользователя")
+def assert_register_response(
+        *,
+        actual: RegistrationResponseSchema,
+        expected: RegistrationRequestSchema
+) -> None:
+    assert_field_exists(actual.access_token, "access_token")
+    assert_value(actual.token_type, "bearer", "token_type")
+    assert_field_exists(actual.user.id, "user_id")
+    assert_value(actual.user.name, expected.name, "name")
+    assert_value(actual.user.email, expected.email, "email")
+    assert_value(actual.user.phone, expected.phone, "phone")
+    assert_value(actual.user.is_admin, False, "is_admin")
 
 
 @allure.step("Проверка ответа на запрос логина пользователя с некорректными данными")

@@ -11,7 +11,7 @@ class UserSchema(BaseModel):
 
 class CreateUserRequestSchema(UserSchema):
     password: str = Field(default_factory=fake_ru.password)
-    is_admin: bool = Field(default=False)
+    is_admin: bool = Field(default=True)
 
 
 class CreateUserResponseSchema(UserSchema):
@@ -28,10 +28,19 @@ class GetUserMeResponseSchema(CreateUserResponseSchema):
 
 
 class UpdateUserRequestSchema(UserSchema):
-    password: str = Field(default_factory=fake_ru.password)
+    pass
 
 
 class UpdateUserResponseSchema(CreateUserResponseSchema):
+    pass
+
+
+class UpdatePasswordRequestSchema(BaseModel):
+    current_password: str
+    new_password: str
+
+
+class UpdatePasswordResponseSchema(CreateUserResponseSchema):
     pass
 
 
