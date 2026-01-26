@@ -59,7 +59,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
           HTTP_CLIENT.BASE_URL: http://localhost:8080
-          HTTP_CLIENT.TIMEOUT: 10
+          HTTP_CLIENT.TIMEOUT: 15
         run: |
           cd practice_api_test_server
           python app.py &
