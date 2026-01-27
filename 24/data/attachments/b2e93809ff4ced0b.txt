@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxOCwiaXNfYWRtaW4iOnRydWV9.iaT9JZnnj2ZXyMgkgj-sgPk56qwJMPPIUHUryn-C6S8' \
+ -H 'content-length: 521' \
+ -H 'content-type: application/json' \
+ -d '{"name":"человечек","description":"Невыносимый поезд тысяча. Ребятишки ход правление следовательно при. Сынок монета валюта легко.\nПравый назначить художественный мгновение возмутиться голубчик спалить.\nПривлекать посидеть освободить.","price":981,"is_available":true,"image_url":"https://placekitten.com/77/452.jpeg","stock_quantity":1}'

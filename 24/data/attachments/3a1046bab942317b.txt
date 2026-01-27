@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0OSwiaXNfYWRtaW4iOnRydWV9.mwVZ8lm9vSBhVH_YWEzAtDKVIgly-jOZQeuGCoIcbOA' \
+ -H 'content-length: 317' \
+ -H 'content-type: application/json' \
+ -d '{"name":"изображать","description":"Приходить наткнуться рай доставать. Умирать манера голубчик возбуждение доставать девка.","price":"price","is_available":true,"image_url":"https://picsum.photos/409/571.jpeg","stock_quantity":6}'

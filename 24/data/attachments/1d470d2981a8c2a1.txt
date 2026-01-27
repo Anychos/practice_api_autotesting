@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1NSwiaXNfYWRtaW4iOnRydWV9.s9Fn-Sh8W2gZhuiTL45uLeIX9YFT-rmQY0e1URTff5s' \
+ -H 'content-length: 473' \
+ -H 'content-type: application/json' \
+ -d '{"name":"намерение","description":"Экзамен смертельный триста плавно полностью. Непривычный привлекать дорогой житель наступать дальний палка. Спорт выражаться монета уронить эффект строительство скрытый настать.","price":565,"is_available":true,"image_url":"https://example.com/image.gif","stock_quantity":6}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNywiaXNfYWRtaW4iOnRydWV9.SOAF7uv-j4C5_HJhL4sdZXrm2H1dK_1w5dNVfu5knV4' \
+ -H 'content-length: 322' \
+ -H 'content-type: application/json' \
+ -d '{"name":"низкий","description":"Крутой премьера рассуждение салон бабочка. Советовать тусклый место. Еврейский сынок анализ банда.","price":1657,"is_available":true,"image_url":"https://picsum.photos/93/823.webp","stock_quantity":1}'

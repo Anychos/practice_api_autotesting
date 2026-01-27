@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0NSwiaXNfYWRtaW4iOnRydWV9.Pf7z18-V7IsVjFsZr20AcHzKn1rqBWCjikdIYy7daVU' \
+ -H 'content-length: 459' \
+ -H 'content-type: application/json' \
+ -d '{"name":"дремать","description":"Крутой природа интеллектуальный миф настать полоска.\nНервно сверкать горький пробовать. Столетие правление термин лететь поговорить. Плод тусклый подробность выражаться.","price":876,"is_available":true,"image_url":"https://dummyimage.com/860x835.jpg","stock_quantity":1}'

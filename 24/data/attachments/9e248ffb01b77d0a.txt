@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MiwiaXNfYWRtaW4iOnRydWV9.2x3ieb7O35kCNjfyNTVWwlUEsOao8VbSPje9ryyLoV0' \
+ -H 'content-length: 349' \
+ -H 'content-type: application/json' \
+ -d '{"name":"","description":"Другой второй металл металл правый выразить. Зато появление слать висеть потрясти пламя. Грустный дьявол очко запретить.","price":583,"is_available":true,"image_url":"https://picsum.photos/220/714.jpg","stock_quantity":3}'

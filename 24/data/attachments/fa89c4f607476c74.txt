@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/users' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpc19hZG1pbiI6dHJ1ZX0.LIYVSwnt8joO1l3DeShe1R99pHlI74MrcibBOF1kIvw' \
+ -H 'content-length: 122' \
+ -H 'content-type: application/json' \
+ -d '{"email":"alekseevaantonina@example.net","name":"Марк","phone":"82686726482","password":"5D5Pfe*ph%","is_admin":false}'

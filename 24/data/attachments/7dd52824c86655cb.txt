@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyOCwiaXNfYWRtaW4iOnRydWV9.kzXI7BuLQJthJTQnzsQ6bJU7S806xj3CwqAIrOzSH-I' \
+ -H 'content-length: 412' \
+ -H 'content-type: application/json' \
+ -d '{"name":"пастух","description":"Прелесть парень поздравлять пламя ягода госпожа. Вперед инфекция встать командующий доставать жестокий ребятишки. Висеть скрытый палата инвалид.","price":1292,"is_available":true,"image_url":"https://placekitten.com/537/902.jpeg","stock_quantity":1}'

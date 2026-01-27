@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiaXNfYWRtaW4iOnRydWV9.yIzN6nL2XeP8aJTK1tiZOtDF2Sp7fJSgSliRVDyHlgk' \
+ -H 'content-length: 519' \
+ -H 'content-type: application/json' \
+ -d '{"name":"заработать","description":"Невыносимый плод очутиться деловой постоянный горький. Висеть мягкий танцевать. Господь руководитель лиловый направо зеленый.\nПорода рис проход услать. Слать процесс зарплата редактор магазин мрачно.","price":1748,"is_available":true,"image_url":"https://picsum.photos/667/944.png","stock_quantity":1}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMiwiaXNfYWRtaW4iOnRydWV9.avMTNhcb0dbOlWrcF3G5v9L5T1gv4e6kdUYTpEtjl68' \
+ -H 'content-length: 410' \
+ -H 'content-type: application/json' \
+ -d '{"name":"заплакать","description":"Умирать беспомощный куча хлеб магазин вперед. Угодный растеряться появление запустить мягкий бригада вскакивать. Тяжелый монета прежде крыса.","price":1375,"is_available":true,"image_url":"https://dummyimage.com/877x498.jpg","stock_quantity":1}'
