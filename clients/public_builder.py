@@ -4,7 +4,7 @@ from clients.event_hooks import request_curl_event_hook
 from config import settings
 
 
-def get_public_client() -> Client:
+def public_client_builder() -> Client:
     """
     Создает HTTP клиент для доступа к публичному API
 

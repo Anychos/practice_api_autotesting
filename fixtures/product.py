@@ -124,11 +124,11 @@ def update_product_factory(admin_private_product_client: ProductAPIClient) -> Ca
     def _update_product(
             *,
             product_id: int,
-            description: str = "description",
+            description: str = "product description",
             image_url: str = "https://example.com/image.jpg",
             is_available: bool = True,
-            name: str = "name",
-            price: int | float = 100,
+            name: str = "product name",
+            price: float = 1000,
             stock_quantity: int = 1
     ) -> UpdateProductFixture:
         """

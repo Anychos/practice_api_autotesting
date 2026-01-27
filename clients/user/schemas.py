@@ -4,14 +4,17 @@ from tools.data_generator import fake_ru
 
 
 class UserSchema(BaseModel):
-    email: str = Field(default_factory=fake_ru.email)
-    name: str = Field(default_factory=fake_ru.first_name)
-    phone: str = Field(default_factory=fake_ru.phone)
+    email: str
+    name: str
+    phone: str
 
 
 class CreateUserRequestSchema(UserSchema):
+    email: str = Field(default_factory=fake_ru.email)
+    name: str = Field(default_factory=fake_ru.first_name)
+    phone: str = Field(default_factory=fake_ru.phone)
     password: str = Field(default_factory=fake_ru.password)
-    is_admin: bool = Field(default=True)
+    is_admin: bool = Field(default=False)
 
 
 class CreateUserResponseSchema(UserSchema):
@@ -28,7 +31,9 @@ class GetUserMeResponseSchema(CreateUserResponseSchema):
 
 
 class UpdateUserRequestSchema(UserSchema):
-    pass
+    email: str = Field(default_factory=fake_ru.email)
+    name: str = Field(default_factory=fake_ru.first_name)
+    phone: str = Field(default_factory=fake_ru.phone)
 
 
 class UpdateUserResponseSchema(CreateUserResponseSchema):

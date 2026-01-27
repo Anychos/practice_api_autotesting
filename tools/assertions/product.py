@@ -5,8 +5,8 @@ import allure
 from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.schemas import CreateProductResponseSchema, CreateProductRequestSchema, ProductSchema, \
     GetProductResponseSchema, UpdateProductResponseSchema, FullUpdateProductRequestSchema, DeleteProductResponseSchema, \
-    PartialUpdateProductRequestSchema
-from tools.assertions.base_assertions import assert_field_exists, assert_value
+    PartialUpdateProductRequestSchema, GetProductsResponseSchema
+from tools.assertions.base_assertions import assert_field_exists, assert_value, assert_length
 
 
 @allure.step("Проверка данных продукта по схеме")
@@ -45,11 +45,22 @@ def assert_get_product_response(
 @allure.step("Проверка ответа на запрос списка продуктов")
 def assert_get_products_response(
         *,
-        get_products_response: List[GetProductResponseSchema],
+        get_products_response: GetProductsResponseSchema,
         create_product_responses: List[CreateProductResponseSchema]
 ) -> None:
-    for index, create_product_response in enumerate(create_product_responses):
-        assert_product(get_products_response[index], create_product_response)
+    assert get_products_response, "Список продуктов пуст"
+
+    products_by_id = {
+        product.id: product for product in get_products_response
+    }
+
+    for created_product in create_product_responses:
+        assert created_product.id in products_by_id, (
+            f"Продукт с id {created_product.id} отсутствует в ответе"
+        )
+
+        actual_product = products_by_id[created_product.id]
+        assert_product(actual_product, created_product)
 
 
 @allure.step("Проверка ответа на запрос полного обновления продукта")

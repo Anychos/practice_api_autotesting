@@ -4,15 +4,19 @@ from clients.user.schemas import CreateUserResponseSchema
 from tools.data_generator import fake_ru
 
 
+class AuthenticationResponseSchema(BaseModel):
+    access_token: str
+    token_type: str
+    user: CreateUserResponseSchema
+
+
 class LoginRequestSchema(BaseModel):
     email: EmailStr
     password: str
 
 
-class LoginResponseSchema(BaseModel):
-    access_token: str
-    token_type: str
-    user: CreateUserResponseSchema
+class LoginResponseSchema(AuthenticationResponseSchema):
+    pass
 
 
 class RegistrationRequestSchema(BaseModel):
@@ -22,5 +26,5 @@ class RegistrationRequestSchema(BaseModel):
     phone: str = Field(default_factory=fake_ru.phone)
 
 
-class RegistrationResponseSchema(LoginResponseSchema):
+class RegistrationResponseSchema(AuthenticationResponseSchema):
     pass

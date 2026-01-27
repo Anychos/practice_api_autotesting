@@ -6,7 +6,7 @@ from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.cart.schemas import AddItemCartRequestSchema, AddItemCartResponseSchema, UpdateCartItemRequestSchema
 from clients.private_builder import private_user_client_builder
-from clients.public_builder import get_public_client
+from clients.public_builder import public_client_builder
 from tools.routes import Routes
 
 
@@ -81,7 +81,7 @@ class CartAPIClient(BaseAPIClient):
         return self.delete(url=f"{Routes.CARTS}/items/{item_id}")
 
     @tracker.track_coverage_httpx(Routes.CARTS)
-    @allure.step("Отправка запроса на удаление корзины")
+    @allure.step("Отправка запроса на очистку корзины")
     def delete_cart_api(self) -> Response:
         """
         Отправляет запрос на очистку корзины
@@ -99,7 +99,7 @@ def get_public_cart_client() -> CartAPIClient:
     :return: Публичный HTTP клиент
     """
 
-    return CartAPIClient(client=get_public_client())
+    return CartAPIClient(client=public_client_builder())
 
 def get_private_cart_client(
         *,

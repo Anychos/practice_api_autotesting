@@ -2,12 +2,13 @@ from http import HTTPStatus
 
 import allure
 import pytest
+from pydantic import TypeAdapter
 
 from clients.error_shemas import InputValidationErrorResponseSchema
 from clients.product.client import ProductAPIClient
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, GetProductResponseSchema, \
     FullUpdateProductRequestSchema, UpdateProductResponseSchema, DeleteProductResponseSchema, \
-    PartialUpdateProductRequestSchema
+    PartialUpdateProductRequestSchema, GetProductsResponseSchema
 from fixtures.product import CreateProductFixture
 from tools.allure.epic import Epic
 from tools.allure.feature import Feature
@@ -16,7 +17,8 @@ from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.product import assert_create_product_response, assert_get_product_response, \
     assert_full_update_product_response, assert_delete_product_response, assert_wrong_data_format_response, \
-    assert_empty_required_field_response, assert_partial_update_product_response, assert_invalid_image_url_response
+    assert_empty_required_field_response, assert_partial_update_product_response, assert_invalid_image_url_response, \
+    assert_get_products_response
 from tools.data_generator import fake_ru
 
 
@@ -66,6 +68,14 @@ class TestProductPositive:
                           ) -> None:
         response = user_private_product_client.get_products_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = TypeAdapter(GetProductsResponseSchema).validate_json(response.text)
+        assert_get_products_response(
+            get_products_response=response_data,
+            create_product_responses=[create_available_product.response]
+        )
+        product_schema = TypeAdapter(GetProductsResponseSchema).json_schema()
+        assert_json_schema(actual=response.json(), schema=product_schema)
 
     @allure.epic(Epic.ADMIN)
     @allure.story(Story.UPDATE_ENTITY)

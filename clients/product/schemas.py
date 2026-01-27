@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
@@ -6,6 +6,15 @@ from tools.data_generator import fake_ru
 
 
 class ProductSchema(BaseModel):
+    name: str
+    description: str
+    price: float
+    is_available: bool
+    image_url: str
+    stock_quantity: int
+
+
+class CreateProductRequestSchema(ProductSchema):
     name: str = Field(default_factory=fake_ru.object_name)
     description: str = Field(default_factory=fake_ru.description)
     price: int | float = Field(default_factory=fake_ru.price)
@@ -14,19 +23,15 @@ class ProductSchema(BaseModel):
     stock_quantity: int = Field(default_factory=fake_ru.quantity)
 
 
-class CreateProductRequestSchema(ProductSchema):
-    pass
-
-
 class CreateProductResponseSchema(ProductSchema):
     id: int
 
 
-class FullUpdateProductRequestSchema(ProductSchema):
+class FullUpdateProductRequestSchema(CreateProductRequestSchema):
     pass
 
 
-class PartialUpdateProductRequestSchema(BaseModel):
+class PartialUpdateProductRequestSchema(ProductSchema):
     name: Optional[str] = Field(default=None)
     description: Optional[str] = Field(default=None)
     price: Optional[int | float] = Field(default=None)
@@ -34,12 +39,16 @@ class PartialUpdateProductRequestSchema(BaseModel):
     image_url: Optional[str] = Field(default=None)
     stock_quantity: Optional[int] = Field(default=None)
 
-class UpdateProductResponseSchema(ProductSchema):
-    id: int
+
+class UpdateProductResponseSchema(CreateProductResponseSchema):
+    pass
 
 
-class GetProductResponseSchema(ProductSchema):
-    id: int
+class GetProductResponseSchema(CreateProductResponseSchema):
+    pass
+
+
+GetProductsResponseSchema = List[GetProductResponseSchema]
 
 
 class DeleteProductResponseSchema(BaseModel):

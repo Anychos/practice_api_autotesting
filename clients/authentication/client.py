@@ -5,7 +5,7 @@ from clients.api_coverage import tracker
 from clients.authentication.schemas import LoginRequestSchema, LoginResponseSchema, RegistrationRequestSchema, \
     RegistrationResponseSchema
 from clients.base_client import BaseAPIClient
-from clients.public_builder import get_public_client
+from clients.public_builder import public_client_builder
 from tools.routes import Routes
 
 
@@ -66,4 +66,4 @@ def get_authentication_client() -> AuthenticationAPIClient:
     :return: Публичный HTTP клиент
     """
 
-    return AuthenticationAPIClient(client=get_public_client())
+    return AuthenticationAPIClient(client=public_client_builder())

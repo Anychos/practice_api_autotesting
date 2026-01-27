@@ -22,6 +22,10 @@ from tools.assertions.base_assertions import assert_status_code, assert_json_sch
 @allure.feature(Feature.AUTHENTICATION)
 @allure.story(Story.LOGIN)
 class TestAuthenticationPositive:
+    @pytest.mark.smoke
+    @allure.epic(Epic.USER)
+    @allure.severity(Severity.BLOCKER)
+    @allure.title("Регистрация пользователя с валидными данными")
     def test_user_registration(self,
                               auth_client: AuthenticationAPIClient
                               ) -> None:

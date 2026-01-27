@@ -3,10 +3,12 @@ from typing import Callable
 
 import allure
 import pytest
+from pydantic import TypeAdapter
 
 from clients.error_shemas import HTTPValidationErrorResponseSchema
 from clients.order.client import OrderAPIClient
-from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema, GetOrderResponseSchema
+from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema, GetOrderResponseSchema, \
+    GetOrdersResponseSchema
 from fixtures.cart import CartFixture
 from fixtures.order import OrderFixture
 from fixtures.product import CreateProductFixture
@@ -16,7 +18,7 @@ from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.order import assert_create_order_response, assert_get_order_response, \
-    assert_empty_cart_order_response, assert_unavailable_product_order_response
+    assert_empty_cart_order_response, assert_unavailable_product_order_response, assert_get_orders_response
 
 
 @pytest.mark.regression
@@ -64,6 +66,14 @@ class TestOrderPositive:
                         ) -> None:
         response = private_order_client.get_orders_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = TypeAdapter(GetOrdersResponseSchema).validate_json(response.text)
+        assert_get_orders_response(
+            get_orders_response=response_data,
+            create_order_responses=[create_order.response]
+        )
+        order_schema = TypeAdapter(GetOrdersResponseSchema).json_schema()
+        assert_json_schema(actual=response.json(), schema=order_schema)
 
 
 @pytest.mark.regression

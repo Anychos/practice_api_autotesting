@@ -1,5 +1,4 @@
 from httpx import Client
-from pydantic import Field, BaseModel
 
 from clients.authentication.client import get_authentication_client
 from clients.authentication.schemas import LoginRequestSchema

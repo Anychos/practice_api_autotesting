@@ -6,7 +6,7 @@ from httpx import Client, URL, Response
 
 class BaseAPIClient:
     """
-    Базовый класс API клиента
+    Базовый API клиент
 
     Описывает все используемые в проекте HTTP методы
     """

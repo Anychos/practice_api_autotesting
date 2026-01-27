@@ -7,13 +7,13 @@ from clients.base_client import BaseAPIClient
 from clients.private_builder import private_user_client_builder
 from clients.product.schemas import CreateProductRequestSchema, CreateProductResponseSchema, \
     FullUpdateProductRequestSchema, PartialUpdateProductRequestSchema, UpdateProductResponseSchema
-from clients.public_builder import get_public_client
+from clients.public_builder import public_client_builder
 from tools.routes import Routes
 
 
 class ProductAPIClient(BaseAPIClient):
     """
-    Клиент для работы с API продуктов
+    Клиент для работы с API продукта
     """
 
     @tracker.track_coverage_httpx(Routes.PRODUCTS)
@@ -130,7 +130,7 @@ def get_public_product_client() -> ProductAPIClient:
     :return: Публичный HTTP клиент
     """
 
-    return ProductAPIClient(client=get_public_client())
+    return ProductAPIClient(client=public_client_builder())
 
 def get_private_product_client(
         *,

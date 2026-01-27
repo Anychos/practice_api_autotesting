@@ -6,13 +6,13 @@ from clients.authentication.schemas import LoginRequestSchema
 from clients.base_client import BaseAPIClient
 from clients.order.schemas import CreateOrderRequestSchema, CreateOrderResponseSchema
 from clients.private_builder import private_user_client_builder
-from clients.public_builder import get_public_client
+from clients.public_builder import public_client_builder
 from tools.routes import Routes
 
 
 class OrderAPIClient(BaseAPIClient):
     """
-    Клиент для работы с API заказов
+    Клиент для работы с API заказа
     """
 
     @tracker.track_coverage_httpx(Routes.ORDERS)
@@ -71,7 +71,7 @@ def get_public_order_client() -> OrderAPIClient:
     :return: Публичный HTTP клиент
     """
 
-    return OrderAPIClient(client=get_public_client())
+    return OrderAPIClient(client=public_client_builder())
 
 def get_private_order_client(
         *,
