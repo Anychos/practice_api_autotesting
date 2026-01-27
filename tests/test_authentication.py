@@ -20,10 +20,10 @@ from tools.assertions.base_assertions import assert_status_code, assert_json_sch
 @pytest.mark.regression
 @pytest.mark.authentication
 @allure.feature(Feature.AUTHENTICATION)
-@allure.story(Story.LOGIN)
 class TestAuthenticationPositive:
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
+    @allure.story(Story.REGISTRATION)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Регистрация пользователя с валидными данными")
     def test_user_registration(self,
@@ -40,6 +40,7 @@ class TestAuthenticationPositive:
 
     @pytest.mark.smoke
     @allure.epic(Epic.USER)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Логин пользователя с валидными данными")
     def test_user_login(self,
@@ -57,6 +58,7 @@ class TestAuthenticationPositive:
 
     @pytest.mark.smoke
     @allure.epic(Epic.ADMIN)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.BLOCKER)
     @allure.title("Логин админа с валидными данными")
     def test_admin_login(self,
@@ -78,6 +80,14 @@ class TestAuthenticationPositive:
 @allure.feature(Feature.AUTHENTICATION)
 @allure.story(Story.LOGIN)
 class TestAuthenticationNegative:
+    @allure.title("Регистрация пользователя с невалидными данными")
+    def test_user_registration_invalid_data(self) -> None:
+        pass
+
+    @allure.title("Регистрация пользователя с зарегестрированным email")
+    def test_user_registration_registered_email(self) -> None:
+        pass
+
     @allure.epic(Epic.USER)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с валидным, но не зарегистрированным email и валидным паролем")
