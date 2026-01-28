@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1NSwiaXNfYWRtaW4iOnRydWV9.s9Fn-Sh8W2gZhuiTL45uLeIX9YFT-rmQY0e1URTff5s' \
+ -H 'content-length: 403' \
+ -H 'content-type: application/json' \
+ -d '{"name":"домашний","description":"Покидать коричневый порода дьявол ход господь намерение. Единый поставить пропадать адвокат да витрина ручей. Да тесно редактор горький выражение.","price":1228,"is_available":true,"image_url":"example.com/image.jpg","stock_quantity":4}'

@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MywiaXNfYWRtaW4iOnRydWV9.zhw3H3mP9Vg5xVwFQD7JXdpTpW6FeEfYvVv772Uj7z0' \
+ -H 'content-length: 362' \
+ -H 'content-type: application/json' \
+ -d '{"name":"боец","description":"Космос грудь пробовать рай господь задержать направо. Забирать кидать хотеть беспомощный ленинград медицина опасность порт.","price":1632,"is_available":true,"image_url":"https://example.com/image.gif","stock_quantity":7}'

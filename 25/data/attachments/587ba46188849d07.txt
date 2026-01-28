@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiaXNfYWRtaW4iOnRydWV9.yIzN6nL2XeP8aJTK1tiZOtDF2Sp7fJSgSliRVDyHlgk' \
+ -H 'content-length: 375' \
+ -H 'content-type: application/json' \
+ -d '{"name":"дальний","description":"Коричневый серьезный сходить угодный терапия торопливый механический. Цвет волк карман сбросить низкий. Второй видимо пасть.","price":760,"is_available":true,"image_url":"https://placekitten.com/521/161.webp","stock_quantity":1}'

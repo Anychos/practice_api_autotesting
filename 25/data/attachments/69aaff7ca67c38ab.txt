@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNiwiaXNfYWRtaW4iOnRydWV9.hnjRcZR6X7l8tX6K3BvFJHVVQ9pxXsGWjD6BwYJVr_w' \
+ -H 'content-length: 390' \
+ -H 'content-type: application/json' \
+ -d '{"name":"покидать","description":"Командир роскошный пасть выгнать. Космос вздрагивать а зарплата передо мимо. Грустный товар проход заведение болото теория вариант.","price":1869,"is_available":true,"image_url":"https://placekitten.com/862/820.jpeg","stock_quantity":1}'

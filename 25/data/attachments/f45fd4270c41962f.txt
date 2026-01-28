@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MCwiaXNfYWRtaW4iOnRydWV9.LOIWcOO3Ft2sZMmMRszenaF3lj-WBzo_4UZiRiiW5lY' \
+ -H 'content-length: 458' \
+ -H 'content-type: application/json' \
+ -d '{"name":"приятель","description":"Да сравнение поздравлять песенка прелесть. Присесть инвалид госпожа манера зачем наступать деловой багровый. Неожиданный терапия сравнение возбуждение вскакивать потом.","price":405,"is_available":true,"image_url":"https://dummyimage.com/40x326.jpg","stock_quantity":1}'

@@ -1,0 +1,10 @@
+curl -X 'PUT' 'http://localhost:8080/products/16' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0NSwiaXNfYWRtaW4iOnRydWV9.Pf7z18-V7IsVjFsZr20AcHzKn1rqBWCjikdIYy7daVU' \
+ -H 'content-length: 360' \
+ -H 'content-type: application/json' \
+ -d '{"name":"передо","description":"Поймать бригада издали хотеть желание совет. Мера полевой кпсс означать. Неправда упорно славный каюта рай расстегнуть.","price":572,"is_available":false,"image_url":"https://dummyimage.com/930x56.jpg","stock_quantity":8}'

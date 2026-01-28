@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0NywiaXNfYWRtaW4iOnRydWV9.8RQv0hqb9T7f1AeseCINt7Rwt0vyKMan3eNh1SffO9c' \
+ -H 'content-length: 471' \
+ -H 'content-type: application/json' \
+ -d '{"name":"засунуть","description":"Банк очутиться космос остановить секунда куча оборот ночь. Магазин тысяча порода выраженный более. Пространство девка пространство оставить выражаться место команда прелесть.","price":1073,"is_available":true,"image_url":"https://dummyimage.com/364x366.webp","stock_quantity":1}'

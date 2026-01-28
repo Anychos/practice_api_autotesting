@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1MSwiaXNfYWRtaW4iOnRydWV9.XmFe4TKB4VfsHrbpe4hGKeNvM3ahbCxz0uzrc14HCjs' \
+ -H 'content-length: 140' \
+ -H 'content-type: application/json' \
+ -d '{"name":"висеть","description":"","price":1929,"is_available":true,"image_url":"https://picsum.photos/355/768.png","stock_quantity":1}'

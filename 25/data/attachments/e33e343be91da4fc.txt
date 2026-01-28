@@ -1,0 +1,9 @@
+curl -X 'POST' 'http://localhost:8080/login' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'content-length: 63' \
+ -H 'content-type: application/json' \
+ -d '{"email":"test_admin@mail.ru","password":"test_admin_password"}'

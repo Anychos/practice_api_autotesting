@@ -1,0 +1,10 @@
+curl -X 'POST' 'http://localhost:8080/products' \
+ -H 'host: localhost:8080' \
+ -H 'accept: */*' \
+ -H 'accept-encoding: gzip, deflate' \
+ -H 'connection: keep-alive' \
+ -H 'user-agent: python-httpx/0.28.1' \
+ -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyNywiaXNfYWRtaW4iOnRydWV9.IGNazP21BTgyWJ_hcWWt107Dc-ajvVGVjeKOnoCxNe0' \
+ -H 'content-length: 491' \
+ -H 'content-type: application/json' \
+ -d '{"name":"порода","description":"Плясать упорно куча головка изображать. Вскакивать плод сходить. Цепочка карман славный салон.\nОсвободить снимать неправда сходить сбросить бригада. Покинуть цель плавно избегать печатать.","price":946,"is_available":true,"image_url":"https://dummyimage.com/652x191.jpeg","stock_quantity":1}'
