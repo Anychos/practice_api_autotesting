@@ -43,6 +43,14 @@ def assert_wrong_login_data_response(actual: HTTPValidationErrorResponseSchema) 
     assert_http_validation_error_response(actual=actual, expected=expected)
 
 
+@allure.step("Проверка ответа на запрос регистрации пользователя с уже зарегистрированным email")
+def assert_already_registered_email_response(actual: HTTPValidationErrorResponseSchema) -> None:
+    expected = HTTPValidationErrorResponseSchema(
+        detail="Email уже зарегистрирован"
+    )
+    assert_http_validation_error_response(actual=actual, expected=expected)
+
+
 @allure.step("Проверка ответа на запрос логина пользователя с некорректным форматом email")
 def assert_invalid_email_format_response(
         *,

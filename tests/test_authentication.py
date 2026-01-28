@@ -13,7 +13,7 @@ from tools.allure.feature import Feature
 from tools.allure.severity import Severity
 from tools.allure.story import Story
 from tools.assertions.authentication import assert_login_response, assert_wrong_login_data_response, \
-    assert_invalid_email_format_response, assert_register_response
+    assert_invalid_email_format_response, assert_register_response, assert_already_registered_email_response
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 
 
@@ -78,17 +78,26 @@ class TestAuthenticationPositive:
 @pytest.mark.regression
 @pytest.mark.authentication
 @allure.feature(Feature.AUTHENTICATION)
-@allure.story(Story.LOGIN)
 class TestAuthenticationNegative:
-    @allure.title("Регистрация пользователя с невалидными данными")
-    def test_user_registration_invalid_data(self) -> None:
-        pass
+    @allure.epic(Epic.USER)
+    @allure.story(Story.REGISTRATION)
+    @allure.severity(Severity.NORMAL)
+    @allure.title("Регистрация пользователя с зарегистрированным email")
+    def test_user_registration_registered_email(self,
+                                                auth_client: AuthenticationAPIClient,
+                                                user: UserFixture
+                                                ) -> None:
+        request = RegistrationRequestSchema(email=user.email)
 
-    @allure.title("Регистрация пользователя с зарегестрированным email")
-    def test_user_registration_registered_email(self) -> None:
-        pass
+        response = auth_client.registration_api(request=request)
+        assert_status_code(response.status_code, HTTPStatus.BAD_REQUEST)
+
+        response_data = HTTPValidationErrorResponseSchema.model_validate_json(response.text)
+        assert_already_registered_email_response(actual=response_data)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с валидным, но не зарегистрированным email и валидным паролем")
     def test_user_login_unregistered_email(self,
@@ -105,6 +114,7 @@ class TestAuthenticationNegative:
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.NORMAL)
     @pytest.mark.parametrize("email",
                              ["test@mail.",
@@ -129,6 +139,7 @@ class TestAuthenticationNegative:
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с зарегистрированным email и неподходящим паролем")
     def test_user_login_inappropriate_password(self,
@@ -145,6 +156,7 @@ class TestAuthenticationNegative:
         assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.epic(Epic.USER)
+    @allure.story(Story.LOGIN)
     @allure.severity(Severity.NORMAL)
     @allure.title("Логин пользователя с отсутствующим паролем")
     def test_user_login_empty_password(self,

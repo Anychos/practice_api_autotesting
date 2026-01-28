@@ -6,7 +6,7 @@ import pytest
 
 from clients.cart.client import CartAPIClient
 from clients.cart.schemas import AddItemCartRequestSchema, AddItemCartResponseSchema, DeleteCartItemResponseSchema, \
-    UpdateCartItemRequestSchema, UpdateCartItemResponseSchema, DeleteCartResponseSchema
+    UpdateCartItemRequestSchema, UpdateCartItemResponseSchema, DeleteCartResponseSchema, GetCartResponseSchema
 from clients.error_shemas import HTTPValidationErrorResponseSchema
 from fixtures.cart import CartFixture
 from fixtures.product import CreateProductFixture
@@ -17,7 +17,7 @@ from tools.allure.story import Story
 from tools.assertions.base_assertions import assert_status_code, assert_json_schema
 from tools.assertions.cart import assert_add_item_to_cart_response, assert_delete_item_cart_response, \
     assert_update_cart_response, assert_delete_cart_response, \
-    assert_not_found_product_response, assert_not_enough_product_response
+    assert_not_found_product_response, assert_not_enough_product_response, assert_get_cart_response
 
 
 @pytest.mark.regression
@@ -52,6 +52,10 @@ class TestCartPositive:
                       ) -> None:
         response = private_cart_client.get_cart_api()
         assert_status_code(response.status_code, HTTPStatus.OK)
+
+        response_data = GetCartResponseSchema.model_validate_json(response.text)
+        assert_get_cart_response(actual=response_data)
+        assert_json_schema(actual=response.json(), schema=response_data.model_json_schema())
 
     @allure.story(Story.DELETE_ENTITY)
     @allure.severity(Severity.NORMAL)

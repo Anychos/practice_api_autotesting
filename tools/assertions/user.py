@@ -4,6 +4,7 @@ from clients.error_shemas import InputValidationErrorResponseSchema, HTTPValidat
 from clients.user.schemas import CreateUserResponseSchema, CreateUserRequestSchema, GetUserResponseSchema, \
     UserSchema, UpdateUserResponseSchema, UpdateUserRequestSchema, DeleteUserResponseSchema
 from tools.assertions.base_assertions import assert_field_exists, assert_value
+from tools.assertions.error import assert_http_validation_error_response
 
 
 @allure.step("Проверка данных пользователя по схеме")
@@ -113,4 +114,7 @@ def assert_wrong_phone_response(
 
 @allure.step("Проверка ответа на запрос с уже зарегистрированным email")
 def assert_email_exists_response(actual: HTTPValidationErrorResponseSchema) -> None:
-    assert_value(actual.detail, "Email уже зарегистрирован", "detail")
+    expected = HTTPValidationErrorResponseSchema(
+        detail="Email уже зарегистрирован"
+    )
+    assert_http_validation_error_response(actual=actual, expected=expected)

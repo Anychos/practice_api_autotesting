@@ -6,6 +6,7 @@ from clients.error_shemas import HTTPValidationErrorResponseSchema
 from clients.order.schemas import CreateOrderResponseSchema, GetOrderResponseSchema, CreateOrderRequestSchema, \
     GetOrdersResponseSchema
 from tools.assertions.base_assertions import assert_value, assert_field_exists
+from tools.assertions.error import assert_http_validation_error_response
 
 
 @allure.step("Проверка ответа на запрос создания заказа")
@@ -55,10 +56,16 @@ def assert_get_orders_response(
 
 @allure.step("Проверка ответа на запрос создания заказа с пустой корзиной")
 def assert_empty_cart_order_response(actual: HTTPValidationErrorResponseSchema) -> None:
-    assert_value(actual.detail, "Нельзя создать заказ с пустой корзиной", "detail")
+    expected = HTTPValidationErrorResponseSchema(
+        detail="Нельзя создать заказ с пустой корзиной"
+    )
+    assert_http_validation_error_response(actual=actual, expected=expected)
 
 
 @allure.step("Проверка ответа на запрос создания заказа с недоступным продуктом")
 def assert_unavailable_product_order_response(actual: HTTPValidationErrorResponseSchema) -> None:
-    assert_value(actual.detail, "В корзине есть недоступные для заказа товары", "detail")
+    expected = HTTPValidationErrorResponseSchema(
+        detail="В корзине есть недоступные для заказа товары"
+    )
+    assert_http_validation_error_response(actual=actual, expected=expected)
 
